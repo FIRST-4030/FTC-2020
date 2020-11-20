@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.utils.RateLimit;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp - Arm", group = "Arm")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp - Blank", group = "Arm")
 public class BlankTeleOp extends OpMode {
 
     // Devices and subsystems
