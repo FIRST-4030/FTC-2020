@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.sensors.distance.RevDistance;
 import org.firstinspires.ftc.teamcode.sensors.gyro.Gyro;
 import org.firstinspires.ftc.teamcode.sensors.led_matrix.LEDMatrix;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
+import org.firstinspires.ftc.teamcode.wheels.Odometry;
 import org.firstinspires.ftc.teamcode.wheels.Wheels;
 //tim is a massive dummy -the robot
 public class Robot {
@@ -28,6 +29,7 @@ public class Robot {
     public final BOT bot;
     public final HardwareMap map;
     public final Telemetry telemetry;
+    public final Odometry position;
 
     // Shared
     public final Gyro gyro;
@@ -88,6 +90,7 @@ public class Robot {
         this.wheels.stop();
         gyro = gyros.init();
         vuforia = new VuforiaFTC(map, telemetry, bot);
+        position = new Odometry(0, 0, "FL","FR");
 
         // Bot specific
         switch (bot) {
