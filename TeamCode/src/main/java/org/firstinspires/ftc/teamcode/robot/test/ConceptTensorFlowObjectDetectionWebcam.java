@@ -90,11 +90,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
         // first.
         initVuforia();
 
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
-        } else {
-            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        }
 
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start tracking");

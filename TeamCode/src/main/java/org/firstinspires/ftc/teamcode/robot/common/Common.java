@@ -28,7 +28,7 @@ public class Common {
                 claw = new Claw(robot, robot.claw);
                 break;
 
-            case SCISSOR:
+            case PRODUCTION:
                 claw = new Claw(robot, robot.claw);
         }
 

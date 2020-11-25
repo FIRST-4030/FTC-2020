@@ -173,7 +173,7 @@ public class CmdMotionTest extends OpMode {
     private void auxiliary() {
         // claw
         // TODO: This should be in a Claw class and protected there
-        if (robot.bot == BOT.SCISSOR) {
+        if (robot.bot == BOT.PRODUCTION) {
             if (buttons.get("CLAW")) {
                 robot.claw.setPosition(CLAW_CLOSED);
             } else {

@@ -26,7 +26,7 @@ public class Odometry {
 
     // Loop
     public void UpdatePosition (){
-
+        // DO MATHY STUFF
     }
 
     public CoordinatePoint getPosition (){

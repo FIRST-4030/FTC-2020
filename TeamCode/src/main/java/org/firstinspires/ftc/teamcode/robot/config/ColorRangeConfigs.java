@@ -34,7 +34,7 @@ public class ColorRangeConfigs extends Configs {
 
         ColorRangeConfig config = null;
         switch (bot) {
-            case SCISSOR:
+            case PRODUCTION:
                 config = new ColorRangeConfig(COLOR_RANGE_TYPES.REV, "ColorRange");
                 break;
         }

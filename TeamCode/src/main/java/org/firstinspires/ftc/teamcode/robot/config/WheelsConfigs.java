@@ -50,7 +50,7 @@ public class WheelsConfigs extends Configs {
         WheelMotor[] motors;
         WheelsConfig config = null;
         switch (bot) {
-            case SCISSOR:
+            case PRODUCTION:
                 motors = new WheelMotor[4];
                 motors[0] = new WheelMotor("FL", MOTOR_SIDE.LEFT, MOTOR_END.FRONT, false,
                         M_TICKS_PER_MM, M_TRANSLATION_TICKS_PER_MM);

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot.auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
@@ -15,8 +16,9 @@ import org.firstinspires.ftc.teamcode.utils.OrderedEnumHelper;
 import org.firstinspires.ftc.teamcode.utils.Round;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Grab Foundation", group = "Scissor")
-public class FoundationAuto extends OpMode {
+@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Boilerplate", group = "Production")
+public class AutoBoilerplate extends OpMode {
 
     // Devices and subsystems
     private Robot robot = null;
@@ -30,7 +32,6 @@ public class FoundationAuto extends OpMode {
     private boolean gameReady = false;
     private Field.AllianceColor color = Field.AllianceColor.BLUE;
     private boolean stopByWall = true;
-
     @Override
     public void init() {
         telemetry.addLine("Init…");
@@ -42,7 +43,7 @@ public class FoundationAuto extends OpMode {
         vuforia = robot.vuforia;
 
         // Check robot
-        if (robot.bot != BOT.SCISSOR) {
+        if (robot.bot != BOT.PRODUCTION) {
             telemetry.log().add("Opmode not compatible with bot " + robot.bot);
             requestOpModeStop();
         }
@@ -51,20 +52,13 @@ public class FoundationAuto extends OpMode {
         //vuforia.start();
         //vuforia.enableCapture();
 
+
         // Register buttons
         buttons = new ButtonHandler(robot);
         buttons.register("SELECT_SIDE", gamepad1, PAD_BUTTON.y, BUTTON_TYPE.TOGGLE);
         buttons.register("AWAY_FROM_WALL", gamepad1, PAD_BUTTON.dpad_up);
         buttons.register("TOWARDS_WALL", gamepad1, PAD_BUTTON.dpad_down);
 
-        // Move things to default positions
-        robot.claw.setPosition(0.6f);
-        robot.capstone.setPosition(0.35f);
-        robot.wheels.setSpeedScale(1.0f);
-        robot.hookRight.max();
-        robot.hookLeft.max();
-
-        telemetry.update();
     }
 
     @Override
@@ -124,102 +118,6 @@ public class FoundationAuto extends OpMode {
                 advance();
                 break;
 
-            case STRAFE:
-                if (color == Field.AllianceColor.BLUE) {
-                    driver.drive = common.drive.translate(InchesToMM(-12.0f));
-                } else {
-                    driver.drive = common.drive.translate(InchesToMM(12.0f));
-                }
-
-                advance();
-                break;
-
-            case STRAIGHTEN:
-                driver.drive = common.drive.heading(0);
-                advance();
-                break;
-
-            case CORRECT_STRAFING:
-                if( color == Field.AllianceColor.RED) {
-                    driver.drive = common.drive.distance(InchesToMM(-3.0f));
-                }
-                advance();
-                break;
-
-            case DRIVE_TO_FOUNDATION:
-                driver.drive = common.drive.distance(InchesToMM(25.0f));
-                advance();
-                break;
-
-            case INCH:
-                robot.wheels.setSpeedScale(0.2f);
-                driver.drive = common.drive.distance(InchesToMM(6.0f));
-                advance();
-                break;
-
-            case GRAB:
-                robot.wheels.setSpeedScale(1.0f);
-                robot.hookRight.min();
-                robot.hookLeft.min();
-                driver.drive = common.drive.sleep(500);
-                advance();
-                break;
-
-            case MOVE_BACK_TO_TURN:
-                driver.drive = common.drive.distance(InchesToMM(-20.0f));
-                advance();
-                break;
-
-            case TURN_TOWARDS_CORNER:
-                if (color == Field.AllianceColor.BLUE) {
-                    driver.drive = common.drive.heading(260.0f);
-                } else {
-                    driver.drive = common.drive.heading(100.0f);
-                }
-                advance();
-                break;
-
-
-            case MOVE_INTO_CORNER:
-                robot.hookRight.max();
-                robot.hookLeft.max();
-                driver.drive = common.drive.distance(InchesToMM(12.0f));
-                advance();
-                break;
-
-            case CHOOSE_SIDE:
-                if (stopByWall) {
-                    float head = 305.0f;
-                    if (color == Field.AllianceColor.RED) {
-                        head = 55.0f;
-                    }
-
-                    driver.drive = common.drive.heading(head);
-                } else {
-                    float head = 255.0f;
-                    if (color == Field.AllianceColor.RED) {
-                        head = 105.0f;
-                    }
-
-                    driver.drive = common.drive.heading(head);
-                }
-                advance();
-                break;
-
-            case FIX_ORIENTATION:
-                if (color == Field.AllianceColor.BLUE) {
-                    driver.drive = common.drive.heading(270.0f);
-                } else {
-                    driver.drive = common.drive.heading(90.0f);
-                }
-                advance();
-                break;
-
-            case BACK_UP_AWAY_FROM_CORNER:
-                driver.drive = common.drive.distance(InchesToMM(-40.0f));
-                advance();
-                break;
-
             case DONE:
                 driver.done = true;
                 break;
@@ -235,45 +133,16 @@ public class FoundationAuto extends OpMode {
     enum AUTO_STATE implements OrderedEnum {
         INIT, // Initialization
 
-        STRAFE,
-
-        STRAIGHTEN,
-
-        CORRECT_STRAFING,
-
-        DRIVE_TO_FOUNDATION, // Drive towards foundation
-
-        INCH,
-
-        GRAB, // Grab foundation
-
-        MOVE_BACK_TO_TURN, // Moves back so that there's room to turn the foundation
-
-        TURN_TOWARDS_CORNER, // Turn 90 degrees towards corner (building site)
-
-        MOVE_INTO_CORNER, // Push foundation into corner
-
-        CHOOSE_SIDE,
-
-        BACK_UP_AWAY_FROM_CORNER, // Backs up to previous position
-
-        FIX_ORIENTATION,
-
         DONE;
 
-        public AUTO_STATE prev() {
-            return OrderedEnumHelper.prev(this);
-        }
-
-        public AUTO_STATE next() {
-            return OrderedEnumHelper.next(this);
-        }
+        public AUTO_STATE prev() { return OrderedEnumHelper.prev(this); }
+        public AUTO_STATE next() { return OrderedEnumHelper.next(this); }
     }
 
     /**
      * Sets config booleans according to user input
      */
-    private void userSettings() {
+    private void userSettings(){
         buttons.update();
 
         if (buttons.get("SELECT_SIDE")) {
