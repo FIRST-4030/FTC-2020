@@ -60,7 +60,7 @@ public class WheelsConfigs extends Configs {
                         M_TICKS_PER_MM, M_TRANSLATION_TICKS_PER_MM);
                 motors[3] = new WheelMotor("BR", MOTOR_SIDE.RIGHT, MOTOR_END.BACK, true,
                         M_TICKS_PER_MM, M_TRANSLATION_TICKS_PER_MM);
-                config = new WheelsConfig(DRIVE_TYPE.MECANUM, motors, true, DcMotor.RunMode.RUN_TO_POSITION);
+                config = new WheelsConfig(DRIVE_TYPE.TANK, motors, true, DcMotor.RunMode.RUN_TO_POSITION);
                 break;
 
             case ARM:
