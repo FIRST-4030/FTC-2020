@@ -29,7 +29,7 @@ public class Common {
                 break;
 
             case PRODUCTION:
-                claw = new Claw(robot, robot.claw);
+
         }
 
         this.drive = new Drive(robot);
