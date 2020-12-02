@@ -29,7 +29,7 @@ public class Robot {
     public final BOT bot;
     public final HardwareMap map;
     public final Telemetry telemetry;
-    public final Odometry position;
+    //public final Odometry position;
 
     // Shared
     public final Gyro gyro;
@@ -38,6 +38,7 @@ public class Robot {
     public ServoFTC claw;
 
     // Production
+    /*
     public Motor collectorBack;
     public Motor collectorFront;
     public Motor wobbleGoalArm;
@@ -47,6 +48,8 @@ public class Robot {
     public ServoFTC shooterAim;
     public ServoFTC wobbleGoalGrip;
     public ServoFTC queueFlipper;
+
+     */
 
     // Arm
     public ServoFTC lower;
@@ -77,9 +80,9 @@ public class Robot {
 
         GyroConfigs gyros = new GyroConfigs(map, telemetry, bot);
         WheelsConfigs wheels = new WheelsConfigs(map, telemetry, bot);
-        MotorConfigs motors = new MotorConfigs(map, telemetry, bot);
+        //MotorConfigs motors = new MotorConfigs(map, telemetry, bot);
         //PIDMotorConfigs pids = new PIDMotorConfigs(map, telemetry, bot);
-        ServoConfigs servos = new ServoConfigs(map, telemetry, bot);
+        //ServoConfigs servos = new ServoConfigs(map, telemetry, bot);
         //SwitchConfigs switches = new SwitchConfigs(map, telemetry, bot);
         DistanceConfigs distances = new DistanceConfigs(map, telemetry, bot);
         //ColorRangeConfigs colors = new ColorRangeConfigs(map, telemetry, bot);
@@ -90,12 +93,12 @@ public class Robot {
         this.wheels.stop();
         gyro = gyros.init();
         vuforia = new VuforiaFTC(map, telemetry, bot);
-        position = new Odometry(0, 0, "FL","FR");
+        //position = new Odometry(map, 0, 0, "FL","FR");
 
         // Bot specific
         switch (bot) {
             case PRODUCTION:
-                wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
+               /* wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
                 wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
                 queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
                 collectorBack = motors.init(MOTORS.COLLECTOR_BACK);
@@ -103,16 +106,16 @@ public class Robot {
                 backRaiseLower = servos.init(SERVOS.BACK_RAISE_LOWER);
                 frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
                 shooter = motors.init(MOTORS.SHOOTER);
-                shooterAim = servos.init(SERVOS.SHOOTER_AIM);
+                shooterAim = servos.init(SERVOS.SHOOTER_AIM);*/
 
                 break;
 
             case ARM:
-                lower = servos.init(SERVOS.LOWER);
-                upper = servos.init(SERVOS.UPPER);
-                rotation = servos.init(SERVOS.ROTATION);
-                claw = servos.init(SERVOS.CLAW);
-                wrist = servos.init(SERVOS.WRIST);
+             //   lower = servos.init(SERVOS.LOWER);
+             //   upper = servos.init(SERVOS.UPPER);
+             //   rotation = servos.init(SERVOS.ROTATION);
+             //   claw = servos.init(SERVOS.CLAW);
+             //   wrist = servos.init(SERVOS.WRIST);
                 break;
 
             case TEST:
@@ -120,8 +123,9 @@ public class Robot {
                 break;
 
             case BLANK:
-                motoryBoi = motors.init(MOTORS.MOTORY_BOI);
-                servoBoi = servos.init(SERVOS.SERVO_BOI);
+            //    motoryBoi = motors.init(MOTORS.MOTORY_BOI);
+            //    servoBoi = servos.init(SERVOS.SERVO_BOI);
+                break;
         }
 
 

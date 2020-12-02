@@ -29,6 +29,7 @@ public class ServoConfigs extends Configs {
         switch (bot) {
             case PRODUCTION:
                 switch(servo) {
+                    /*
                     case WOBBLE_GOAL_GRIP:
                         config = new ServoConfig("Wobble Goal Grip", false, 0.0f, 1.0f);
                         break;
@@ -43,6 +44,8 @@ public class ServoConfigs extends Configs {
                         break;
                     case QUEUE_FLIPPER:
                         config = new ServoConfig("Queue Flipper", false, 0.0f, 1.0f);
+
+                     */
                 }
                 break;
 

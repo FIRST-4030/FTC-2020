@@ -14,14 +14,14 @@ public class Odometry {
     private CoordinatePoint coords;
 
     // Constructors
-    public Odometry (int startX, int startY, String left, String right){
-        leftEncoder = hardwareMap.dcMotor.get(left);
-        rightEncoder = hardwareMap.dcMotor.get(right);
+    public Odometry (HardwareMap map, int startX, int startY, String left, String right){
+        leftEncoder = map.dcMotor.get(left);
+        rightEncoder = map.dcMotor.get(right);
         coords = new CoordinatePoint (startX, startY);
     }
-    public Odometry (int startX, int startY, String left, String right, String mid){
-        this(startX, startY, left, right);
-        midEncoder = hardwareMap.dcMotor.get(mid);
+    public Odometry (HardwareMap map, int startX, int startY, String left, String right, String mid){
+        this(map, startX, startY, left, right);
+        midEncoder = map.dcMotor.get(mid);
     }
 
     // Loop

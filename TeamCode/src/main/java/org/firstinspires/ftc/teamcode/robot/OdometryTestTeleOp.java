@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp - Blank", group = "Arm")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Odometry!", group = "Arm")
 public class OdometryTestTeleOp extends OpMode {
 
     // Devices and subsystems
