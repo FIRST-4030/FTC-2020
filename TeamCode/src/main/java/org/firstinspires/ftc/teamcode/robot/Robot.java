@@ -7,11 +7,14 @@ import org.firstinspires.ftc.teamcode.actuators.Motor;
 import org.firstinspires.ftc.teamcode.actuators.ServoFTC;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.robot.common.Common;
+import org.firstinspires.ftc.teamcode.robot.config.ColorRangeConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.DistanceConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.GyroConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.LEDMatrixConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.MotorConfigs;
+import org.firstinspires.ftc.teamcode.robot.config.PIDMotorConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.ServoConfigs;
+import org.firstinspires.ftc.teamcode.robot.config.SwitchConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.WheelsConfigs;
 import org.firstinspires.ftc.teamcode.sensors.color_range.ColorRange;
 import org.firstinspires.ftc.teamcode.sensors.distance.DISTANCE_TYPES;
@@ -29,7 +32,7 @@ public class Robot {
     public final BOT bot;
     public final HardwareMap map;
     public final Telemetry telemetry;
-    //public final Odometry position;
+    public final Odometry position;
 
     // Shared
     public final Gyro gyro;
@@ -38,7 +41,7 @@ public class Robot {
     public ServoFTC claw;
 
     // Production
-    /*
+
     public Motor collectorBack;
     public Motor collectorFront;
     public Motor wobbleGoalArm;
@@ -49,7 +52,7 @@ public class Robot {
     public ServoFTC wobbleGoalGrip;
     public ServoFTC queueFlipper;
 
-     */
+
 
     // Arm
     public ServoFTC lower;
@@ -80,12 +83,12 @@ public class Robot {
 
         GyroConfigs gyros = new GyroConfigs(map, telemetry, bot);
         WheelsConfigs wheels = new WheelsConfigs(map, telemetry, bot);
-        //MotorConfigs motors = new MotorConfigs(map, telemetry, bot);
-        //PIDMotorConfigs pids = new PIDMotorConfigs(map, telemetry, bot);
-        //ServoConfigs servos = new ServoConfigs(map, telemetry, bot);
-        //SwitchConfigs switches = new SwitchConfigs(map, telemetry, bot);
+        MotorConfigs motors = new MotorConfigs(map, telemetry, bot);
+        PIDMotorConfigs pids = new PIDMotorConfigs(map, telemetry, bot);
+        ServoConfigs servos = new ServoConfigs(map, telemetry, bot);
+        SwitchConfigs switches = new SwitchConfigs(map, telemetry, bot);
         DistanceConfigs distances = new DistanceConfigs(map, telemetry, bot);
-        //ColorRangeConfigs colors = new ColorRangeConfigs(map, telemetry, bot);
+        ColorRangeConfigs colors = new ColorRangeConfigs(map, telemetry, bot);
         LEDMatrixConfigs ledMatrices = new LEDMatrixConfigs(map, telemetry, bot);
 
         // Shared
@@ -93,12 +96,12 @@ public class Robot {
         this.wheels.stop();
         gyro = gyros.init();
         vuforia = new VuforiaFTC(map, telemetry, bot);
-        //position = new Odometry(map, 0, 0, "FL","FR");
+        position = new Odometry(map, 0, 0, "FL","FR");
 
         // Bot specific
         switch (bot) {
             case PRODUCTION:
-               /* wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
+               wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
                 wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
                 queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
                 collectorBack = motors.init(MOTORS.COLLECTOR_BACK);
@@ -106,7 +109,7 @@ public class Robot {
                 backRaiseLower = servos.init(SERVOS.BACK_RAISE_LOWER);
                 frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
                 shooter = motors.init(MOTORS.SHOOTER);
-                shooterAim = servos.init(SERVOS.SHOOTER_AIM);*/
+                shooterAim = servos.init(SERVOS.SHOOTER_AIM);
 
                 break;
 
