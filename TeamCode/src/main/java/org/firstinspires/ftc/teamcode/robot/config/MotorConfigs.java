@@ -48,12 +48,6 @@ public class MotorConfigs extends Configs {
                         config = new MotorConfig("Wobble Goal Arm", true, true);
                 }
                 break;
-            case BLANK:
-                switch(motor) {
-                    case MOTORY_BOI:
-                        config = new MotorConfig("Motory Boi", true, true);
-                        break;
-                }
         }
         return config;
     }

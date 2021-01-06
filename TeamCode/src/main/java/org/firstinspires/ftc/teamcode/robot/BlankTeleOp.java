@@ -33,7 +33,7 @@ public class BlankTeleOp extends OpMode {
         robot.wheels.setTeleop(true);
 
         // Check robot
-        if (robot.bot != BOT.BLANK) {
+        if (robot.bot != BOT.PRODUCTION) {
             telemetry.log().add("Opmode not compatible with bot " + robot.bot);
             requestOpModeStop();
             return;

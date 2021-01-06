@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.wheels;
-
+//FL, FR
+//BL, BR
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.actuators.Motor;

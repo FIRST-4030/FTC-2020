@@ -29,7 +29,7 @@ public class ServoConfigs extends Configs {
         switch (bot) {
             case PRODUCTION:
                 switch(servo) {
-                    /*
+
                     case WOBBLE_GOAL_GRIP:
                         config = new ServoConfig("Wobble Goal Grip", false, 0.0f, 1.0f);
                         break;
@@ -40,12 +40,12 @@ public class ServoConfigs extends Configs {
                         config = new ServoConfig("Front Raise/Lower",  false, 0.0f, 1.0f);
                         break;
                     case SHOOTER_AIM:
-                        config = new ServoConfig("Shooter Aim", false, 0.0f, 1.0f);
+                        config = new ServoConfig("Aim", false, 0.0f, 1.0f);
                         break;
                     case QUEUE_FLIPPER:
-                        config = new ServoConfig("Queue Flipper", false, 0.0f, 1.0f);
+                        config = new ServoConfig("Flipper", false, 0.0f, 1.0f);
 
-                     */
+
                 }
                 break;
 
@@ -65,12 +65,6 @@ public class ServoConfigs extends Configs {
                         break;
                     case WRIST:
                         config = new ServoConfig("Swivel", false, 0.0f, 1.0f);
-                }
-            case BLANK:
-                switch (servo) {
-                    case SERVO_BOI:
-                        config = new ServoConfig("Servo Boi", true, 0.0f, 1.0f);
-                        break;
                 }
         }
 

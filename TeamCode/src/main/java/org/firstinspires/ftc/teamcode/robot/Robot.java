@@ -124,11 +124,6 @@ public class Robot {
             case TEST:
                 matrix = ledMatrices.init(LED_MATRICIES.TEST);
                 break;
-
-            case BLANK:
-            //    motoryBoi = motors.init(MOTORS.MOTORY_BOI);
-            //    servoBoi = servos.init(SERVOS.SERVO_BOI);
-                break;
         }
 
 
