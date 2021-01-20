@@ -32,8 +32,6 @@ public class MotorConfigs extends Configs {
 
             // IMPORTANT: If you need to change the *names* of the motors here, change them in PIDMotorConfigs too
             case PRODUCTION:
-                //DELETE THIS ANNIE YOU FORGETFUL FUCK:
-                //SHOOTER, COLLECTOR_BACK, COLLECTOR_FRONT, WOBBLE_GOAL_ARM
                 switch(motor) {
                     case SHOOTER:
                         config = new MotorConfig("Shooter", true, true);
