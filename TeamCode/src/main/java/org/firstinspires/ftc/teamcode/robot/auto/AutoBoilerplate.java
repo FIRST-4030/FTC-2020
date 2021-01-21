@@ -49,8 +49,8 @@ public class AutoBoilerplate extends OpMode {
         }
 
         // Init the camera system
-        //vuforia.start();
-        //vuforia.enableCapture();
+        vuforia.start();
+        vuforia.enableCapture();
 
 
         // Register buttons
