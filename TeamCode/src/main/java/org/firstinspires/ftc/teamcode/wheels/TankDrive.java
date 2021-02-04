@@ -212,10 +212,10 @@ public class TankDrive implements Wheels {
         // Negative is forward; this is typically the opposite of native motor config
 
         // arcade controls
-        float left = limit(cleanJoystick(-pad.left_stick_y + pad.left_stick_x));
+        float left = limit(cleanJoystick(pad.left_stick_y - pad.left_stick_x));
         this.setSpeed(left, MOTOR_SIDE.LEFT);
 
-        float right = limit(cleanJoystick(-pad.left_stick_y - pad.left_stick_x));
+        float right = limit(cleanJoystick(pad.left_stick_y + pad.left_stick_x));
         this.setSpeed(right, MOTOR_SIDE.RIGHT);
     }
 
