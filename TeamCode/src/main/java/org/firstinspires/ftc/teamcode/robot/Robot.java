@@ -101,7 +101,7 @@ public class Robot {
         // Bot specific
         switch (bot) {
             case PRODUCTION:
-               //wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
+                wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
                 //wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
                 //queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
                 //collectorBack = motors.init(MOTORS.COLLECTOR_BACK);
