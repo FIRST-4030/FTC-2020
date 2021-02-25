@@ -84,6 +84,7 @@ public class OdometryTestTeleOp extends OpMode {
     private void auxiliary() {
         telemetry.addData("FL:", robot.wheels.getEncoder(MOTOR_SIDE.LEFT, MOTOR_END.FRONT));
         telemetry.addData("FR:", robot.wheels.getEncoder(MOTOR_SIDE.RIGHT, MOTOR_END.FRONT));
+
     }
 
 
