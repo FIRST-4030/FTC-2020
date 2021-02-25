@@ -17,8 +17,8 @@ public class OdometryTestTeleOp extends OpMode {
     private ButtonHandler buttons;
 
     //servo constants
-    private static final float WGGripOpen = 0.6f;
-    private static final float WGGripClosed = 0.2f;
+    private static final float WGGripOpen = 0.5f;
+    private static final float WGGripClosed = 0;
 
     // other consts
     private static final float NORMAL_SPEED = 0.75f;
