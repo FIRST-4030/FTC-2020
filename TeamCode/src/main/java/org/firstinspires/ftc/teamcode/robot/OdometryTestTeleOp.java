@@ -17,8 +17,8 @@ public class OdometryTestTeleOp extends OpMode {
     private ButtonHandler buttons;
 
     //servo constants
-    private static final float WGGripOpen = 0.4f;
-    private static final float WGGripClosed = 0.6f;
+    private static final float WGGripOpen = 0.6f;
+    private static final float WGGripClosed = 0.2f;
 
     // other consts
     private static final float NORMAL_SPEED = 0.75f;
@@ -89,9 +89,9 @@ public class OdometryTestTeleOp extends OpMode {
         telemetry.addData("FR:", robot.wheels.getEncoder(MOTOR_SIDE.RIGHT, MOTOR_END.FRONT));
         robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
         if (gamepad1.x) {
-            robot.wobbleGoalGrip.setPosition(WGGripClosed);
-        } else {
             robot.wobbleGoalGrip.setPosition(WGGripOpen);
+        } else {
+            robot.wobbleGoalGrip.setPosition(WGGripClosed);
         }
     }
 
