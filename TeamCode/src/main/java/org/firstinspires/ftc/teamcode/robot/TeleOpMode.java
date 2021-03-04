@@ -7,11 +7,9 @@ import org.firstinspires.ftc.teamcode.buttons.ButtonHandler;
 import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.TwoWheelTrackingLocalizer;
-import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
-import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Code testing", group = "Arm")
-public class OdometryTestTeleOp extends OpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Teleop", group = "Prod")
+public class TeleOpMode extends OpMode {
 
     // Devices and subsystems
     private Robot robot = null;
@@ -49,8 +47,6 @@ public class OdometryTestTeleOp extends OpMode {
         // Register buttons
         buttons = new ButtonHandler(robot);
         buttons.register("SLOW_MODE", gamepad1, PAD_BUTTON.b, BUTTON_TYPE.TOGGLE);
-        buttons.register("SEND_MESSAGE", gamepad2, PAD_BUTTON.start);
-        buttons.register("POSITION_TOGGLE", gamepad2, PAD_BUTTON.start);
 
 
         // Wait for the game to begin
@@ -91,6 +87,8 @@ public class OdometryTestTeleOp extends OpMode {
         telemetry.addData("X:", odometry.getPoseEstimate().getX());
         telemetry.addData("Y:", odometry.getPoseEstimate().getY());
         robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
+
+        //CLAW
         if (gamepad1.x) {
             robot.wobbleGoalGrip.setPosition(WGGripClosed);
         } else {
