@@ -19,8 +19,8 @@ public class OdometryTestTeleOp extends OpMode {
     private TwoWheelTrackingLocalizer odometry;
 
     //servo constants
-    private static final float WGGripOpen = 0.4f;
-    private static final float WGGripClosed = 0.6f;
+    private static final float WGGripOpen = 0.5f;
+    private static final float WGGripClosed = 0;
 
     // other consts
     private static final float NORMAL_SPEED = 0.75f;
@@ -92,9 +92,9 @@ public class OdometryTestTeleOp extends OpMode {
         telemetry.addData("Y:", odometry.getPoseEstimate().getY());
         robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
         if (gamepad1.x) {
-            robot.wobbleGoalGrip.setPosition(WGGripClosed);
-        } else {
             robot.wobbleGoalGrip.setPosition(WGGripOpen);
+        } else {
+            robot.wobbleGoalGrip.setPosition(WGGripClosed);
         }
 
     }
