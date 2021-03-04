@@ -101,13 +101,13 @@ public class Robot {
             case PRODUCTION:
                 wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
                 wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
-                //queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
-                //collectorBack = motors.init(MOTORS.COLLECTOR_BACK);
-                //collectorFront = motors.init(MOTORS.COLLECTOR_FRONT);
-                //backRaiseLower = servos.init(SERVOS.BACK_RAISE_LOWER);
-                //frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
-                //shooter = motors.init(MOTORS.SHOOTER);
-                //shooterAim = servos.init(SERVOS.SHOOTER_AIM);
+                queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
+                collectorBack = motors.init(MOTORS.COLLECTOR_BACK);
+                collectorFront = motors.init(MOTORS.COLLECTOR_FRONT);
+                backRaiseLower = servos.init(SERVOS.BACK_RAISE_LOWER);
+                frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
+                shooter = motors.init(MOTORS.SHOOTER);
+                shooterAim = servos.init(SERVOS.SHOOTER_AIM);
 
                 break;
 
