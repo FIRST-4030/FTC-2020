@@ -52,7 +52,6 @@ public class TeleOpMode extends OpMode {
         buttons.register("BACK_MID_COLLECT", gamepad1, PAD_BUTTON.right_bumper, BUTTON_TYPE.TOGGLE);
         buttons.register("FRONT_FULL_COLLECT", gamepad1, PAD_BUTTON.left_trigger, BUTTON_TYPE.TOGGLE);
         buttons.register("BACK_FULL_COLLECT", gamepad1, PAD_BUTTON.right_trigger, BUTTON_TYPE.TOGGLE);
-        buttons.register("MOVEMENT", gamepad1, PAD_BUTTON.left_stick_x, BUTTON_TYPE.TOGGLE);
         buttons.register("TOGGLE_ARM", gamepad2, PAD_BUTTON.a, BUTTON_TYPE.TOGGLE);
         buttons.register("TOGGLE_GRIP", gamepad2, PAD_BUTTON.b, BUTTON_TYPE.TOGGLE);
         buttons.register("SHOOT", gamepad2, PAD_BUTTON.right_trigger, BUTTON_TYPE.TOGGLE);
