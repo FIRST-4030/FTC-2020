@@ -48,9 +48,10 @@ public class TeleOpMode extends OpMode {
         buttons = new ButtonHandler(robot);
         buttons.register("SLOW_MODE", gamepad1, PAD_BUTTON.b, BUTTON_TYPE.TOGGLE);
         buttons.register("REVERSE_COLLECTOR", gamepad1, PAD_BUTTON.y, BUTTON_TYPE.TOGGLE);
-        buttons.register("MID_COLLECTION", gamepad1, PAD_BUTTON.left_bumper, BUTTON_TYPE.TOGGLE);
-        buttons.register("FULL_COLLECTION", gamepad1, PAD_BUTTON.left_trigger, BUTTON_TYPE.TOGGLE);
-        buttons.register("MOVEMENT", gamepad1, PAD_BUTTON.left_stick_x, BUTTON_TYPE.TOGGLE);
+        buttons.register("FRONT_MID_COLLECT", gamepad1, PAD_BUTTON.left_bumper, BUTTON_TYPE.TOGGLE);
+        buttons.register("BACK_MID_COLLECT", gamepad1, PAD_BUTTON.right_bumper, BUTTON_TYPE.TOGGLE);
+        buttons.register("FRONT_FULL_COLLECT", gamepad1, PAD_BUTTON.left_trigger, BUTTON_TYPE.TOGGLE);
+        buttons.register("BACK_FULL_COLLECT", gamepad1, PAD_BUTTON.right_trigger, BUTTON_TYPE.TOGGLE);
         buttons.register("TOGGLE_ARM", gamepad2, PAD_BUTTON.a, BUTTON_TYPE.TOGGLE);
         buttons.register("TOGGLE_GRIP", gamepad2, PAD_BUTTON.b, BUTTON_TYPE.TOGGLE);
         buttons.register("SHOOT", gamepad2, PAD_BUTTON.right_trigger, BUTTON_TYPE.TOGGLE);
