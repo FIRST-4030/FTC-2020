@@ -39,8 +39,8 @@ public class ServoConfigs extends Configs {
                     case FRONT_RAISE_LOWER:
                         config = new ServoConfig("Front Raise/Lower",  false, 0.0f, 1.0f);
                         break;
-                    case SHOOTER_AIM:
-                        config = new ServoConfig("Aim", false, 0.0f, 1.0f);
+                    case QUEUE:
+                        config = new ServoConfig("Queue", false, 0.0f, 1.0f);
                         break;
                     case QUEUE_FLIPPER:
                         config = new ServoConfig("Flipper", false, 0.0f, 1.0f);

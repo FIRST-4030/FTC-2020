@@ -95,7 +95,7 @@ public class TeleOpMode extends OpMode {
         //telemetry.addData("X:", odometry.getPoseEstimate().getX());
         //telemetry.addData("Y:", odometry.getPoseEstimate().getY());
         robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
-
+        robot.queue.setPosition(0.5f);
         //CLAW
         if (gamepad1.x) {
             robot.wobbleGoalGrip.setPosition(WGGripOpen);

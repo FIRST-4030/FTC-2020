@@ -47,7 +47,7 @@ public class Robot {
     public Motor shooter;
     public ServoFTC backRaiseLower;
     public ServoFTC frontRaiseLower;
-    public ServoFTC shooterAim;
+    public ServoFTC queue;
     public ServoFTC wobbleGoalGrip;
     public ServoFTC queueFlipper;
 
@@ -107,7 +107,7 @@ public class Robot {
                 backRaiseLower = servos.init(SERVOS.BACK_RAISE_LOWER);
                 frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
                 shooter = motors.init(MOTORS.SHOOTER);
-                shooterAim = servos.init(SERVOS.SHOOTER_AIM);
+                queue = servos.init(SERVOS.QUEUE);
 
                 break;
 
