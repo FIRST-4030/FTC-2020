@@ -103,7 +103,23 @@ public class TeleOpMode extends OpMode {
         } else {
             robot.wobbleGoalGrip.setPosition(WGGripClosed);
         }
-
+        if (buttons.get("FRONT_FULL_COLLECT")) {
+            robot.frontRaiseLower.setPosition(1);
+        } else if (buttons.get("FRONT_MID_COLLECT")) {
+            robot.frontRaiseLower.setPosition(0.5f);
+        } else {
+            robot.backRaiseLower.setPosition(0);
+        }
+        if (buttons.get("BACK_FULL_COLLECT")) {
+            robot.backRaiseLower.setPosition(1);
+        } else if (buttons.get("BACK_MID_COLLECT")) {
+            robot.backRaiseLower.setPosition(0.5f);
+        } else {
+            robot.backRaiseLower.setPosition(0);
+        }
+        if (buttons.get("TOGGLE_MAGAZINE_POS")) {
+            robot.queue.setPosition(0.5f);
+        }
     }
 
 
