@@ -119,6 +119,14 @@ public class TeleOpMode extends OpMode {
         }
         if (buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queue.setPosition(0.5f);
+            robot.shooter.setPower(1);
+        } else {
+            robot.queue.setPosition(0);
+        }
+        if (buttons.get("SHOOT")) {
+            robot.queueFlipper.setPosition(1);
+        } else {
+            robot.queueFlipper.setPosition(0);
         }
     }
 
