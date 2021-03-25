@@ -25,10 +25,10 @@ public class TeleOpMode extends OpMode {
     private static final float MAGAZINE_DOWN = 0.85f;
 
     private static final float F_COLLECT_MID = 0.55f;
-    private static final float F_COLLECT_FULL = 0.38f;
+    private static final float F_COLLECT_FULL = 0.36f;
     private static final float F_COLLECT_NO = 0.75f;
     private static final float B_COLLECT_MID = 0.55f;
-    private static final float B_COLLECT_FULL = 0.38f;
+    private static final float B_COLLECT_FULL = 0.36f;
     private static final float B_COLLECT_NO = 0.75f;
 
     private static final float FLIPPER_SHOOT = 0.9f;
@@ -111,8 +111,8 @@ public class TeleOpMode extends OpMode {
     private void auxiliary() {
         //telemetry.addData("X:", odometry.getPoseEstimate().getX());
         //telemetry.addData("Y:", odometry.getPoseEstimate().getY());
-        robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
-        robot.queue.setPosition(0.5f);
+        robot.wobbleGoalArm.setPower(gamepad2.right_stick_y * 0.3f);
+
         //CLAW
         if (gamepad1.x) {
             robot.wobbleGoalGrip.setPosition(WGGripOpen);
@@ -120,36 +120,36 @@ public class TeleOpMode extends OpMode {
             robot.wobbleGoalGrip.setPosition(WGGripClosed);
         }
         // ==[FRONT COLLECTOR]==
-        if (buttons.get("FRONT_FULL_COLLECT")) {
+        if (buttons.held("FRONT_FULL_COLLECT")) {
             robot.frontRaiseLower.setPosition(F_COLLECT_FULL);
             robot.collectorFront.setPower(1.0f);
-        } else if (buttons.get("FRONT_MID_COLLECT")) {
+        } else if (buttons.held("FRONT_MID_COLLECT")) {
             robot.frontRaiseLower.setPosition(F_COLLECT_MID);
             robot.collectorFront.setPower(1.0f);
         } else {
-            robot.backRaiseLower.setPosition(F_COLLECT_NO);
+            robot.frontRaiseLower.setPosition(F_COLLECT_NO);
             robot.collectorFront.setPower(0.0f);
         }
 
         // ==[BACK COLLECTOR]==
-        if (buttons.get("BACK_FULL_COLLECT")) {
+        if (buttons.held("BACK_FULL_COLLECT")) {
             robot.backRaiseLower.setPosition(B_COLLECT_FULL);
-            robot.collectorFront.setPower(1.0f);
-        } else if (buttons.get("BACK_MID_COLLECT")) {
+            robot.collectorBack.setPower(1.0f);
+        } else if (buttons.held("BACK_MID_COLLECT")) {
             robot.backRaiseLower.setPosition(B_COLLECT_MID);
-            robot.collectorFront.setPower(1.0f);
+            robot.collectorBack.setPower(1.0f);
         } else {
             robot.backRaiseLower.setPosition(B_COLLECT_NO);
-            robot.collectorFront.setPower(0.0f);
+            robot.collectorBack.setPower(0.0f);
         }
         if (buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queue.setPosition(MAGAZINE_UP);
-            robot.shooter.setPower(1);
+            robot.shooter.setPower(-1);
         } else {
             robot.queue.setPosition(MAGAZINE_DOWN);
             robot.shooter.setPower(0);
         }
-        if (buttons.get("SHOOT")) {
+        if (buttons.held("SHOOT")) {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
         } else {
             robot.queueFlipper.setPosition(FLIPPER_IDLE);
