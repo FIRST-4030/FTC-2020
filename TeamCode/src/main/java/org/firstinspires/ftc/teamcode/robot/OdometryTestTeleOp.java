@@ -70,6 +70,7 @@ public class OdometryTestTeleOp extends OpMode {
     public void loop() {
         // Update buttons
         buttons.update();
+        odometry.update();
 
         // Move the robot
         driveBase();
@@ -88,8 +89,8 @@ public class OdometryTestTeleOp extends OpMode {
     }
 
     private void auxiliary() {
-        //telemetry.addData("X:", odometry.getPoseEstimate().getX());
-        //telemetry.addData("Y:", odometry.getPoseEstimate().getY());
+        telemetry.addData("X:", odometry.getPoseEstimate().getX());
+        telemetry.addData("Y:", odometry.getPoseEstimate().getY());
         robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
         if (gamepad1.x) {
             robot.wobbleGoalGrip.setPosition(WGGripOpen);

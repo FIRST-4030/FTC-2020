@@ -16,6 +16,7 @@ public class TeleOpMode extends OpMode {
     private Robot robot = null;
     private ButtonHandler buttons;
     private StandardTrackingWheelLocalizer odometry;
+    private boolean controlLocked;
 
     //servo constants
     private static final float WGGripOpen = 0.5f;
@@ -42,6 +43,7 @@ public class TeleOpMode extends OpMode {
 
     @Override
     public void init() {
+        controlLocked = false;
         // Placate drivers
         telemetry.addData(">", "NOT READY");
         telemetry.update();
@@ -93,8 +95,12 @@ public class TeleOpMode extends OpMode {
         odometry.update();
 
         // Move the robot
-        driveBase();
-        auxiliary();
+
+
+        if (!controlLocked) {
+            driveBase();
+            auxiliary();
+        }
 
         telemetry.update();
     }
@@ -109,6 +115,7 @@ public class TeleOpMode extends OpMode {
     }
 
     private void auxiliary() {
+        odometry.getPoseEstimate().getX();
         //telemetry.addData("X:", odometry.getPoseEstimate().getX());
         //telemetry.addData("Y:", odometry.getPoseEstimate().getY());
         robot.wobbleGoalArm.setPower(gamepad1.right_stick_y * 0.3f);
@@ -142,6 +149,11 @@ public class TeleOpMode extends OpMode {
             robot.backRaiseLower.setPosition(B_COLLECT_NO);
             robot.collectorFront.setPower(0.0f);
         }
+
+        if (buttons.held("REVERSE_COLLECTOR")) {
+            robot.collectorFront.setPower(-1.0f);
+            robot.collectorBack.setPower(-1.0f);
+        }
         if (buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queue.setPosition(MAGAZINE_UP);
             robot.shooter.setPower(1);
@@ -151,6 +163,7 @@ public class TeleOpMode extends OpMode {
         }
         if (buttons.get("SHOOT")) {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+            controlLocked = true;
         } else {
             robot.queueFlipper.setPosition(FLIPPER_IDLE);
         }
