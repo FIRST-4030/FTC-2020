@@ -16,11 +16,11 @@ public class ServoPositionFinder extends OpMode {
     private ButtonHandler buttons;
     private TwoWheelTrackingLocalizer odometry;
 
-    private float servoPos = 0.5f;
+    private float servoPos = 0.4f;
 
 
     //servo constants
-    private static final float INCREMENT = 0.1f;
+    private static final float INCREMENT = 0.01f;
 
     // other consts
     private static final float NORMAL_SPEED = 0.75f;
@@ -93,9 +93,9 @@ public class ServoPositionFinder extends OpMode {
             servoPos = Math.min(1.0f, servoPos);
         } else if (buttons.get("SERVO_DOWN")) {
             servoPos -= INCREMENT;
-            servoPos = Math.max(1.0f, servoPos);
+            servoPos = Math.max(0.0f, servoPos);
         }
-        robot.queue.setPosition(servoPos);
+        robot.frontRaiseLower.setPosition(servoPos);
     }
 
 
