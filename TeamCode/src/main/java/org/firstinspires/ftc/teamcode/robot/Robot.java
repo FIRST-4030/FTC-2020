@@ -109,7 +109,7 @@ public class Robot {
                 frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
                 shooter = motors.init(MOTORS.SHOOTER);
                 queue = servos.init(SERVOS.QUEUE);
-
+                shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 break;
 
             case ARM:

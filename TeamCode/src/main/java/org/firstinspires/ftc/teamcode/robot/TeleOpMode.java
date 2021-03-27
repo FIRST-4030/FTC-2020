@@ -29,7 +29,7 @@ public class TeleOpMode extends OpMode {
     private static final float F_COLLECT_FULL = 0.36f;
     private static final float F_COLLECT_NO = 0.75f;
     private static final float B_COLLECT_MID = 0.55f;
-    private static final float B_COLLECT_FULL = 0.38f;
+    private static final float B_COLLECT_FULL = 0.4f;
     private static final float B_COLLECT_NO = 0.75f;
 
     private static final float FLIPPER_SHOOT = 0.9f;
@@ -38,8 +38,8 @@ public class TeleOpMode extends OpMode {
     private static final float ARM_POS_OUT = 1;
 
     // other consts
-    private static final float NORMAL_SPEED = 0.75f;
-    private static final float SLOW_MODE = 0.25f;
+    private static final float NORMAL_SPEED = 1.0f;
+    private static final float SLOW_MODE = 0.35f;
 
 
 
@@ -130,7 +130,7 @@ public class TeleOpMode extends OpMode {
             robot.wobbleGoalGrip.setPosition(WGGripClosed);
         }
         //ARM
-        robot.wobbleGoalArm.setPower(gamepad2.right_stick_y * 0.3f);
+        robot.wobbleGoalArm.setPower(gamepad2.right_stick_y);
 
         //COLLECT SAFEGUARD
         if(!buttons.get("TOGGLE_MAGAZINE_POS")) {
