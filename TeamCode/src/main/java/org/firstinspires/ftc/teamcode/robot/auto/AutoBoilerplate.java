@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.utils.OrderedEnumHelper;
 import org.firstinspires.ftc.teamcode.utils.Round;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
-@Disabled
+//@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Boilerplate", group = "Production")
 public class AutoBoilerplate extends OpMode {
 
@@ -26,7 +26,7 @@ public class AutoBoilerplate extends OpMode {
     private VuforiaFTC vuforia = null;
     private ButtonHandler buttons;
     private AutoDriver driver = new AutoDriver();
-
+    private NewAuto auto;
     // Runtime vars
     private AUTO_STATE state;
     private boolean gameReady = false;
@@ -51,7 +51,7 @@ public class AutoBoilerplate extends OpMode {
         // Init the camera system
         vuforia.start();
         vuforia.enableCapture();
-
+        auto = new NewAuto("FL","BL","FR","BR", hardwareMap);
 
         // Register buttons
         buttons = new ButtonHandler(robot);
@@ -88,43 +88,17 @@ public class AutoBoilerplate extends OpMode {
 
         // Set initial state
         state = AUTO_STATE.values()[0];
-
+        auto.driveArc(72, 72, 0.3f);
         //robot.vuforia.start();
         //robot.vuforia.enableCapture();
     }
 
     @Override
     public void loop() {
-        // Handle AutoDriver driving
-        driver = common.drive.loop(driver);
 
-        // Debug feedback
-        telemetry.addData("State", state.prev()); // Prev because it prints the wrong one otherwise
-        telemetry.addData("Running", driver.isRunning(time));
-        telemetry.addData("Gyro", Round.truncate(robot.gyro.getHeading()));
-        telemetry.addData("Encoder", robot.wheels.getEncoder());
-
-        // Cut the loop short while AutoDriver is driving
-        // This prevents the state machine from running before the preceding state is complete
-        if (driver.isRunning(time)) return;
-
-        /*
-         * Main State Machine
-         * enum has descriptions of each state
-         */
-        switch (state) {
-            case INIT:
-                driver.done = false;
-                advance();
-                break;
-
-            case DONE:
-                driver.done = true;
-                break;
-        }
 
         // Update telemetry
-        telemetry.update();
+        //telemetry.update();
     }
 
     /**
@@ -132,6 +106,7 @@ public class AutoBoilerplate extends OpMode {
      */
     enum AUTO_STATE implements OrderedEnum {
         INIT, // Initialization
+        PARK_ON_LINE,
 
         DONE;
 

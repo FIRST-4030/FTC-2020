@@ -1,16 +1,19 @@
 package org.firstinspires.ftc.teamcode.actuators;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.utils.Available;
 
 public class Motor implements Available {
     public static final DcMotor.RunMode DEFAULT_MODE = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
 
     protected Telemetry telemetry;
-    protected DcMotor motor = null;
+    protected DcMotorEx motor = null;
     private boolean enabled = true;
     protected int offset = 0;
 
@@ -24,7 +27,7 @@ public class Motor implements Available {
             return;
         }
         try {
-            motor = map.dcMotor.get(config.name);
+            motor = (DcMotorEx)map.dcMotor.get(config.name);
             setReverse(config.reverse);
             setBrake(config.brake);
             setMode(config.mode);
@@ -34,6 +37,18 @@ public class Motor implements Available {
             motor = null;
         }
         this.telemetry = telemetry;
+    }
+
+    public void setVelocity(double v){
+        motor.setVelocity(v);
+    }
+
+    public void setVelocity(double v, AngleUnit u){
+        motor.setVelocity(v, u);
+    }
+
+    public double getVelocity(){
+        return motor.getVelocity();
     }
 
     public void setEnabled(boolean enabled) {

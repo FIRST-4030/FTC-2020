@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -109,7 +110,8 @@ public class Robot {
                 frontRaiseLower = servos.init(SERVOS.FRONT_RAISE_LOWER);
                 shooter = motors.init(MOTORS.SHOOTER);
                 queue = servos.init(SERVOS.QUEUE);
-                shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                shooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+                wobbleGoalArm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
 
             case ARM:

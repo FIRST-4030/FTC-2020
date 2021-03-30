@@ -2,12 +2,15 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
 import org.firstinspires.ftc.teamcode.buttons.ButtonHandler;
 import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.TwoWheelTrackingLocalizer;
+import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
+import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group = "Prod")
 public class TeleOpMode extends OpMode {
@@ -17,6 +20,7 @@ public class TeleOpMode extends OpMode {
     private ButtonHandler buttons;
     private TwoWheelTrackingLocalizer odometry;
     private boolean controlLocked;
+    private double shooterSpeed = 2590;
 
     //servo constants
     private static final float WGGripOpen = 0.5f;
@@ -25,12 +29,10 @@ public class TeleOpMode extends OpMode {
     private static final float MAGAZINE_UP = 0.1f;
     private static final float MAGAZINE_DOWN = 0.85f;
 
-    private static final float F_COLLECT_MID = 0.55f;
-    private static final float F_COLLECT_FULL = 0.36f;
-    private static final float F_COLLECT_NO = 0.75f;
-    private static final float B_COLLECT_MID = 0.55f;
-    private static final float B_COLLECT_FULL = 0.4f;
-    private static final float B_COLLECT_NO = 0.75f;
+    private static final float COLLECT_MID = 0.55f;
+    private static final float COLLECT_FULL = 0.36f;
+    private static final float COLLECT_NO = 0.75f;
+
 
     private static final float FLIPPER_SHOOT = 0.9f;
     private static final float FLIPPER_IDLE = 0.67f;
@@ -72,13 +74,18 @@ public class TeleOpMode extends OpMode {
         buttons.register("BACK_FULL_COLLECT", gamepad1, PAD_BUTTON.right_trigger);
         buttons.register("TOGGLE_ARM", gamepad2, PAD_BUTTON.a, BUTTON_TYPE.TOGGLE);
         buttons.register("TOGGLE_GRIP", gamepad2, PAD_BUTTON.b, BUTTON_TYPE.TOGGLE);
-        buttons.register("SHOOT", gamepad2, PAD_BUTTON.right_trigger);
+        buttons.register("SHOOT", gamepad2, PAD_BUTTON.right_bumper);
+        buttons.register("MANUAL_SHOOT", gamepad2, PAD_BUTTON.right_trigger);
         buttons.register("TOGGLE_MAGAZINE_POS", gamepad2, PAD_BUTTON.left_trigger, BUTTON_TYPE.TOGGLE);
+
+        buttons.register("SHOOTER_SPEED_UP", gamepad2, PAD_BUTTON.dpad_up);
+        buttons.register("SHOOTER_SPEED_DOWN", gamepad2, PAD_BUTTON.dpad_down);
 
 
         // Wait for the game to begin
         telemetry.addData(">", "Ready for game start");
         telemetry.update();
+
     }
 
     @Override
@@ -118,9 +125,10 @@ public class TeleOpMode extends OpMode {
 
     private void auxiliary() {
         odometry.getPoseEstimate().getX();
-        telemetry.addData("X:", odometry.getPoseEstimate().getX());
-        telemetry.addData("Y:", odometry.getPoseEstimate().getY());
-        telemetry.addData("R:", odometry.getPoseEstimate().getHeading());
+        telemetry.addData("L:", robot.wheels.getEncoder(MOTOR_SIDE.LEFT, MOTOR_END.FRONT));
+        telemetry.addData("R:", robot.wheels.getEncoder(MOTOR_SIDE.RIGHT, MOTOR_END.FRONT));
+        telemetry.addData("V:", robot.shooter.getVelocity());
+        telemetry.addData("S:", shooterSpeed);
 
 
         //CLAW
@@ -130,43 +138,53 @@ public class TeleOpMode extends OpMode {
             robot.wobbleGoalGrip.setPosition(WGGripClosed);
         }
         //ARM
-        robot.wobbleGoalArm.setPower(gamepad2.right_stick_y);
+        if(buttons.get("TOGGLE_ARM")){
+            robot.wobbleGoalArm.setTarget(-1000);
+        } else {
+            robot.wobbleGoalArm.setTarget(0);
+        }
+        if(robot.wobbleGoalArm.onTarget()){
+            robot.wobbleGoalArm.setPower(0);
+        } else {
+            robot.wobbleGoalArm.setPower(0.5f);
+        }
+        //robot.wobbleGoalArm.setPower(gamepad2.right_stick_y);
 
         //COLLECT SAFEGUARD
         if(!buttons.get("TOGGLE_MAGAZINE_POS")) {
 
             // ==[FRONT COLLECTOR]==
             if (buttons.held("FRONT_FULL_COLLECT")) {
-               robot.frontRaiseLower.setPosition(F_COLLECT_FULL);
+               robot.frontRaiseLower.setPosition(COLLECT_FULL);
                 robot.collectorFront.setPower(1.0f);
             } else if (buttons.held("FRONT_MID_COLLECT")) {
-                robot.frontRaiseLower.setPosition(F_COLLECT_MID);
+                robot.frontRaiseLower.setPosition(COLLECT_MID);
                 robot.collectorFront.setPower(1.0f);
             } else if (buttons.held("REVERSE_COLLECTOR")) {
-                robot.frontRaiseLower.setPosition(F_COLLECT_MID);
+                robot.frontRaiseLower.setPosition(COLLECT_MID);
             } else {
-                robot.frontRaiseLower.setPosition(F_COLLECT_NO);
+                robot.frontRaiseLower.setPosition(COLLECT_NO);
                 robot.collectorFront.setPower(0.0f);
             }
 
             // ==[BACK COLLECTOR]==
             if (buttons.held("BACK_FULL_COLLECT")) {
-                robot.backRaiseLower.setPosition(B_COLLECT_FULL);
+                robot.backRaiseLower.setPosition(COLLECT_FULL);
                 robot.collectorBack.setPower(1.0f);
             } else if (buttons.held("BACK_MID_COLLECT")) {
-                robot.backRaiseLower.setPosition(B_COLLECT_MID);
+                robot.backRaiseLower.setPosition(COLLECT_MID);
                 robot.collectorBack.setPower(1.0f);
 
             } else if (buttons.held("REVERSE_COLLECTOR")) {
-                robot.backRaiseLower.setPosition(B_COLLECT_MID);
+                robot.backRaiseLower.setPosition(COLLECT_MID);
             } else {
-                robot.backRaiseLower.setPosition(B_COLLECT_NO);
+                robot.backRaiseLower.setPosition(COLLECT_NO);
                 robot.collectorBack.setPower(0.0f);
             }
         } else {
-            robot.backRaiseLower.setPosition(B_COLLECT_NO);
+            robot.backRaiseLower.setPosition(COLLECT_NO);
             robot.collectorBack.setPower(0.0f);
-            robot.frontRaiseLower.setPosition(F_COLLECT_NO);
+            robot.frontRaiseLower.setPosition(COLLECT_NO);
             robot.collectorFront.setPower(0.0f);
         }
 
@@ -174,18 +192,30 @@ public class TeleOpMode extends OpMode {
             robot.collectorFront.setPower(-1.0f);
             robot.collectorBack.setPower(-1.0f);
         }
+
         if (buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queue.setPosition(MAGAZINE_UP);
-            robot.shooter.setPower(-1);
+            robot.shooter.setVelocity(shooterSpeed);
         } else {
             robot.queue.setPosition(MAGAZINE_DOWN);
-            robot.shooter.setPower(0);
+            robot.shooter.setVelocity(0);
         }
-        if (buttons.held("SHOOT") && buttons.get("TOGGLE_MAGAZINE_POS")) {
+
+        if (buttons.get("SHOOTER_SPEED_UP")) {
+            shooterSpeed += 10;
+            shooterSpeed = Math.min(3000, shooterSpeed);
+        } else if (buttons.get("SHOOTER_SPEED_DOWN")) {
+            shooterSpeed -= 10;
+            shooterSpeed = Math.max(0, shooterSpeed);
+        }
+        if (buttons.held("MANUAL_SHOOT") && buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
             //controlLocked = true;
         } else {
-            robot.queueFlipper.setPosition(FLIPPER_IDLE);
+            if(buttons.held("SHOOT") && robot.shooter.getVelocity() >= 2580 && robot.shooter.getVelocity() <= 2600) robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+
+
+            else robot.queueFlipper.setPosition(FLIPPER_IDLE);
         }
     }
 
