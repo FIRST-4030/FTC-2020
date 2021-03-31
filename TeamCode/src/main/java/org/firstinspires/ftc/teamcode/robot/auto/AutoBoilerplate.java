@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
 import org.firstinspires.ftc.teamcode.buttons.ButtonHandler;
@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
 //@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Boilerplate", group = "Production")
-public class AutoBoilerplate extends OpMode {
+public class AutoBoilerplate extends LinearOpMode {
 
     // Devices and subsystems
     private Robot robot = null;
@@ -27,13 +27,14 @@ public class AutoBoilerplate extends OpMode {
     private ButtonHandler buttons;
     private AutoDriver driver = new AutoDriver();
     private NewAuto auto;
+    private boolean done = false;
     // Runtime vars
     private AUTO_STATE state;
     private boolean gameReady = false;
     private Field.AllianceColor color = Field.AllianceColor.BLUE;
     private boolean stopByWall = true;
-    @Override
-    public void init() {
+
+    public void runOpMode() {
         telemetry.addLine("Init…");
         telemetry.update();
 
@@ -51,7 +52,7 @@ public class AutoBoilerplate extends OpMode {
         // Init the camera system
         vuforia.start();
         vuforia.enableCapture();
-        auto = new NewAuto("FL","BL","FR","BR", hardwareMap);
+        auto = new NewAuto("BL","FR", hardwareMap);
 
         // Register buttons
         buttons = new ButtonHandler(robot);
@@ -59,10 +60,6 @@ public class AutoBoilerplate extends OpMode {
         buttons.register("AWAY_FROM_WALL", gamepad1, PAD_BUTTON.dpad_up);
         buttons.register("TOWARDS_WALL", gamepad1, PAD_BUTTON.dpad_down);
 
-    }
-
-    @Override
-    public void init_loop() {
         // Process driver input
         userSettings();
 
@@ -75,10 +72,9 @@ public class AutoBoilerplate extends OpMode {
 
         // Update
         telemetry.update();
-    }
 
-    @Override
-    public void start() {
+        done = false;
+        waitForStart();
         telemetry.clearAll();
 
         // Log if we didn't exit init as expected
@@ -88,15 +84,13 @@ public class AutoBoilerplate extends OpMode {
 
         // Set initial state
         state = AUTO_STATE.values()[0];
-        auto.driveArc(72, 72, 0.3f);
+
         //robot.vuforia.start();
         //robot.vuforia.enableCapture();
-    }
-
-    @Override
-    public void loop() {
 
 
+            auto.driveArc(60, 60, 0.7f);
+            //auto.driveArc(30, -30, 0.3f);
         // Update telemetry
         //telemetry.update();
     }

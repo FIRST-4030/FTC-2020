@@ -38,6 +38,16 @@ public class NewAuto {
         }
     }
 
+    public NewAuto (String l, String r, HardwareMap map){
+        left = new ArrayList<DcMotorEx>();
+        right = new ArrayList<DcMotorEx>();
+        left.add(map.get(DcMotorEx.class, l));
+        right.add(map.get(DcMotorEx.class, r));
+        for (DcMotorEx m:left){
+            //m.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
+    }
+
     public void driveArc(double leftDistance, double rightDistance, float speedScale){
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
