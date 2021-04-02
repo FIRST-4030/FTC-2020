@@ -99,7 +99,8 @@ public class AutoBoilerplate extends LinearOpMode {
             buttons.update();
             if(buttons.get("SELECT_PID")) selectedPid ++;
             if(buttons.get("GO")) {
-                auto.driveArc(60, 60, 0.7f);
+                auto.drive(60, 0.7f);
+                auto.drive(20, 0.7f);
             }
             if(buttons.get("UP")){
                 switch (selectedPid%3){
