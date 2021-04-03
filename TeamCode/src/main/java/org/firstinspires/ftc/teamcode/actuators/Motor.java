@@ -38,7 +38,7 @@ public class Motor implements Available {
         }
         this.telemetry = telemetry;
     }
-
+    public boolean isBusy(){return motor.isBusy();}
     public void setVelocity(double v){
         motor.setVelocity(v);
     }
@@ -100,15 +100,15 @@ public class Motor implements Available {
     }
 
     public void setTarget(int target) {
-        if (!isAvailable()) {
+        /*if (!isAvailable()) {
             return;
         }
         if (!isPositionPID()) {
             stop();
             telemetry.log().add(this.getClass().getSimpleName() + ": Position PID not active");
             return;
-        }
-        motor.setTargetPosition(target - offset);
+        }*/
+        motor.setTargetPosition(target);
     }
 
     public int getTarget() {

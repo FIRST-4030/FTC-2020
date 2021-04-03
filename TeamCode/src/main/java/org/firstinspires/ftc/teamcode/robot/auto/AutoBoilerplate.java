@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
@@ -28,6 +29,9 @@ public class AutoBoilerplate extends LinearOpMode {
     private static final float MAGAZINE_DOWN = 0.85f;
 
     private static final double SHOOTER_SPEED = 2590;
+
+    private static final float WGGripOpen = 0.45f;
+    private static final float WGGripClosed = 0;
 
     // Devices and subsystems
     private Robot robot = null;
@@ -65,6 +69,12 @@ public class AutoBoilerplate extends LinearOpMode {
 
         newPIDF = auto.getPIDFCoefficients();
 
+        robot.wobbleGoalGrip.setPosition(WGGripClosed);
+        sleep(350);
+        robot.wobbleGoalArm.setTarget(1300);
+        while (!robot.wobbleGoalArm.onTarget()){
+            robot.wobbleGoalArm.setPower(1);
+        }
         // Register buttons
         buttons = new ButtonHandler(robot);
         buttons.register("SELECT_PID", gamepad1, PAD_BUTTON.y);
@@ -110,15 +120,31 @@ public class AutoBoilerplate extends LinearOpMode {
                 robot.shooter.setVelocity(SHOOTER_SPEED);
                 sleep(1500);
                 for(int i = 0; i < 3; i++){
-                    robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+                    robot.queue.setPosition(MAGAZINE_DOWN);
                     sleep(200);
+                    robot.queue.setPosition(MAGAZINE_UP);
+                    sleep(500);
+                    robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+                    sleep(350);
                     robot.queueFlipper.setPosition(FLIPPER_IDLE);
-                    sleep(1000);
+                    sleep(1300);
                 }
                 robot.shooter.setVelocity(0);
                 robot.queue.setPosition(MAGAZINE_DOWN);
                 auto.rotate(-98, 0.7f);
                 auto.drive(15, 0.75f);
+//woble goal ;)
+        robot.wobbleGoalArm.setTarget(0);
+        robot.wobbleGoalArm.setPower(1);
+        while (!robot.wobbleGoalArm.onTarget() && opModeIsActive()){
+
+        }
+        robot.wobbleGoalGrip.setPosition(WGGripOpen);
+        sleep(500);
+        robot.wobbleGoalArm.setTarget(1300);
+        robot.wobbleGoalArm.setPower(1);
+        while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());
+
             if(buttons.get("UP")){
                 switch (selectedPid%3){
                     case 0:

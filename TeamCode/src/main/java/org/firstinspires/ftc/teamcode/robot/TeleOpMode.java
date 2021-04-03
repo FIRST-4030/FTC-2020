@@ -23,14 +23,14 @@ public class TeleOpMode extends OpMode {
     private double shooterSpeed = 2590;
 
     //servo constants
-    private static final float WGGripOpen = 0.5f;
+    private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
 
     private static final float MAGAZINE_UP = 0.1f;
     private static final float MAGAZINE_DOWN = 0.85f;
 
     private static final float COLLECT_MID = 0.55f;
-    private static final float COLLECT_FULL = 0.35f;
+    private static final float COLLECT_FULL = 0.32f;
     private static final float COLLECT_NO = 0.75f;
 
 
@@ -139,15 +139,13 @@ public class TeleOpMode extends OpMode {
         }
         //ARM
         if(buttons.get("TOGGLE_ARM")){
-            robot.wobbleGoalArm.setTarget(-1000);
+            robot.wobbleGoalArm.setTarget(-1300);
+            robot.wobbleGoalArm.setPower(1);
         } else {
             robot.wobbleGoalArm.setTarget(0);
+            robot.wobbleGoalArm.setPower(1);
         }
-        if(robot.wobbleGoalArm.onTarget()){
-            robot.wobbleGoalArm.setPower(0);
-        } else {
-            robot.wobbleGoalArm.setPower(0.5f);
-        }
+
         //robot.wobbleGoalArm.setPower(gamepad2.right_stick_y);
 
         //COLLECT SAFEGUARD
