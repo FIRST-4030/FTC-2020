@@ -21,12 +21,18 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Boilerplate", group = "Production")
 public class AutoBoilerplate extends LinearOpMode {
 
+    private static final float FLIPPER_SHOOT = 0.9f;
+    private static final float FLIPPER_IDLE = 0.67f;
+
+    private static final float MAGAZINE_UP = 0.1f;
+    private static final float MAGAZINE_DOWN = 0.85f;
+
+    private static final double SHOOTER_SPEED = 2590;
+
     // Devices and subsystems
     private Robot robot = null;
-    private Common common = null;
     private VuforiaFTC vuforia = null;
     private ButtonHandler buttons;
-    private AutoDriver driver = new AutoDriver();
     private NewAuto auto;
     // Runtime vars
     private AUTO_STATE state;
@@ -43,7 +49,6 @@ public class AutoBoilerplate extends LinearOpMode {
 
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
-        common = robot.common;
         vuforia = robot.vuforia;
 
         // Check robot
@@ -67,9 +72,11 @@ public class AutoBoilerplate extends LinearOpMode {
         buttons.register("UP", gamepad1, PAD_BUTTON.dpad_up);
         buttons.register("DOWN", gamepad1, PAD_BUTTON.dpad_down);
 
+        robot.queue.setPosition(MAGAZINE_DOWN);
+
         // Process driver input
         userSettings();
-        while(!robot.gyro.isReady()) {
+        while(!robot.gyro.isReady() && opModeIsActive()) {
             // Overall ready status
             gameReady = (robot.gyro.isReady());
             telemetry.addLine(gameReady ? "READY" : "NOT READY");
@@ -95,13 +102,23 @@ public class AutoBoilerplate extends LinearOpMode {
         //robot.vuforia.start();
         //robot.vuforia.enableCapture();
 
-        while(opModeIsActive()){
             buttons.update();
             if(buttons.get("SELECT_PID")) selectedPid ++;
-            if(buttons.get("GO")) {
-                auto.drive(60, 0.7f);
-                auto.drive(20, 0.7f);
-            }
+                auto.drive(52, 0.75f);
+                auto.rotate(98, 0.3f);
+                robot.queue.setPosition(MAGAZINE_UP);
+                robot.shooter.setVelocity(SHOOTER_SPEED);
+                sleep(1500);
+                for(int i = 0; i < 3; i++){
+                    robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+                    sleep(200);
+                    robot.queueFlipper.setPosition(FLIPPER_IDLE);
+                    sleep(1000);
+                }
+                robot.shooter.setVelocity(0);
+                robot.queue.setPosition(MAGAZINE_DOWN);
+                auto.rotate(-98, 0.7f);
+                auto.drive(15, 0.75f);
             if(buttons.get("UP")){
                 switch (selectedPid%3){
                     case 0:
@@ -135,10 +152,6 @@ public class AutoBoilerplate extends LinearOpMode {
             telemetry.addData("2 - D", newPIDF.d);
             telemetry.update();
         }
-            //auto.driveArc(30, -30, 0.3f);
-        // Update telemetry
-        //telemetry.update();
-    }
 
     /**
      * Defines the order of the auto routine steps
@@ -197,11 +210,4 @@ public class AutoBoilerplate extends LinearOpMode {
         return (int) (inches * 25.4);
     }
 
-    /**
-     * just does state = state.next()
-     * i don't want to keep writing that out
-     */
-    private void advance() {
-        state = state.next();
-    }
 }

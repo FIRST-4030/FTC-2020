@@ -30,7 +30,7 @@ public class TeleOpMode extends OpMode {
     private static final float MAGAZINE_DOWN = 0.85f;
 
     private static final float COLLECT_MID = 0.55f;
-    private static final float COLLECT_FULL = 0.36f;
+    private static final float COLLECT_FULL = 0.35f;
     private static final float COLLECT_NO = 0.75f;
 
 

@@ -28,7 +28,8 @@ import java.util.ArrayList;
 
 public class NewAuto {
     private static final double TICKS_PER_INCH = 27.27778;
-    private static final double TICKS_PER_DEG = 27.27778;
+    private static final double TICKS_PER_DEG = 10.2;
+    private static final int TOLERANCE = 15;
     public ArrayList<DcMotorEx> right;
     public ArrayList<DcMotorEx> left;
     public BNO055IMU imu;
@@ -64,6 +65,8 @@ public class NewAuto {
         right = new ArrayList<DcMotorEx>();
         left.add(map.get(DcMotorEx.class, l));
         right.add(map.get(DcMotorEx.class, r));
+        left.get(0).setTargetPositionTolerance(TOLERANCE);
+        right.get(0).setTargetPositionTolerance(TOLERANCE);
     }
 
     public void drive(double distance,  float speedScale){
@@ -98,20 +101,22 @@ public class NewAuto {
     public void rotate(double degrees,  float speedScale){
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setTargetPosition((int) (-degrees * TICKS_PER_DEG));
+            m.setTargetPosition((int) (degrees * TICKS_PER_DEG / 2));
             m.setPower(speedScale);
             m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         for (DcMotorEx m:right) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setTargetPosition((int) (degrees * TICKS_PER_DEG));
+            m.setTargetPosition((int) (-degrees * TICKS_PER_DEG / 2));
             m.setPower(speedScale);
             m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         for (DcMotorEx m:right) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         for (DcMotorEx m:left) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         while (left.get(0).isBusy() || right.get(0).isBusy()){
-
+            double correction = (Math.abs(left.get(0).getCurrentPosition()) - Math.abs(right.get(0).getCurrentPosition()));
+            for (DcMotorEx m:right) m.setVelocity(speedScale*1150 + correction*10);
+            for (DcMotorEx m:left) m.setVelocity(speedScale*1150 - correction*10);
         }
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
