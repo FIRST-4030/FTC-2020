@@ -65,8 +65,6 @@ public class NewAuto {
         right = new ArrayList<DcMotorEx>();
         left.add(map.get(DcMotorEx.class, l));
         right.add(map.get(DcMotorEx.class, r));
-        left.get(0).setTargetPositionTolerance(TOLERANCE);
-        right.get(0).setTargetPositionTolerance(TOLERANCE);
     }
 
     public void drive(double distance,  float speedScale){

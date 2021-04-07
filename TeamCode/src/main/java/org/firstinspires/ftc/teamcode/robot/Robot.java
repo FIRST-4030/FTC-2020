@@ -39,7 +39,7 @@ public class Robot {
     // Shared
     public final Gyro gyro;
     public final Wheels wheels;
-    public final VuforiaCurrentGame vuforia;
+    public final VuforiaFTC vuforia;
     public ServoFTC claw;
 
     // Production
@@ -97,7 +97,7 @@ public class Robot {
         this.wheels = wheels.init();
         this.wheels.stop();
         gyro = gyros.init();
-        vuforia = new VuforiaCurrentGame();
+        vuforia = new VuforiaFTC(map, telemetry, bot);
 
         // Bot specific
         switch (bot) {

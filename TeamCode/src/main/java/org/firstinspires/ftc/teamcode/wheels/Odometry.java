@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.wheels;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -22,13 +23,12 @@ public class Odometry {
 
     private HardwareMap hardwareMap;
 
-    private CoordinatePoint coords;
+    private Pose2d coords;
 
     // Constructors
     public Odometry (HardwareMap map, int startX, int startY, String left, String right){
         leftEncoder = map.dcMotor.get(left);
         rightEncoder = map.dcMotor.get(right);
-        coords = new CoordinatePoint (startX, startY);
     }
     public Odometry (HardwareMap map, int startX, int startY, String left, String right, String mid){
         this(map, startX, startY, left, right);
@@ -36,7 +36,7 @@ public class Odometry {
     }
 
     // Loop
-    public void UpdatePosition (){
+    public void update (){
         // DO MATHY STUFF
         //Temp vars for easy reference
         int l = leftEncoder.getCurrentPosition();
@@ -54,7 +54,7 @@ public class Odometry {
         lm = m;
     }
 
-    public CoordinatePoint getPosition (){
+    public Pose2d getPosition (){
         return coords;
     }
 
