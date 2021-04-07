@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaCurrentGame;
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
 import org.firstinspires.ftc.teamcode.buttons.ButtonHandler;
 import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.utils.Round;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
 //@Disabled
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Boilerplate", group = "Production")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto", group = "Production")
 public class AutoBoilerplate extends LinearOpMode {
 
     private static final float FLIPPER_SHOOT = 0.9f;
@@ -35,7 +36,7 @@ public class AutoBoilerplate extends LinearOpMode {
 
     // Devices and subsystems
     private Robot robot = null;
-    private VuforiaFTC vuforia = null;
+    private VuforiaCurrentGame vuforia = null;
     private ButtonHandler buttons;
     private NewAuto auto;
     // Runtime vars
@@ -62,8 +63,8 @@ public class AutoBoilerplate extends LinearOpMode {
         }
 
         // Init the camera system
-        vuforia.start();
-        vuforia.enableCapture();
+        //vuforia.start();
+        //vuforia.enableCapture();
 
         auto = new NewAuto("BL","FR", hardwareMap);
 
@@ -136,15 +137,13 @@ public class AutoBoilerplate extends LinearOpMode {
 //woble goal ;)
         robot.wobbleGoalArm.setTarget(0);
         robot.wobbleGoalArm.setPower(1);
-        while (!robot.wobbleGoalArm.onTarget() && opModeIsActive()){
-
-        }
+        while (!robot.wobbleGoalArm.onTarget() && opModeIsActive());
         robot.wobbleGoalGrip.setPosition(WGGripOpen);
         sleep(500);
         robot.wobbleGoalArm.setTarget(1300);
         robot.wobbleGoalArm.setPower(1);
         while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());
-
+/*
             if(buttons.get("UP")){
                 switch (selectedPid%3){
                     case 0:
@@ -157,7 +156,8 @@ public class AutoBoilerplate extends LinearOpMode {
                         newPIDF.d += 0.01;
                         break;
                 }
-            }
+
+
 
             if(buttons.get("DOWN")){
                 switch (selectedPid%3){
@@ -177,6 +177,8 @@ public class AutoBoilerplate extends LinearOpMode {
             telemetry.addData("1 - I", newPIDF.i);
             telemetry.addData("2 - D", newPIDF.d);
             telemetry.update();
+
+ */
         }
 
     /**

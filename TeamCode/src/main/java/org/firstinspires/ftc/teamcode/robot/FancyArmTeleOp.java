@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.buttons.ButtonHandler;
 import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.utils.RateLimit;
-
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp - Fancy Arm", group = "Arm")
 public class FancyArmTeleOp extends OpMode {
 

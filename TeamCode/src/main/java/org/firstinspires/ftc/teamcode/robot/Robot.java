@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaCurrentGame;
 import org.firstinspires.ftc.teamcode.actuators.Motor;
 import org.firstinspires.ftc.teamcode.actuators.ServoFTC;
 import org.firstinspires.ftc.teamcode.config.BOT;
@@ -38,7 +39,7 @@ public class Robot {
     // Shared
     public final Gyro gyro;
     public final Wheels wheels;
-    public final VuforiaFTC vuforia;
+    public final VuforiaCurrentGame vuforia;
     public ServoFTC claw;
 
     // Production
@@ -96,7 +97,7 @@ public class Robot {
         this.wheels = wheels.init();
         this.wheels.stop();
         gyro = gyros.init();
-        vuforia = new VuforiaFTC(map, telemetry, bot);
+        vuforia = new VuforiaCurrentGame();
 
         // Bot specific
         switch (bot) {
