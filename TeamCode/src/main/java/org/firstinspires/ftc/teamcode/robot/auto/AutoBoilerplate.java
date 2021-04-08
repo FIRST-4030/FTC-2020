@@ -33,10 +33,11 @@ public class AutoBoilerplate extends LinearOpMode {
 
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
+    private int depot;
 
     // Devices and subsystems
     private Robot robot = null;
-    private VuforiaCurrentGame vuforia = null;
+    private VuforiaFTC vuforia = null;
     private ButtonHandler buttons;
     private NewAuto auto;
     // Runtime vars
@@ -101,7 +102,7 @@ public class AutoBoilerplate extends LinearOpMode {
 
         waitForStart();
         telemetry.clearAll();
-
+        depot = 0;
         // Log if we didn't exit init as expected
         if (!gameReady) {
             telemetry.log().add("! STARTED BEFORE READY !");
@@ -113,33 +114,62 @@ public class AutoBoilerplate extends LinearOpMode {
         //robot.vuforia.start();
         //robot.vuforia.enableCapture();
 
-            buttons.update();
-            if(buttons.get("SELECT_PID")) selectedPid ++;
-                auto.drive(52, 0.75f);
-                auto.rotate(98, 0.3f);
-                robot.queue.setPosition(MAGAZINE_UP);
-                robot.shooter.setVelocity(SHOOTER_SPEED);
-                sleep(1500);
-                for(int i = 0; i < 3; i++){
-                    robot.queue.setPosition(MAGAZINE_DOWN);
-                    sleep(200);
-                    robot.queue.setPosition(MAGAZINE_UP);
-                    sleep(500);
-                    robot.queueFlipper.setPosition(FLIPPER_SHOOT);
-                    sleep(350);
-                    robot.queueFlipper.setPosition(FLIPPER_IDLE);
-                    sleep(1300);
-                }
-                robot.shooter.setVelocity(0);
-                robot.queue.setPosition(MAGAZINE_DOWN);
-                auto.rotate(-98, 0.7f);
-                auto.drive(15, 0.75f);
-//woble goal ;)
+        buttons.update();
+        if(buttons.get("SELECT_PID")) selectedPid ++;
+        auto.drive(52, 0.75f);
+        auto.rotate(90, 0.3f);
+        robot.queue.setPosition(MAGAZINE_UP);
+        robot.shooter.setVelocity(SHOOTER_SPEED);
+        sleep(1500);
+        for(int i = 0; i < 3; i++){
+            robot.queue.setPosition(MAGAZINE_DOWN);
+            sleep(20);
+            robot.queue.setPosition(MAGAZINE_UP);
+            sleep(50);
+            robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+            sleep(350);
+            robot.queueFlipper.setPosition(FLIPPER_IDLE);
+            sleep(1300);
+        }
+        robot.shooter.setVelocity(0);
+        robot.queue.setPosition(MAGAZINE_DOWN);
+
         robot.wobbleGoalArm.setTarget(0);
         robot.wobbleGoalArm.setPower(1);
+        switch(depot){
+            case 0:
+                auto.rotate(-130, 1);
+                auto.drive(10, 1);
+                break;
+            case 1:
+                auto.rotate(-85, 1);
+                auto.drive(24, 1);
+                break;
+            case 2:
+                auto.rotate(-110, 1);
+                auto.drive(48, 1);
+                break;
+        }
+//woble goal ;)
+
         while (!robot.wobbleGoalArm.onTarget() && opModeIsActive());
         robot.wobbleGoalGrip.setPosition(WGGripOpen);
         sleep(500);
+
+        switch(depot){
+            case 0:
+                auto.drive(-10, 1);
+                auto.rotate(70, 1);
+                auto.drive(28, 1);
+                break;
+            case 1:
+                auto.drive(-14, 1);
+                break;
+            case 2:
+                auto.drive(-38, 1);
+                break;
+        }
+
         robot.wobbleGoalArm.setTarget(1300);
         robot.wobbleGoalArm.setPower(1);
         while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());

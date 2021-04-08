@@ -157,6 +157,12 @@ public class NewAuto {
         for (DcMotorEx m:right) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, newPID);
         for (DcMotorEx m:left) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, newPID);
     }
+
+    public void setPIDFCoefficients(PIDFCoefficients PIDF){
+        for (DcMotorEx m:right) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, PIDF);
+        for (DcMotorEx m:left) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, PIDF);
+    }
+
     public PIDFCoefficients getPIDFCoefficients(){
         return left.get(0).getPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION);
     }
