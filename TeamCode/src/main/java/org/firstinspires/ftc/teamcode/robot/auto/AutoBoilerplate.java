@@ -23,8 +23,8 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto", group = "Production")
 public class AutoBoilerplate extends LinearOpMode {
 
-    private static final float FLIPPER_SHOOT = 0.9f;
-    private static final float FLIPPER_IDLE = 0.67f;
+    private static final float FLIPPER_SHOOT = 0.85f;
+    private static final float FLIPPER_IDLE = 0.62f;
 
     private static final float MAGAZINE_UP = 0.1f;
     private static final float MAGAZINE_DOWN = 0.85f;
@@ -34,6 +34,7 @@ public class AutoBoilerplate extends LinearOpMode {
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
     private int depot;
+    private RingStackTF ringDetector;
 
     // Devices and subsystems
     private Robot robot = null;
@@ -52,6 +53,7 @@ public class AutoBoilerplate extends LinearOpMode {
     public void runOpMode() {
         telemetry.addLine("Init…");
         telemetry.update();
+        ringDetector = new RingStackTF(hardwareMap, telemetry);
 
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
@@ -102,7 +104,9 @@ public class AutoBoilerplate extends LinearOpMode {
 
         waitForStart();
         telemetry.clearAll();
-        depot = 0;
+        depot = ringDetector.getDepot();
+        telemetry.addLine("Depot " + depot);
+        telemetry.update();
         // Log if we didn't exit init as expected
         if (!gameReady) {
             telemetry.log().add("! STARTED BEFORE READY !");

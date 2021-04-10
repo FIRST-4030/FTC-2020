@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.TwoWheelTrackingLocalizer;
+import org.firstinspires.ftc.teamcode.robot.auto.RingStackTF;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
 
@@ -19,6 +20,9 @@ public class TeleOpMode extends OpMode {
     private Robot robot = null;
     private ButtonHandler buttons;
     private TwoWheelTrackingLocalizer odometry;
+    private RingStackTF ringDetector;
+    public int depot;
+
     private boolean controlLocked;
     private double shooterSpeed = 2590;
 
@@ -34,8 +38,8 @@ public class TeleOpMode extends OpMode {
     private static final float COLLECT_NO = 0.75f;
 
 
-    private static final float FLIPPER_SHOOT = 0.9f;
-    private static final float FLIPPER_IDLE = 0.67f;
+    private static final float FLIPPER_SHOOT = 0.85f;
+    private static final float FLIPPER_IDLE = 0.62f;
 
     private static final float ARM_POS_OUT = 1;
 
@@ -47,6 +51,7 @@ public class TeleOpMode extends OpMode {
 
     @Override
     public void init() {
+        ringDetector = new RingStackTF(hardwareMap, telemetry);
         controlLocked = false;
         // Placate drivers
         telemetry.addData(">", "NOT READY");
@@ -90,6 +95,9 @@ public class TeleOpMode extends OpMode {
 
     @Override
     public void init_loop() {
+        depot = ringDetector.getDepot();
+        telemetry.addData("Depot ", depot);
+        telemetry.update();
     }
 
     @Override
