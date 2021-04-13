@@ -37,7 +37,7 @@ public class TensorFlow3 extends LinearOpMode {
         // Initialize Vuforia.
         vuforiaUltimateGoal.initialize(
                 "", // vuforiaLicenseKey
-                hardwareMap.get(WebcamName.class, "Webcam 1"), // cameraName
+                hardwareMap.get(WebcamName.class, "Camera Front"), // cameraName
                 "", // webcamCalibrationFilename
                 false, // useExtendedTracking
                 false, // enableCameraMonitoring
