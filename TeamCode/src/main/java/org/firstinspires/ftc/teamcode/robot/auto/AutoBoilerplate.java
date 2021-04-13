@@ -103,6 +103,8 @@ public class AutoBoilerplate extends LinearOpMode {
         }
 
         waitForStart();
+
+        // STUFF STARTS HAPPENING
         telemetry.clearAll();
         depot = ringDetector.getDepot();
         telemetry.addLine("Depot " + depot);
@@ -112,16 +114,13 @@ public class AutoBoilerplate extends LinearOpMode {
             telemetry.log().add("! STARTED BEFORE READY !");
         }
 
-        // Set initial state
-        state = AUTO_STATE.values()[0];
-
         //robot.vuforia.start();
         //robot.vuforia.enableCapture();
 
-        buttons.update();
-        if(buttons.get("SELECT_PID")) selectedPid ++;
         auto.drive(52, 0.75f);
+
         auto.rotate(90, 0.3f);
+
         robot.queue.setPosition(MAGAZINE_UP);
         robot.shooter.setVelocity(SHOOTER_SPEED);
         sleep(1500);
@@ -159,6 +158,8 @@ public class AutoBoilerplate extends LinearOpMode {
         while (!robot.wobbleGoalArm.onTarget() && opModeIsActive());
         robot.wobbleGoalGrip.setPosition(WGGripOpen);
         sleep(500);
+        robot.wobbleGoalArm.setTarget(1300);
+        robot.wobbleGoalArm.setPower(1);
 
         switch(depot){
             case 0:
@@ -174,45 +175,8 @@ public class AutoBoilerplate extends LinearOpMode {
                 break;
         }
 
-        robot.wobbleGoalArm.setTarget(1300);
-        robot.wobbleGoalArm.setPower(1);
         while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());
-/*
-            if(buttons.get("UP")){
-                switch (selectedPid%3){
-                    case 0:
-                        newPIDF.p += 0.01;
-                        break;
-                    case 1:
-                        newPIDF.i += 0.01;
-                        break;
-                    case 2:
-                        newPIDF.d += 0.01;
-                        break;
-                }
 
-
-
-            if(buttons.get("DOWN")){
-                switch (selectedPid%3){
-                    case 0:
-                        newPIDF.p -= 0.01;
-                        break;
-                    case 1:
-                        newPIDF.i -= 0.01;
-                        break;
-                    case 2:
-                        newPIDF.d -= 0.01;
-                        break;
-                }
-            }
-            telemetry.addData("Selected", selectedPid);
-            telemetry.addData("0 - P", newPIDF.p);
-            telemetry.addData("1 - I", newPIDF.i);
-            telemetry.addData("2 - D", newPIDF.d);
-            telemetry.update();
-
- */
         }
 
     /**

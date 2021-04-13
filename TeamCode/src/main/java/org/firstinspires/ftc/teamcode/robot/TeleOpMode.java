@@ -219,8 +219,6 @@ public class TeleOpMode extends OpMode {
             //controlLocked = true;
         } else {
             if(buttons.held("SHOOT") && robot.shooter.getVelocity() >= 2580 && robot.shooter.getVelocity() <= 2600) robot.queueFlipper.setPosition(FLIPPER_SHOOT);
-
-
             else robot.queueFlipper.setPosition(FLIPPER_IDLE);
         }
     }

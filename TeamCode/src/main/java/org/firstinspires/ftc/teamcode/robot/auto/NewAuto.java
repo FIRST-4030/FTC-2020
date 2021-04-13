@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class NewAuto {
     private static final double TICKS_PER_INCH = 27.27778;
     private static final double TICKS_PER_DEG = 10.2;
+
     private static final int TOLERANCE = 15;
     public ArrayList<DcMotorEx> right;
     public ArrayList<DcMotorEx> left;
