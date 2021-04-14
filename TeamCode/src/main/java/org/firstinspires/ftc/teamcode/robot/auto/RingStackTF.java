@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot.auto;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import java.util.List;
-
+import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaCurrentGame;
@@ -15,17 +15,19 @@ public class RingStackTF {
     private VuforiaCurrentGame vuforiaUltimateGoal;
     private TfodCurrentGame tfodUltimateGoal;
 
+    String cameraOrientation;
+    String zone;
     Recognition recognition;
-
     List<Recognition> recognitions;
     double recLength;
     double index;
 
+    private HardwareMap map;
+    Telemetry telemetry;
+
     /**
      * This function is executed when this Op Mode is selected from the Driver Station.
      */
-    private HardwareMap map;
-    Telemetry telemetry;
 
     public RingStackTF(HardwareMap m, Telemetry telem) {
 
@@ -50,63 +52,100 @@ public class RingStackTF {
                 0, // yAngle
                 0, // zAngle
                 true); // useCompetitionFieldTargetLocations
-        // Set min confidence threshold to 0.7
-        tfodUltimateGoal.initialize(vuforiaUltimateGoal, 0.7F, true, true);
+        // Template Default: Minimum Confidence=0.7
+        tfodUltimateGoal.initialize(vuforiaUltimateGoal, 0.5F, true, true);
         // Initialize TFOD before waitForStart.
         // Init TFOD here so the object detection labels are visible
         // in the Camera Stream preview window on the Driver Station.
         tfodUltimateGoal.activate();
         // Enable following block to zoom in on target.
-        tfodUltimateGoal.setZoom(1.5, 16 / 9);
+        // Template Default: Magnification=2.5
+        // Template Default: Aspect Ratio=16/9
+        tfodUltimateGoal.setZoom(1.1, 16 / 12);
+        // Define how the camera is oriented
+        cameraOrientation = "Vertical";
+        // Display the label and index number for the recognition.
+        telemetry.addData("Camera Orientation", cameraOrientation);
+        telemetry.addData(">", "Press Play to start");
+        telemetry.update();
     }
 
     // Wait for start command from Driver Station.
-    public int getDepot() {
+    public int getTargetZone() {
         // Get a list of recognitions from TFOD.
         recognitions = tfodUltimateGoal.getRecognitions();
+        // Put run blocks here.
         // Put loop blocks here.
+        recLength = recognitions.size();
         // If list is empty, inform the user. Otherwise, go
         // through list and display info for each recognition.
         if (recognitions.size() == 0) {
-            return 0;
+            telemetry.addData("Target Zone", "A");
+            zone = "A";
         } else {
             index = 0;
             // Iterate through list and call a function to
             // display info for each recognized object.
-            for (Recognition recognition_item : recognitions) {
-                recognition = recognition_item;
+            for (Recognition recognition : recognitions) {
                 // Display info.
-                telemetry.addData("label " + index, recognition.getLabel());
-                if (recognition.getWidth() > 90) {
-                    return 2;
-                } else if (recognition.getWidth() < 60) {
-                    return 1;
-                } else {
-                    telemetry.addData("Target Zone", "Unknown");
-                }
+                displayInfo(index);
                 // Increment index.
                 index = index + 1;
             }
-            return 3;
+            telemetry.addData("Target Zone", zone);
+
         }
+        telemetry.update();
+        // Deactivate TFOD.
+        tfodUltimateGoal.deactivate();
 
+        vuforiaUltimateGoal.close();
+        tfodUltimateGoal.close();
+        switch(zone) {
+            case "A":
+                return 0;
+            case "B":
+                return 1;
+            case "C":
+                return 2;
+        }
+        return 3;
     }
-
-
 
     /**
      * Display info (using telemetry) for a recognized object.
      */
     private void displayInfo(double i) {
-        // Display label info.
-        // Display the label and index number for the recognition.
-        telemetry.addData("label " + i, recognition.getLabel());
-        if (recognition.getWidth() > 90) {
-            telemetry.addData("Target Zone", "C");
-        } else if (recognition.getWidth() < 60) {
-            telemetry.addData("Target Zone", "B");
+        // Display node info.
+        telemetry.update();
+        // Display the location of the top left corner
+        // of the detection boundary for the recognition
+        telemetry.addData("Width, Height Node ", Double.parseDouble(JavaUtil.formatNumber(recognition.getWidth(), 1)) + ", " + Double.parseDouble(JavaUtil.formatNumber(recognition.getHeight(), 1)));
+        if (cameraOrientation.equals("Vertical")) {
+            if (recognition.getWidth() > 95) {
+                zone = "C";
+            } else if (recognition.getWidth() < 65) {
+                zone = "B";
+            } else {
+                zone = "Unknown";
+            }
+        } else if (cameraOrientation.equals("Horizontal")) {
+            if (recognition.getHeight() > 95) {
+                zone = "C";
+            } else if (recognition.getHeight() < 60) {
+                zone = "B";
+            } else {
+                zone = "Unknown";
+            }
         } else {
-            telemetry.addData("Target Zone", "Unknown");
+            // Parse rings based upon label
+            if (recognition.getLabel().equals("Single")) {
+                zone = "B";
+            } else if (recognition.getLabel().equals("Quad")) {
+                zone = "C";
+            } else {
+                zone = "Unknown";
+            }
         }
     }
 }
