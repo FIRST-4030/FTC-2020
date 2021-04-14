@@ -27,28 +27,33 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 import java.util.ArrayList;
 
 public class NewAuto {
+    private static final double P = 25.0;
+    private static final double I = 0.4;
+    private static final double D = 0;
+    private static final double F = 20;
+
+
     private static final double TICKS_PER_INCH = 27.27778;
     private static final double TICKS_PER_DEG = 10.2;
 
-    private static final int TOLERANCE = 15;
+    private static final int TOLERANCE = 10;
     public ArrayList<DcMotorEx> right;
     public ArrayList<DcMotorEx> left;
     public BNO055IMU imu;
     private Orientation lastAngles = new Orientation();
 
     private void init(HardwareMap map){
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-
-        parameters.mode                = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled      = false;
-        imu = map.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        PIDFCoefficients pidf = new PIDFCoefficients();
+        pidf.p = P;
+        pidf.i = I;
+        pidf.d = D;
+        pidf.f = F;
+        this.setPIDFCoefficients(pidf);
+        left.get(0).setTargetPositionTolerance(TOLERANCE);
     }
 
     public NewAuto (String l1, String l2, String r1, String r2, HardwareMap map){
-       // init(map);
+
         left = new ArrayList<DcMotorEx>();
         right = new ArrayList<DcMotorEx>();
         left.add(map.get(DcMotorEx.class, l1));
@@ -58,14 +63,18 @@ public class NewAuto {
         for (DcMotorEx m:left){
             //m.setDirection(DcMotorSimple.Direction.REVERSE);
         }
+        init(map);
     }
 
     public NewAuto (String l, String r, HardwareMap map){
-      //  init(map);
+
+
+
         left = new ArrayList<DcMotorEx>();
         right = new ArrayList<DcMotorEx>();
         left.add(map.get(DcMotorEx.class, l));
         right.add(map.get(DcMotorEx.class, r));
+        init(map);
     }
 
     public void drive(double distance,  float speedScale){
@@ -85,8 +94,8 @@ public class NewAuto {
         for (DcMotorEx m:left) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         while (left.get(0).isBusy() || right.get(0).isBusy()){
             double correction = (left.get(0).getCurrentPosition() - right.get(0).getCurrentPosition());
-            for (DcMotorEx m:right) m.setVelocity(speedScale*1150 + correction*5);
-            for (DcMotorEx m:left) m.setVelocity(speedScale*1150 - correction*5);
+            for (DcMotorEx m:right) m.setVelocity(speedScale*1150 + correction*10);
+            for (DcMotorEx m:left) m.setVelocity(speedScale*1150 - correction*10);
         }
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -154,17 +163,21 @@ public class NewAuto {
     }
 
     public void setPIDFCoefficients(double p, double i, double d){
-        PIDFCoefficients newPID = new PIDFCoefficients(p, i, d, left.get(0).getPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION).f);
+        PIDFCoefficients newPID = new PIDFCoefficients(p, i, d, left.get(0).getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER).f);
         for (DcMotorEx m:right) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, newPID);
         for (DcMotorEx m:left) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, newPID);
     }
 
     public void setPIDFCoefficients(PIDFCoefficients PIDF){
-        for (DcMotorEx m:right) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, PIDF);
-        for (DcMotorEx m:left) m.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, PIDF);
+        for (DcMotorEx m:right) m.setVelocityPIDFCoefficients(PIDF.p, PIDF.i, PIDF.d, PIDF.f);
+        for (DcMotorEx m:left) m.setVelocityPIDFCoefficients(PIDF.p, PIDF.i, PIDF.d, PIDF.f);
+    }
+    public void setTolerance(int tolerance){
+        for (DcMotorEx m:right) m.setTargetPositionTolerance(TOLERANCE);
+        for (DcMotorEx m:left) m.setTargetPositionTolerance(TOLERANCE);
     }
 
     public PIDFCoefficients getPIDFCoefficients(){
-        return left.get(0).getPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION);
+        return left.get(0).getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }

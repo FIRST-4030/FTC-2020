@@ -89,11 +89,11 @@ public class PidTuner extends LinearOpMode {
             buttons.update();
             if (buttons.get("SELECT_PID")) selectedPid++;
 
-            if (buttons.get("INC_DOWN")) increment *= 0.1;
-            if (buttons.get("INC_UP")) increment *= 10;
+            if (buttons.get("INC_DOWN")) increment *= 10;
+            if (buttons.get("INC_UP")) increment *= 0.1;
 
             if (buttons.get("UP")) {
-                switch (selectedPid % 3) {
+                switch (selectedPid % 4) {
                     case 0:
                         newPIDF.p += increment;
                         break;
@@ -103,13 +103,16 @@ public class PidTuner extends LinearOpMode {
                     case 2:
                         newPIDF.d += increment;
                         break;
+                    case 3:
+                        newPIDF.f += increment;
+                        break;
                 }
                 auto.setPIDFCoefficients(newPIDF);
             }
 
 
             if (buttons.get("DOWN")) {
-                switch (selectedPid % 3) {
+                switch (selectedPid % 4) {
                     case 0:
                         newPIDF.p -= increment;
                         break;
@@ -119,15 +122,19 @@ public class PidTuner extends LinearOpMode {
                     case 2:
                         newPIDF.d -= increment;
                         break;
+                    case 3:
+                        newPIDF.f -= increment;
+                        break;
                 }
                 auto.setPIDFCoefficients(newPIDF);
             }
-            if(buttons.get("GO")) auto.drive(48, 0.7f);
-            telemetry.addData("Selected", selectedPid%3);
+            if(buttons.get("GO")) auto.drive(48, 1.0f);
+            telemetry.addData("Selected", selectedPid%4);
             telemetry.addData("Increment", increment);
             telemetry.addData("0 - P", newPIDF.p);
             telemetry.addData("1 - I", newPIDF.i);
             telemetry.addData("2 - D", newPIDF.d);
+            telemetry.addData("3 - F", newPIDF.f);
             telemetry.update();
 
 

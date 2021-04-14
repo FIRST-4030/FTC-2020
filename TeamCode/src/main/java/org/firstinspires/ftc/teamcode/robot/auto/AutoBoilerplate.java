@@ -106,7 +106,7 @@ public class AutoBoilerplate extends LinearOpMode {
 
         // STUFF STARTS HAPPENING
         telemetry.clearAll();
-        depot = ringDetector.getDepot();
+        depot = ringDetector.getTargetZone();
         telemetry.addLine("Depot " + depot);
         telemetry.update();
         // Log if we didn't exit init as expected

@@ -30,7 +30,6 @@ public class RingStackTF {
      */
 
     public RingStackTF(HardwareMap m, Telemetry telem) {
-
         telemetry = telem;
         map = m;
         vuforiaUltimateGoal = new VuforiaCurrentGame();
