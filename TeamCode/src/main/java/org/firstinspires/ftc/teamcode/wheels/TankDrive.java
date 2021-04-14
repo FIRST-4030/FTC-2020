@@ -11,7 +11,7 @@ public class TankDrive implements Wheels {
     private static final boolean DEBUG = false;
     private static final float JOYSTICK_DEADZONE = 0.1f;
     private static final float SPEED_DEADZONE = JOYSTICK_DEADZONE * 0.85f;
-    private static final int JOYSTICK_EXPONENT = 3;
+    private static final int JOYSTICK_EXPONENT = 2;
     //public static final MOTOR_SIDE DEFAULT_ENCODER_SIDE = MOTOR_SIDE.RIGHT;
     //public static final MOTOR_END DEFAULT_ENCODER_END = MOTOR_END.FRONT;
 

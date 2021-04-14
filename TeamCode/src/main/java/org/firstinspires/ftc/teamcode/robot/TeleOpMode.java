@@ -20,8 +20,6 @@ public class TeleOpMode extends OpMode {
     private Robot robot = null;
     private ButtonHandler buttons;
     private TwoWheelTrackingLocalizer odometry;
-    private RingStackTF ringDetector;
-    public int depot;
 
     private boolean controlLocked;
     private double shooterSpeed = 2590;
@@ -51,7 +49,7 @@ public class TeleOpMode extends OpMode {
 
     @Override
     public void init() {
-        ringDetector = new RingStackTF(hardwareMap, telemetry);
+
         controlLocked = false;
         // Placate drivers
         telemetry.addData(">", "NOT READY");
@@ -95,9 +93,7 @@ public class TeleOpMode extends OpMode {
 
     @Override
     public void init_loop() {
-        depot = ringDetector.getDepot();
-        telemetry.addData("Depot ", depot);
-        telemetry.update();
+
     }
 
     @Override

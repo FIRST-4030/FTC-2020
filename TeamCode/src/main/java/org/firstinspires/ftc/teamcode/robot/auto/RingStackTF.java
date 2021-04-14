@@ -38,7 +38,7 @@ public class RingStackTF {
         // Initialize Vuforia.
         vuforiaUltimateGoal.initialize(
                 "", // vuforiaLicenseKey
-                map.get(WebcamName.class, "Camera Front"), // cameraName
+                map.get(WebcamName.class, "Logi"), // cameraName
                 "", // webcamCalibrationFilename
                 false, // useExtendedTracking
                 false, // enableCameraMonitoring
