@@ -206,7 +206,7 @@ public class TeleOpMode extends OpMode {
 
         if (buttons.get("SHOOTER_SPEED_UP")) {
             shooterSpeed += 10;
-            shooterSpeed = Math.min(3000, shooterSpeed);
+            shooterSpeed = Math.min(6000, shooterSpeed);
         } else if (buttons.get("SHOOTER_SPEED_DOWN")) {
             shooterSpeed -= 10;
             shooterSpeed = Math.max(0, shooterSpeed);
