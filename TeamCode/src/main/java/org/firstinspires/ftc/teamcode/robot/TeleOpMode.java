@@ -28,8 +28,8 @@ public class TeleOpMode extends OpMode {
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
 
-    private static final float MAGAZINE_UP = 0.1f;
-    private static final float MAGAZINE_DOWN = 0.85f;
+    private static final float MAGAZINE_UP = 0.03f;
+    private static final float MAGAZINE_DOWN = 0.99f;
 
     private static final float COLLECT_MID = 0.55f;
     private static final float COLLECT_FULL = 0.32f;
