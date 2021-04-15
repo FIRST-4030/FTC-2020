@@ -22,7 +22,7 @@ public class TeleOpMode extends OpMode {
     private TwoWheelTrackingLocalizer odometry;
 
     private boolean controlLocked;
-    private double shooterSpeed = 1910;
+    private double shooterSpeed = 1830;
 
     //servo constants
     private static final float WGGripOpen = 0.45f;
@@ -205,11 +205,9 @@ public class TeleOpMode extends OpMode {
         }
 
         if (buttons.get("SHOOTER_SPEED_UP")) {
-            shooterSpeed += 10;
-            shooterSpeed = Math.min(2000, shooterSpeed);
+            shooterSpeed = 1830;
         } else if (buttons.get("SHOOTER_SPEED_DOWN")) {
-            shooterSpeed -= 10;
-            shooterSpeed = Math.max(0, shooterSpeed);
+            shooterSpeed = 1600;
         }
         if (buttons.held("MANUAL_SHOOT") && buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
