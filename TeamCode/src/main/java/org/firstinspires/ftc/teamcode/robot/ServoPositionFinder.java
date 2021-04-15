@@ -95,7 +95,7 @@ public class ServoPositionFinder extends OpMode {
             servoPos -= INCREMENT;
             servoPos = Math.max(0.0f, servoPos);
         }
-        robot.queue.setPosition(servoPos);
+        robot.wobbleGoalArm.setPosition(servoPos);
     }
 
 

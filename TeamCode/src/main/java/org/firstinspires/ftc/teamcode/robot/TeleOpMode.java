@@ -41,8 +41,8 @@ public class TeleOpMode extends OpMode {
 
     private static final float ARM_POS_OUT = 1;
 
-    private static final float ARM_IN = 0.5f;
-    private static final float ARM_OUT = 0.5f;
+    private static final float ARM_IN = 0.9f;
+    private static final float ARM_OUT = 0.2f;
 
     // other consts
     private static final float NORMAL_SPEED = 1.0f;
@@ -198,7 +198,7 @@ public class TeleOpMode extends OpMode {
 
         if (buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queue.setPosition(MAGAZINE_UP);
-            robot.shooter.setVelocity(shooterSpeed);
+            robot.shooter.setVelocity(-shooterSpeed);
         } else {
             robot.queue.setPosition(MAGAZINE_DOWN);
             robot.shooter.setVelocity(0);
