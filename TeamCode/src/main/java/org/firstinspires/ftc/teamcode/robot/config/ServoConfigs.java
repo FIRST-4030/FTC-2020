@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.robot.config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.actuators.MotorConfig;
 import org.firstinspires.ftc.teamcode.actuators.ServoFTC;
 import org.firstinspires.ftc.teamcode.actuators.ServoConfig;
 import org.firstinspires.ftc.teamcode.robot.SERVOS;
@@ -44,7 +45,9 @@ public class ServoConfigs extends Configs {
                         break;
                     case QUEUE_FLIPPER:
                         config = new ServoConfig("Flipper", false, 0.0f, 1.0f);
-
+                        break;
+                    case WOBBLE_GOAL_ARM:
+                        config = new ServoConfig("Wobble Goal Arm", false, 0.0f, 1.0f);
 
                 }
                 break;

@@ -41,9 +41,6 @@ public class MotorConfigs extends Configs {
                         break;
                     case COLLECTOR_FRONT:
                         config = new MotorConfig("Front Collector", true, true);
-                        break;
-                    case WOBBLE_GOAL_ARM:
-                        config = new MotorConfig("Wobble Goal Arm", true, true);
                 }
                 break;
         }

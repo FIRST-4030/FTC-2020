@@ -46,8 +46,8 @@ public class Robot {
 
     public Motor collectorBack;
     public Motor collectorFront;
-    public Motor wobbleGoalArm;
     public Motor shooter;
+    public ServoFTC wobbleGoalArm;
     public ServoFTC backRaiseLower;
     public ServoFTC frontRaiseLower;
     public ServoFTC queue;
@@ -102,7 +102,7 @@ public class Robot {
         // Bot specific
         switch (bot) {
             case PRODUCTION:
-                wobbleGoalArm = motors.init(MOTORS.WOBBLE_GOAL_ARM);
+                wobbleGoalArm = servos.init(SERVOS.WOBBLE_GOAL_ARM);
                 wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
                 queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
                 collectorBack = motors.init(MOTORS.COLLECTOR_BACK);
@@ -112,7 +112,6 @@ public class Robot {
                 shooter = motors.init(MOTORS.SHOOTER);
                 queue = servos.init(SERVOS.QUEUE);
                 shooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-                wobbleGoalArm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
 
             case ARM:
