@@ -41,8 +41,8 @@ public class TeleOpMode extends OpMode {
 
     private static final float ARM_POS_OUT = 1;
 
-    private static final float ARM_IN = 0;
-    private static final float ARM_OUT = 0;
+    private static final float ARM_IN = 0.5f;
+    private static final float ARM_OUT = 0.5f;
 
     // other consts
     private static final float NORMAL_SPEED = 1.0f;
