@@ -22,7 +22,7 @@ public class TeleOpMode extends OpMode {
     private TwoWheelTrackingLocalizer odometry;
 
     private boolean controlLocked;
-    private double shooterSpeed = 2590;
+    private double shooterSpeed = 5733;
 
     //servo constants
     private static final float WGGripOpen = 0.45f;

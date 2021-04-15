@@ -57,6 +57,7 @@ public class PidTuner extends LinearOpMode {
         buttons = new ButtonHandler(robot);
         buttons.register("SELECT_PID", gamepad1, PAD_BUTTON.y);
         buttons.register("GO", gamepad1, PAD_BUTTON.a);
+        buttons.register("TURN", gamepad1, PAD_BUTTON.x);
         buttons.register("UP", gamepad1, PAD_BUTTON.dpad_up);
         buttons.register("DOWN", gamepad1, PAD_BUTTON.dpad_down);
         buttons.register("INC_DOWN", gamepad1, PAD_BUTTON.dpad_left);
@@ -129,6 +130,7 @@ public class PidTuner extends LinearOpMode {
                 auto.setPIDFCoefficients(newPIDF);
             }
             if(buttons.get("GO")) auto.drive(48, 1.0f);
+            if(buttons.get("TURN")) auto.rotate(90, 1.0f);
             telemetry.addData("Selected", selectedPid%4);
             telemetry.addData("Increment", increment);
             telemetry.addData("0 - P", newPIDF.p);
