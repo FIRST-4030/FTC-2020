@@ -41,6 +41,9 @@ public class TeleOpMode extends OpMode {
 
     private static final float ARM_POS_OUT = 1;
 
+    private static final float ARM_IN = 0;
+    private static final float ARM_OUT = 0;
+
     // other consts
     private static final float NORMAL_SPEED = 1.0f;
     private static final float SLOW_MODE = 0.35f;
@@ -143,11 +146,9 @@ public class TeleOpMode extends OpMode {
         }
         //ARM
         if(buttons.get("TOGGLE_ARM")){
-            robot.wobbleGoalArm.setTarget(-1300);
-            robot.wobbleGoalArm.setPower(1);
+            robot.wobbleGoalArm.setPosition(ARM_OUT);
         } else {
-            robot.wobbleGoalArm.setTarget(0);
-            robot.wobbleGoalArm.setPower(1);
+            robot.wobbleGoalArm.setPosition(ARM_IN);
         }
 
         //robot.wobbleGoalArm.setPower(gamepad2.right_stick_y);

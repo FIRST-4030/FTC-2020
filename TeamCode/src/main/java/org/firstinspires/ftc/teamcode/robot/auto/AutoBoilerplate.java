@@ -75,10 +75,10 @@ public class AutoBoilerplate extends LinearOpMode {
 
         robot.wobbleGoalGrip.setPosition(WGGripClosed);
         sleep(350);
-        robot.wobbleGoalArm.setTarget(1300);
-        while (!robot.wobbleGoalArm.onTarget()){
-            robot.wobbleGoalArm.setPower(1);
-        }
+        //robot.wobbleGoalArm.setTarget(1300);
+        //while (!robot.wobbleGoalArm.onTarget()){
+        //    robot.wobbleGoalArm.setPower(1);
+        //}
         // Register buttons
         buttons = new ButtonHandler(robot);
         buttons.register("SELECT_PID", gamepad1, PAD_BUTTON.y);
@@ -137,8 +137,8 @@ public class AutoBoilerplate extends LinearOpMode {
         robot.shooter.setVelocity(0);
         robot.queue.setPosition(MAGAZINE_DOWN);
 
-        robot.wobbleGoalArm.setTarget(0);
-        robot.wobbleGoalArm.setPower(1);
+        /*robot.wobbleGoalArm.setTarget(0);
+        robot.wobbleGoalArm.setPower(1);*/
         switch(depot){
             case 0:
                 auto.rotate(-130, 1);
@@ -155,11 +155,11 @@ public class AutoBoilerplate extends LinearOpMode {
         }
 //woble goal ;)
 
-        while (!robot.wobbleGoalArm.onTarget() && opModeIsActive());
+        /* while (!robot.wobbleGoalArm.onTarget() && opModeIsActive());
         robot.wobbleGoalGrip.setPosition(WGGripOpen);
         sleep(500);
         robot.wobbleGoalArm.setTarget(1300);
-        robot.wobbleGoalArm.setPower(1);
+        robot.wobbleGoalArm.setPower(1); */
 
         switch(depot){
             case 0:
@@ -175,7 +175,7 @@ public class AutoBoilerplate extends LinearOpMode {
                 break;
         }
 
-        while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());
+        //while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());
 
         }
 
