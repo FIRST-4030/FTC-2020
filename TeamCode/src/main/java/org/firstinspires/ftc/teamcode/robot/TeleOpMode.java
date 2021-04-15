@@ -36,8 +36,8 @@ public class TeleOpMode extends OpMode {
     private static final float COLLECT_NO = 0.75f;
 
 
-    private static final float FLIPPER_SHOOT = 0.85f;
-    private static final float FLIPPER_IDLE = 0.62f;
+    private static final float FLIPPER_SHOOT = 0.64f;
+    private static final float FLIPPER_IDLE = 0.43f;
 
     private static final float ARM_POS_OUT = 1;
 
