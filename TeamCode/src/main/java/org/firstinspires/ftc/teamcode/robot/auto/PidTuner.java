@@ -129,7 +129,7 @@ public class PidTuner extends LinearOpMode {
                 }
                 auto.setPIDFCoefficients(newPIDF);
             }
-            if(buttons.get("GO")) auto.drive(48, 1.0f);
+            if(buttons.get("GO")) auto.drive(-48, 1.0f);
             if(buttons.get("TURN")) auto.rotate(90, 1.0f);
             telemetry.addData("Selected", selectedPid%4);
             telemetry.addData("Increment", increment);

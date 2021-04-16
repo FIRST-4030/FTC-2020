@@ -22,14 +22,16 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 //@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto", group = "Production")
 public class AutoBoilerplate extends LinearOpMode {
+    private static final float ARM_IN = 0.9f;
+    private static final float ARM_OUT = 0.2f;
 
-    private static final float FLIPPER_SHOOT = 0.85f;
-    private static final float FLIPPER_IDLE = 0.62f;
+    private static final float FLIPPER_SHOOT = 0.64f;
+    private static final float FLIPPER_IDLE = 0.43f;
 
-    private static final float MAGAZINE_UP = 0.1f;
-    private static final float MAGAZINE_DOWN = 0.85f;
+    private static final float MAGAZINE_UP = 0.0f;
+    private static final float MAGAZINE_DOWN = 1;
 
-    private static final double SHOOTER_SPEED = 2590;
+    private static final double SHOOTER_SPEED = 1830;
 
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
@@ -75,10 +77,7 @@ public class AutoBoilerplate extends LinearOpMode {
 
         robot.wobbleGoalGrip.setPosition(WGGripClosed);
         sleep(350);
-        //robot.wobbleGoalArm.setTarget(1300);
-        //while (!robot.wobbleGoalArm.onTarget()){
-        //    robot.wobbleGoalArm.setPower(1);
-        //}
+        robot.wobbleGoalArm.setPosition(ARM_IN);
         // Register buttons
         buttons = new ButtonHandler(robot);
         buttons.register("SELECT_PID", gamepad1, PAD_BUTTON.y);
@@ -137,8 +136,7 @@ public class AutoBoilerplate extends LinearOpMode {
         robot.shooter.setVelocity(0);
         robot.queue.setPosition(MAGAZINE_DOWN);
 
-        /*robot.wobbleGoalArm.setTarget(0);
-        robot.wobbleGoalArm.setPower(1);*/
+        robot.wobbleGoalArm.setPosition(ARM_OUT);
         switch(depot){
             case 0:
                 auto.rotate(-130, 1);
@@ -155,11 +153,9 @@ public class AutoBoilerplate extends LinearOpMode {
         }
 //woble goal ;)
 
-        /* while (!robot.wobbleGoalArm.onTarget() && opModeIsActive());
         robot.wobbleGoalGrip.setPosition(WGGripOpen);
         sleep(500);
-        robot.wobbleGoalArm.setTarget(1300);
-        robot.wobbleGoalArm.setPower(1); */
+        robot.wobbleGoalArm.setPosition(ARM_IN);
 
         switch(depot){
             case 0:
@@ -175,7 +171,6 @@ public class AutoBoilerplate extends LinearOpMode {
                 break;
         }
 
-        //while(opModeIsActive() && !robot.wobbleGoalArm.onTarget());
 
         }
 

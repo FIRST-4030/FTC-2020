@@ -27,20 +27,24 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 import java.util.ArrayList;
 
 public class NewAuto {
+    private static final double TICKS_PER_INCH = 27.27778;
+    private static final double TICKS_PER_DEG = 10.2 / 1.5;
+    private static final double TICKS_FROM_END_DRIVE = 10.0 * TICKS_PER_INCH;
+    private static final double TICKS_FROM_END_SPIN = 5.0 * TICKS_PER_INCH;
     private static final double P = 25.0;
     private static final double I = 0.4;
     private static final double D = 0;
     private static final double F = 20;
 
 
-    private static final double TICKS_PER_INCH = 27.27778;
-    private static final double TICKS_PER_DEG = 10.2;
 
-    private static final int TOLERANCE = 10;
+
+    private static final int TOLERANCE = 15;
     public ArrayList<DcMotorEx> right;
     public ArrayList<DcMotorEx> left;
     public BNO055IMU imu;
     private Orientation lastAngles = new Orientation();
+    private int target = 0;
 
     private void init(HardwareMap map){
         PIDFCoefficients pidf = new PIDFCoefficients();
@@ -48,7 +52,8 @@ public class NewAuto {
         pidf.i = I;
         pidf.d = D;
         pidf.f = F;
-        this.setPIDFCoefficients(pidf);
+       // this.setPIDFCoefficients(pidf);
+        pidf = getPIDFCoefficients();
         left.get(0).setTargetPositionTolerance(TOLERANCE);
     }
 
@@ -78,24 +83,27 @@ public class NewAuto {
     }
 
     public void drive(double distance,  float speedScale){
+        target = (int)(distance * TICKS_PER_INCH);
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setTargetPosition((int) (distance * TICKS_PER_INCH));
-            m.setPower(speedScale);
-            m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         for (DcMotorEx m:right) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setTargetPosition((int) (distance * TICKS_PER_INCH));
-            m.setPower(speedScale);
-            m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        for (DcMotorEx m:right) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        for (DcMotorEx m:left) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (left.get(0).isBusy() || right.get(0).isBusy()){
-            double correction = (left.get(0).getCurrentPosition() - right.get(0).getCurrentPosition());
-            for (DcMotorEx m:right) m.setVelocity(speedScale*1150 + correction*10);
-            for (DcMotorEx m:left) m.setVelocity(speedScale*1150 - correction*10);
+        while (Math.abs(left.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
+            int targ = Math.abs(target);
+            int pos = Math.abs(left.get(0).getCurrentPosition());
+            float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_DRIVE) * speedScale + 0.4f));
+
+            double correction = Math.pow((left.get(0).getCurrentPosition() - right.get(0).getCurrentPosition()), 2);
+            if(distance < 0) {
+                power = -power;
+                correction = -correction;
+            }
+            for (DcMotorEx m:right) m.setVelocity(power * 1150 + correction);
+            for (DcMotorEx m:left) m.setVelocity(power * 1150 - correction);
         }
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -106,25 +114,80 @@ public class NewAuto {
             m.setPower(0);
         }
     }
+
     public void rotate(double degrees,  float speedScale){
+        target = (int)(degrees * TICKS_PER_DEG);
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setTargetPosition((int) (degrees * TICKS_PER_DEG / 2));
-            m.setPower(speedScale);
-            m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         for (DcMotorEx m:right) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setTargetPosition((int) (-degrees * TICKS_PER_DEG / 2));
-            m.setPower(speedScale);
-            m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        for (DcMotorEx m:right) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        for (DcMotorEx m:left) m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (left.get(0).isBusy() || right.get(0).isBusy()){
-            double correction = (Math.abs(left.get(0).getCurrentPosition()) - Math.abs(right.get(0).getCurrentPosition()));
-            for (DcMotorEx m:right) m.setVelocity(speedScale*1150 + correction*10);
-            for (DcMotorEx m:left) m.setVelocity(speedScale*1150 - correction*10);
+        while (Math.abs(left.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
+            int targ = Math.abs(target);
+            int pos = Math.abs(left.get(0).getCurrentPosition());
+            float power = speedScale;
+            if(degrees < 0) power = -power;
+            double correction = Math.pow((left.get(0).getCurrentPosition() + right.get(0).getCurrentPosition()), 2);
+            if(degrees > 0) correction = -correction;
+            for (DcMotorEx m:right) m.setVelocity(-(power * 1150 - correction));
+            for (DcMotorEx m:left) m.setVelocity((power * 1150 + correction));
+        }
+        for (DcMotorEx m:left) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            m.setPower(0);
+        }
+        for (DcMotorEx m:right) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            m.setPower(0);
+        }
+    }
+
+
+    public void rotateLeftWheels(double degrees,  float speedScale){
+        target = (int)(degrees * TICKS_PER_DEG * 2);
+        for (DcMotorEx m:left) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        for (DcMotorEx m:right) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+        while (Math.abs(left.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
+            int targ = Math.abs(target);
+            int pos = Math.abs(left.get(0).getCurrentPosition());
+            float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
+            if(degrees < 0) power = -power;
+            double correction = Math.pow((left.get(0).getCurrentPosition() + right.get(0).getCurrentPosition()), 2);
+            for (DcMotorEx m:left) m.setVelocity((power * 1150));
+        }
+        for (DcMotorEx m:left) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            m.setPower(0);
+        }
+        for (DcMotorEx m:right) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            m.setPower(0);
+        }
+    }
+    public void rotateRightWheels(double degrees,  float speedScale){
+        target = (int)(degrees * TICKS_PER_DEG * 2);
+        for (DcMotorEx m:left) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+        for (DcMotorEx m:right) {
+            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        while (Math.abs(right.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
+            int targ = Math.abs(target);
+            int pos = Math.abs(right.get(0).getCurrentPosition());
+            float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
+            if(degrees < 0) power = -power;
+            double correction = Math.pow((left.get(0).getCurrentPosition() + right.get(0).getCurrentPosition()), 2);
+            for (DcMotorEx m:right) m.setVelocity(-(power * 1150));
         }
         for (DcMotorEx m:left) {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
