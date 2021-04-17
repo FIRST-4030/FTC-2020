@@ -15,10 +15,9 @@ public class RingStackTF {
     private VuforiaCurrentGame vuforiaUltimateGoal;
     private TfodCurrentGame tfodUltimateGoal;
 
-    String cameraOrientation;
-    String zone;
-    Recognition recognition;
-    List<Recognition> recognitions;
+    private String cameraOrientation;
+    private String zone;
+    private List<Recognition> recognitions;
     double recLength;
     double index;
 
@@ -51,8 +50,8 @@ public class RingStackTF {
                 0, // yAngle
                 0, // zAngle
                 true); // useCompetitionFieldTargetLocations
-        // Template Default: Minimum Confidence=0.7
-        tfodUltimateGoal.initialize(vuforiaUltimateGoal, 0.5F, true, true);
+        // Template Default: Minimum Confidence=0.65
+        tfodUltimateGoal.initialize(vuforiaUltimateGoal, 0.7f, true, true);
         // Initialize TFOD before waitForStart.
         // Init TFOD here so the object detection labels are visible
         // in the Camera Stream preview window on the Driver Station.
@@ -60,7 +59,7 @@ public class RingStackTF {
         // Enable following block to zoom in on target.
         // Template Default: Magnification=2.5
         // Template Default: Aspect Ratio=16/9
-        tfodUltimateGoal.setZoom(1.1, 16 / 12);
+        tfodUltimateGoal.setZoom(1.5, (16 / 12));
         // Define how the camera is oriented
         cameraOrientation = "Vertical";
         // Display the label and index number for the recognition.
@@ -69,7 +68,7 @@ public class RingStackTF {
         telemetry.update();
     }
 
-    // Wait for start command from Driver Station.
+
     public int getTargetZone() {
         // Get a list of recognitions from TFOD.
         recognitions = tfodUltimateGoal.getRecognitions();
@@ -87,7 +86,7 @@ public class RingStackTF {
             // display info for each recognized object.
             for (Recognition recognition : recognitions) {
                 // Display info.
-                displayInfo(index);
+                displayInfo(recognition);
                 // Increment index.
                 index = index + 1;
             }
@@ -114,7 +113,7 @@ public class RingStackTF {
     /**
      * Display info (using telemetry) for a recognized object.
      */
-    private void displayInfo(double i) {
+    private void displayInfo(Recognition recognition) {
         // Display node info.
         telemetry.update();
         // Display the location of the top left corner

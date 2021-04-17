@@ -28,10 +28,10 @@ public class AutoBoilerplate extends LinearOpMode {
     private static final float FLIPPER_SHOOT = 0.64f;
     private static final float FLIPPER_IDLE = 0.43f;
 
-    private static final float MAGAZINE_UP = 0.0f;
-    private static final float MAGAZINE_DOWN = 1;
+    private static final float MAGAZINE_UP = 0.1f;
+    private static final float MAGAZINE_DOWN = 0.83f;
 
-    private static final double SHOOTER_SPEED = 1830;
+    private static final double SHOOTER_SPEED = -1830;
 
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
@@ -55,7 +55,7 @@ public class AutoBoilerplate extends LinearOpMode {
     public void runOpMode() {
         telemetry.addLine("Init…");
         telemetry.update();
-        ringDetector = new RingStackTF(hardwareMap, telemetry);
+
 
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
@@ -72,6 +72,7 @@ public class AutoBoilerplate extends LinearOpMode {
         //vuforia.enableCapture();
 
         auto = new NewAuto("BL","FR", hardwareMap);
+        ringDetector = new RingStackTF(hardwareMap, telemetry);
 
         newPIDF = auto.getPIDFCoefficients();
 
@@ -116,9 +117,9 @@ public class AutoBoilerplate extends LinearOpMode {
         //robot.vuforia.start();
         //robot.vuforia.enableCapture();
 
-        auto.drive(52, 0.75f);
+        auto.drive(52, 1);
 
-        auto.rotate(90, 0.3f);
+        auto.rotate(73, 1);
 
         robot.queue.setPosition(MAGAZINE_UP);
         robot.shooter.setVelocity(SHOOTER_SPEED);
@@ -136,38 +137,41 @@ public class AutoBoilerplate extends LinearOpMode {
         robot.shooter.setVelocity(0);
         robot.queue.setPosition(MAGAZINE_DOWN);
 
-        robot.wobbleGoalArm.setPosition(ARM_OUT);
+
         switch(depot){
             case 0:
-                auto.rotate(-130, 1);
-                auto.drive(10, 1);
+                auto.rotate(-92, 1);
+                auto.drive(7, 1);
                 break;
             case 1:
-                auto.rotate(-85, 1);
-                auto.drive(24, 1);
+                auto.rotate(-72, 1);
+                auto.drive(34, 1);
                 break;
             case 2:
-                auto.rotate(-110, 1);
-                auto.drive(48, 1);
+                auto.rotate(-77, 1);
+                auto.drive(55, 1);
+                auto.rotate(-20, 1);
                 break;
         }
 //woble goal ;)
-
+        robot.wobbleGoalArm.setPosition(ARM_OUT);
+        sleep(1000);
         robot.wobbleGoalGrip.setPosition(WGGripOpen);
-        sleep(500);
+        sleep(250);
         robot.wobbleGoalArm.setPosition(ARM_IN);
+        sleep(500);
 
         switch(depot){
             case 0:
-                auto.drive(-10, 1);
-                auto.rotate(70, 1);
-                auto.drive(28, 1);
+                auto.drive(-20, 1);
+                auto.rotate(65, 1);
+                auto.drive(31, 1);
                 break;
             case 1:
                 auto.drive(-14, 1);
                 break;
             case 2:
-                auto.drive(-38, 1);
+                auto.drive(-49, 1);
                 break;
         }
 
