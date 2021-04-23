@@ -107,7 +107,7 @@ public class RingStackTF {
             case "C":
                 return 2;
         }
-        return 3;
+        return 1;
     }
 
     /**

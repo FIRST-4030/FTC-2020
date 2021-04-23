@@ -25,13 +25,15 @@ public class AutoBoilerplate extends LinearOpMode {
     private static final float ARM_IN = 0.9f;
     private static final float ARM_OUT = 0.2f;
 
-    private static final float FLIPPER_SHOOT = 0.64f;
+    private static final float FLIPPER_SHOOT = 0.69f;
     private static final float FLIPPER_IDLE = 0.43f;
 
     private static final float MAGAZINE_UP = 0.1f;
     private static final float MAGAZINE_DOWN = 0.83f;
 
     private static final double SHOOTER_SPEED = -1830;
+
+    private static final float COLLECT_NO = 0.75f;
 
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
@@ -75,7 +77,8 @@ public class AutoBoilerplate extends LinearOpMode {
         ringDetector = new RingStackTF(hardwareMap, telemetry);
 
         newPIDF = auto.getPIDFCoefficients();
-
+        robot.frontRaiseLower.setPosition(COLLECT_NO);
+        robot.backRaiseLower.setPosition(COLLECT_NO);
         robot.wobbleGoalGrip.setPosition(WGGripClosed);
         sleep(350);
         robot.wobbleGoalArm.setPosition(ARM_IN);
@@ -125,10 +128,6 @@ public class AutoBoilerplate extends LinearOpMode {
         robot.shooter.setVelocity(SHOOTER_SPEED);
         sleep(1500);
         for(int i = 0; i < 3; i++){
-            robot.queue.setPosition(MAGAZINE_DOWN);
-            sleep(20);
-            robot.queue.setPosition(MAGAZINE_UP);
-            sleep(50);
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
             sleep(350);
             robot.queueFlipper.setPosition(FLIPPER_IDLE);
@@ -140,17 +139,18 @@ public class AutoBoilerplate extends LinearOpMode {
 
         switch(depot){
             case 0:
-                auto.rotate(-92, 1);
+                auto.rotate(-102, 1);
                 auto.drive(7, 1);
                 break;
             case 1:
-                auto.rotate(-72, 1);
+                auto.rotate(-62, 1);
                 auto.drive(34, 1);
                 break;
             case 2:
-                auto.rotate(-77, 1);
+                auto.rotate(-75, 1);
                 auto.drive(55, 1);
-                auto.rotate(-20, 1);
+                auto.rotate(-27, 1);
+                auto.drive(5, 1);
                 break;
         }
 //woble goal ;)
@@ -164,8 +164,9 @@ public class AutoBoilerplate extends LinearOpMode {
         switch(depot){
             case 0:
                 auto.drive(-20, 1);
-                auto.rotate(65, 1);
-                auto.drive(31, 1);
+                sleep(500);
+                auto.rotate(55, 1);
+                auto.drive(25, 1);
                 break;
             case 1:
                 auto.drive(-14, 1);

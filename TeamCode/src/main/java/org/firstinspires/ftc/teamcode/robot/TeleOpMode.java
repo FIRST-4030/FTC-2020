@@ -136,8 +136,8 @@ public class TeleOpMode extends LinearOpMode {
 
     private void auxiliary() {
         odometry.getPoseEstimate().getX();
-        telemetry.addData("L:", robot.wheels.getEncoder(MOTOR_SIDE.LEFT, MOTOR_END.FRONT));
-        telemetry.addData("R:", robot.wheels.getEncoder(MOTOR_SIDE.RIGHT, MOTOR_END.FRONT));
+        telemetry.addData("L:", robot.wheels.getEncoder(MOTOR_SIDE.LEFT));
+        telemetry.addData("R:", robot.wheels.getEncoder(MOTOR_SIDE.RIGHT));
         telemetry.addData("V:", robot.shooter.getVelocity());
         telemetry.addData("S:", shooterSpeed);
 

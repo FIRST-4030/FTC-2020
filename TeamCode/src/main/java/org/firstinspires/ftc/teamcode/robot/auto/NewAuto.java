@@ -83,8 +83,7 @@ public class NewAuto {
     }
 
     public void drive(double distance,  float speedScale){
-        double lEncStart = left.get(0).getCurrentPosition();
-        double rEncStart = right.get(0).getCurrentPosition();
+
         double lSpeed = 0;
         double rSpeed = 0;
         target = (int)(distance * TICKS_PER_INCH);
@@ -96,6 +95,8 @@ public class NewAuto {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+        double lEncStart = left.get(0).getCurrentPosition();
+        double rEncStart = right.get(0).getCurrentPosition();
         double lEnc = left.get(0).getCurrentPosition() - lEncStart;
         double rEnc;
         while (Math.abs(lEnc) + TOLERANCE < Math.abs(target)){
@@ -105,10 +106,10 @@ public class NewAuto {
             int pos = (int)Math.abs(lEnc);
             float power = Math.min(speedScale, (((targ - pos) / (int)TICKS_FROM_END_DRIVE) * speedScale + 0.2f));
 
-            double correction = Math.pow((Math.abs(lEnc) - Math.abs(rEnc)), 2);
-            //if(distance < 0) correction = -correction;
-            rSpeed = power * 1150 + correction;
-            lSpeed = power * 1150 - correction;
+            double correction = (Math.abs(lEnc) - Math.abs(rEnc)) * 1.8;
+
+            rSpeed = power * (1150 + correction);
+            lSpeed = power * (1150 - correction);
             if(distance < 0){
                 rSpeed = -rSpeed;
                 lSpeed = -lSpeed;
@@ -128,8 +129,7 @@ public class NewAuto {
     }
 
     public void rotate(double degrees,  float speedScale){
-        double lEncStart = left.get(0).getCurrentPosition();
-        double rEncStart = right.get(0).getCurrentPosition();
+
         double lSpeed = 0;
         double rSpeed = 0;
         target = (int)(degrees * TICKS_PER_DEG);
@@ -141,6 +141,8 @@ public class NewAuto {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+        double lEncStart = left.get(0).getCurrentPosition();
+        double rEncStart = right.get(0).getCurrentPosition();
         double lEnc = left.get(0).getCurrentPosition() - lEncStart;
         double rEnc = right.get(0).getCurrentPosition() - lEncStart;
         while (Math.abs(lEnc) + TOLERANCE < Math.abs(target) || Math.abs(rEnc) + TOLERANCE < Math.abs(target)){
