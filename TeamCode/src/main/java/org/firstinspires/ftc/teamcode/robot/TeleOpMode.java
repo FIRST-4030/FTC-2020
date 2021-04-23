@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group = "Prod")
-public class TeleOpMode extends OpMode {
+public class TeleOpMode extends LinearOpMode {
 
     // Devices and subsystems
     private Robot robot = null;
@@ -51,7 +51,7 @@ public class TeleOpMode extends OpMode {
 
 
     @Override
-    public void init() {
+    public void runOpMode() {
 
         controlLocked = false;
         // Placate drivers
@@ -92,34 +92,38 @@ public class TeleOpMode extends OpMode {
         telemetry.addData(">", "Ready for game start");
         telemetry.update();
 
+        waitForStart();
+
+        //@Override
+        while (opModeIsActive()) {
+            // Update buttons
+            buttons.update();
+            // Update odometry
+            odometry.update();
+
+            // Move the robot
+
+
+            if (!controlLocked) {
+                driveBase();
+                auxiliary();
+            }
+
+            telemetry.update();
+            idle();
+        }
     }
 
-    @Override
+    /*@Override
     public void init_loop() {
 
     }
 
     @Override
     public void start() {
-    }
-
-    @Override
-    public void loop() {
-        // Update buttons
-        buttons.update();
-        // Update odometry
-        odometry.update();
-
-        // Move the robot
+    }*/
 
 
-        if (!controlLocked) {
-            driveBase();
-            auxiliary();
-        }
-
-        telemetry.update();
-    }
 
     private void driveBase() {
         if (buttons.get("SLOW_MODE")) {
@@ -220,6 +224,6 @@ public class TeleOpMode extends OpMode {
 
 
 
-    public void stop() {
-    }
+    //public void stop() {
+    //}
 }
