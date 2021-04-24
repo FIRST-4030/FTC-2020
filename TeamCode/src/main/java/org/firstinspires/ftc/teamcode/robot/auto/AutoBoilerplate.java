@@ -139,17 +139,17 @@ public class AutoBoilerplate extends LinearOpMode {
 
         switch(depot){
             case 0:
-                auto.rotate(-153, 1);
+                auto.rotate(-150, 1);
                 auto.drive(7, 1);
                 break;
             case 1:
-                auto.rotate(-62, 1);
+                auto.rotate(-93, 1);
                 auto.drive(34, 1);
                 break;
             case 2:
-                auto.rotate(-75, 1);
+                auto.rotate(-93, 1);
                 auto.drive(55, 1);
-                auto.rotate(-27, 1);
+                auto.rotate(-60, 1);
                 auto.drive(5, 1);
                 break;
         }
@@ -171,7 +171,7 @@ public class AutoBoilerplate extends LinearOpMode {
                 auto.drive(-14, 1);
                 break;
             case 2:
-                auto.drive(-49, 1);
+                auto.drive(-55, 1);
                 break;
         }
 
