@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class NewAuto {
     private static final double TICKS_PER_INCH = 27.27778;
-    private static final double TICKS_PER_DEG = 10.2 / 1.5;
+    double TICKS_PER_DEG = 4.73;
     private static final double TICKS_FROM_END_DRIVE = 10.0 * TICKS_PER_INCH;
     private static final double TICKS_FROM_END_SPIN = 5.0 * TICKS_PER_INCH;
     private static final double P = 25.0;
@@ -151,7 +151,7 @@ public class NewAuto {
             lEnc = left.get(0).getCurrentPosition() - lEncStart;
             int targ = Math.abs(target);
             int pos = (int)Math.abs(lEnc);
-            float power = Math.min(speedScale, (((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
+            float power = Math.min(speedScale, (((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + 0.2f));
 
             double correction = 0;
             rSpeed = power * 1150 + correction;

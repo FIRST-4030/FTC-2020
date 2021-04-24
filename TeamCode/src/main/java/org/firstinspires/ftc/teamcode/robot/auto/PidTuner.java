@@ -90,57 +90,23 @@ public class PidTuner extends LinearOpMode {
 
         while(opModeIsActive()){
             buttons.update();
-            if (buttons.get("SELECT_PID")) selectedPid++;
-
-            if (buttons.get("INC_DOWN")) increment *= 10;
-            if (buttons.get("INC_UP")) increment *= 0.1;
 
             if (buttons.get("UP")) {
-                switch (selectedPid % 4) {
-                    case 0:
-                        newPIDF.p += increment;
-                        break;
-                    case 1:
-                        newPIDF.i += increment;
-                        break;
-                    case 2:
-                        newPIDF.d += increment;
-                        break;
-                    case 3:
-                        newPIDF.f += increment;
-                        break;
-                }
-                auto.setPIDFCoefficients(newPIDF);
+                auto.TICKS_PER_DEG += 0.1;
             }
 
 
             if (buttons.get("DOWN")) {
-                switch (selectedPid % 4) {
-                    case 0:
-                        newPIDF.p -= increment;
-                        break;
-                    case 1:
-                        newPIDF.i -= increment;
-                        break;
-                    case 2:
-                        newPIDF.d -= increment;
-                        break;
-                    case 3:
-                        newPIDF.f -= increment;
-                        break;
-                }
-                auto.setPIDFCoefficients(newPIDF);
+                auto.TICKS_PER_DEG -= 0.1;
             }
             if(buttons.get("GO")) auto.drive(48, 1.0f);
-            if(buttons.get("TURN")) auto.rotate(90, 1.0f);
+            if(buttons.get("TURN")) auto.rotate(180, 1.0f);
             if(buttons.get("BACK")) auto.drive(-48, 1.0f);
-            if(buttons.get("TURN_CC")) auto.rotate(-90, 1.0f);
+            if(buttons.get("TURN_CC")) auto.rotate(-180, 1.0f);
             telemetry.addData("Selected", selectedPid%4);
             telemetry.addData("Increment", increment);
-            telemetry.addData("0 - P", newPIDF.p);
-            telemetry.addData("1 - I", newPIDF.i);
-            telemetry.addData("2 - D", newPIDF.d);
-            telemetry.addData("3 - F", newPIDF.f);
+            telemetry.addData("TPD", auto.TICKS_PER_DEG);
+
             telemetry.update();
 
 

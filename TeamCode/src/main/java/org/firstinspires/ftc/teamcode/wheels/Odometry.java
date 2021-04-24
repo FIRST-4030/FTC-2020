@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Odometry {
+    public static final String L_POD = "BL";
+    public static final String R_POD = "BL";
     public static float TICKS_PER_MM;
     // The three motors of whose encoders shall be used
     private DcMotor leftEncoder;
@@ -47,6 +49,11 @@ public class Odometry {
         dl = (l - ll) * TICKS_PER_MM;
         dr = (r - lr) * TICKS_PER_MM;
         dm = (m - lm) * TICKS_PER_MM;
+        /*
+        X = (d1cosθ1h1-d2cosθ2h2)/(cosθ1h1-cosθ2h2)
+R (radians) = (d2-x)cosθ2h2
+Y = (d3 - (R/cosθ3h3)
+         */
 
         //Store current values for next loop
         ll = l;
