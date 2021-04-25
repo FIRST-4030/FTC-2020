@@ -7,7 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Odometry {
     public static final String L_POD = "BL";
     public static final String R_POD = "BL";
-    public static float TICKS_PER_MM;
+    public static final float TICKS_PER_INCH = 3;
+    public static final float LR_POD_DISTANCE = 18;
+    public static final float M_POD_DISTANCE = 8;
     // The three motors of whose encoders shall be used
     private DcMotor leftEncoder;
     private DcMotor rightEncoder;
@@ -31,6 +33,7 @@ public class Odometry {
     public Odometry (HardwareMap map, int startX, int startY, String left, String right){
         leftEncoder = map.dcMotor.get(left);
         rightEncoder = map.dcMotor.get(right);
+        coords = new Pose2d (startX, startY, 0);
     }
     public Odometry (HardwareMap map, int startX, int startY, String left, String right, String mid){
         this(map, startX, startY, left, right);
@@ -46,9 +49,19 @@ public class Odometry {
         int m = midEncoder.getCurrentPosition();
 
         //Get change in encoder values and store them
-        dl = (l - ll) * TICKS_PER_MM;
-        dr = (r - lr) * TICKS_PER_MM;
-        dm = (m - lm) * TICKS_PER_MM;
+        dl = (l - ll) * TICKS_PER_INCH;
+        dr = (r - lr) * TICKS_PER_INCH;
+        dm = (m - lm) * TICKS_PER_INCH;
+        double dX = (dl * LR_POD_DISTANCE/2 + dr * LR_POD_DISTANCE/2)/(LR_POD_DISTANCE);
+        double dH = (dr-dX) * LR_POD_DISTANCE/2;
+        double dY = dm - (dH/M_POD_DISTANCE);
+        double heading = coords.getHeading() + (dH / 2);
+        dX = Math.cos(heading) * dX;
+        dY = Math.sin(heading) * dY;
+        double nH = coords.getHeading() + dH;
+        double nX = coords.getX() + dX;
+        double nY = coords.getY() + dY;
+        coords = new Pose2d (nX, nY, nH);
         /*
         X = (d1cosθ1h1-d2cosθ2h2)/(cosθ1h1-cosθ2h2)
 R (radians) = (d2-x)cosθ2h2
