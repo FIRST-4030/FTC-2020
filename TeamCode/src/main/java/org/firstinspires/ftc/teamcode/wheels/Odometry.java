@@ -23,9 +23,9 @@ public class Odometry {
     private double dm;
 
     //Values from previous loop
-    private int ll;
-    private int lr;
-    private int lm;
+    private double ll;
+    private double lr;
+    private double lm;
 
     private HardwareMap hardwareMap;
 
@@ -48,9 +48,9 @@ public class Odometry {
         // DO MATHY STUFF
         //Temp vars for easy reference
         double pi = Math.PI;
-        int l = leftEncoder.getCurrentPosition();
-        int r = rightEncoder.getCurrentPosition();
-        int m = midEncoder.getCurrentPosition();
+        double l = leftEncoder.getCurrentPosition();
+        double r = rightEncoder.getCurrentPosition();
+        double m = midEncoder.getCurrentPosition();
         double dXNew;
         double dYNew;
         Pose2d newPosition;
