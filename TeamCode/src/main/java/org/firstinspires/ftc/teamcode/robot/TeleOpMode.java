@@ -19,7 +19,6 @@ public class TeleOpMode extends LinearOpMode {
     // Devices and subsystems
     private Robot robot = null;
     private ButtonHandler buttons;
-    private TwoWheelTrackingLocalizer odometry;
 
     private boolean controlLocked;
     private double shooterSpeed = 1830;
@@ -61,7 +60,6 @@ public class TeleOpMode extends LinearOpMode {
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
         robot.wheels.setTeleop(true);
-        odometry = new TwoWheelTrackingLocalizer(hardwareMap);
 
         // Check robot
         if (robot.bot != BOT.PRODUCTION) {
@@ -98,8 +96,6 @@ public class TeleOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             // Update buttons
             buttons.update();
-            // Update odometry
-            odometry.update();
 
             // Move the robot
 
@@ -126,6 +122,7 @@ public class TeleOpMode extends LinearOpMode {
 
 
     private void driveBase() {
+        robot.odometry.update();
         if (buttons.get("SLOW_MODE")) {
             robot.wheels.setSpeedScale(SLOW_MODE);
         } else {
@@ -135,9 +132,9 @@ public class TeleOpMode extends LinearOpMode {
     }
 
     private void auxiliary() {
-        odometry.getPoseEstimate().getX();
-        telemetry.addData("L:", robot.wheels.getEncoder(MOTOR_SIDE.LEFT));
-        telemetry.addData("R:", robot.wheels.getEncoder(MOTOR_SIDE.RIGHT));
+        telemetry.addData("X:", robot.odometry.getPosition().getX());
+        telemetry.addData("Y:", robot.odometry.getPosition().getY());
+        telemetry.addData("H:", robot.odometry.getPosition().getHeading());
         telemetry.addData("V:", robot.shooter.getVelocity());
         telemetry.addData("S:", shooterSpeed);
 
