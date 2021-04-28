@@ -59,12 +59,13 @@ public class Odometry {
         dr = (r - lr) / TICKS_PER_INCH;
         dm = (m - lm) / TICKS_PER_INCH;
         double theta = (dl-dr)*360/(2*pi*LR_POD_DISTANCE);
+        double min = Math.min(dl, dr);
         if(theta != 0){
-            double r1 = dl*360/(2*pi*theta);
-            double r2 = r1 - LR_POD_DISTANCE;
+            double r1 = min*360/(2*pi*theta);
+            double r2 = r1 + LR_POD_DISTANCE;
             double turnRadius = r1 + LR_POD_DISTANCE/2;
-            dXNew = -(LR_POD_DISTANCE/2 + r1) - turnRadius*Math.cos(theta*pi/180);
-            dYNew = -turnRadius*Math.sin(theta*pi/180);
+            dXNew = -turnRadius * (1 + Math.cos(theta * pi / 180));
+            dYNew = -turnRadius * Math.sin(theta * pi / 180);
 
         } else {
             dXNew = 0;
