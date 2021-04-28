@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.wheels;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import java.lang.Math.*;
 
 public class Odometry {
     public static final String L_POD = "BL";
@@ -49,19 +50,16 @@ public class Odometry {
         int m = midEncoder.getCurrentPosition();
 
         //Get change in encoder values and store them
-        dl = (l - ll) * TICKS_PER_INCH;
-        dr = (r - lr) * TICKS_PER_INCH;
-        dm = (m - lm) * TICKS_PER_INCH;
-        double dX = (dl * LR_POD_DISTANCE/2 + dr * LR_POD_DISTANCE/2)/(LR_POD_DISTANCE);
-        double dH = (dr-dX) * LR_POD_DISTANCE/2;
-        double dY = dm - (dH/M_POD_DISTANCE);
-        double heading = coords.getHeading() + (dH / 2);
-        dX = Math.cos(heading) * dX;
-        dY = Math.sin(heading) * dY;
-        double nH = coords.getHeading() + dH;
-        double nX = coords.getX() + dX;
-        double nY = coords.getY() + dY;
-        coords = new Pose2d (nX, nY, nH);
+        dl = (l - ll) / TICKS_PER_INCH;
+        dr = (r - lr) / TICKS_PER_INCH;
+        dm = (m - lm) / TICKS_PER_INCH;
+        double maxDistance = Math.max(dl, dr);
+        double theta = Math.abs(dl - dr) * 360 / (2 * Math.PI * LR_POD_DISTANCE);
+        if (theta != 0) {
+            double r1 = maxDistance * 360 / (2 * Math.PI * theta);
+            double r2 = r1 - LR_POD_DISTANCE;
+        }
+    }
         /*
         X = (d1cosθ1h1-d2cosθ2h2)/(cosθ1h1-cosθ2h2)
 R (radians) = (d2-x)cosθ2h2
@@ -69,10 +67,9 @@ Y = (d3 - (R/cosθ3h3)
          */
 
         //Store current values for next loop
-        ll = l;
-        lr = r;
-        lm = m;
-    }
+        //ll = l;
+        //lr = r;
+        //lm = m;
 
     public Pose2d getPosition (){
         return coords;
