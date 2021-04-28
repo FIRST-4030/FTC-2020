@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import java.lang.Math.*;
 
 public class Odometry {
     public static final String L_POD = "BL";
@@ -46,14 +47,13 @@ public class Odometry {
     public void update (){
         // DO MATHY STUFF
         //Temp vars for easy reference
-        double pi = 3.1415926535897932384626433832795;
+        double pi = Math.PI;
         int l = leftEncoder.getCurrentPosition();
         int r = rightEncoder.getCurrentPosition();
         int m = midEncoder.getCurrentPosition();
         double dXNew;
         double dYNew;
-        double dGNew;
-        Pose2d newPosition = new Pose2d(coords.getX(), coords.getY(), coords.getHeading());
+        Pose2d newPosition;
         //Get change in encoder values and store them
         dl = (l - ll) / TICKS_PER_INCH;
         dr = (r - lr) / TICKS_PER_INCH;
@@ -66,7 +66,12 @@ public class Odometry {
             dXNew = -(LR_POD_DISTANCE/2 + r1) - turnRadius*Math.cos(theta*pi/180);
             dYNew = -turnRadius*Math.sin(theta*pi/180);
 
+        } else {
+            dXNew = 0;
+            dYNew = dl;
         }
+        newPosition = new Pose2d(coords.getX() - dXNew*Math.cos(-theta*pi/180) + dYNew*Math.sin(-theta*pi/180),coords.getY() + dXNew*Math.sin(-theta*pi/180) + dYNew*Math.cos(-theta*pi/180), coords.getHeading()+theta);
+        coords = newPosition;
         /*
         X = (d1cosθ1h1-d2cosθ2h2)/(cosθ1h1-cosθ2h2)
 R (radians) = (d2-x)cosθ2h2
