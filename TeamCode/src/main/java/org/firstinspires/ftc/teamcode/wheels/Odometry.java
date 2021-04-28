@@ -23,9 +23,9 @@ public class Odometry {
     private double dm;
 
     //Values from previous loop
-    private double ll;
-    private double lr;
-    private double lm;
+    private double ll = 0;
+    private double lr = 0;
+    private double lm = 0;
 
     private HardwareMap hardwareMap;
 
