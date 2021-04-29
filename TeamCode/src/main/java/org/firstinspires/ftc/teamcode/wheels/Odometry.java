@@ -18,8 +18,8 @@ public class Odometry {
     private DcMotor midEncoder;
 
     //Delta encoder values
-    private double dl;
-    private double dr;
+    public double dl;
+    public double dr;
     private double dm;
 
     //Values from previous loop
@@ -80,9 +80,9 @@ Y = (d3 - (R/cosθ3h3)
          */
 
         //Store current values for next loop
-        ll = l;
+        /*ll = l;
         lr = r;
-        lm = m;
+        lm = m;*/
     }
 
     public Pose2d getPosition (){
