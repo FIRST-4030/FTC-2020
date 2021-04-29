@@ -31,7 +31,8 @@ public class TeleOpMode extends LinearOpMode {
     private static final float MAGAZINE_DOWN = 0.83f;
 
     private static final float COLLECT_MID = 0.55f;
-    private static final float COLLECT_FULL = 0.35f;
+    private static final float COLLECT_FULL_FRONT = 0.35f;
+    private static final float COLLECT_FULL_BACK = 0.35f;
     private static final float COLLECT_NO = 0.75f;
 
 
@@ -159,7 +160,7 @@ public class TeleOpMode extends LinearOpMode {
 
             // ==[FRONT COLLECTOR]==
             if (buttons.held("FRONT_FULL_COLLECT")) {
-               robot.frontRaiseLower.setPosition(COLLECT_FULL);
+               robot.frontRaiseLower.setPosition(COLLECT_FULL_FRONT);
                 robot.collectorFront.setPower(1.0f);
             } else if (buttons.held("FRONT_MID_COLLECT")) {
                 robot.frontRaiseLower.setPosition(COLLECT_MID);
@@ -173,7 +174,7 @@ public class TeleOpMode extends LinearOpMode {
 
             // ==[BACK COLLECTOR]==
             if (buttons.held("BACK_FULL_COLLECT")) {
-                robot.backRaiseLower.setPosition(COLLECT_FULL);
+                robot.backRaiseLower.setPosition(COLLECT_FULL_BACK);
                 robot.collectorBack.setPower(1.0f);
             } else if (buttons.held("BACK_MID_COLLECT")) {
                 robot.backRaiseLower.setPosition(COLLECT_MID);
