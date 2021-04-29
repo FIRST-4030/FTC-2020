@@ -27,15 +27,15 @@ public class TeleOpMode extends LinearOpMode {
     private static final float WGGripOpen = 0.45f;
     private static final float WGGripClosed = 0;
 
-    private static final float MAGAZINE_UP = 0.09f;
+    private static final float MAGAZINE_UP = 0.11f;
     private static final float MAGAZINE_DOWN = 0.83f;
 
     private static final float COLLECT_MID = 0.55f;
-    private static final float COLLECT_FULL = 0.32f;
+    private static final float COLLECT_FULL = 0.35f;
     private static final float COLLECT_NO = 0.75f;
 
 
-    private static final float FLIPPER_SHOOT = 0.69f;
+    private static final float FLIPPER_SHOOT = 0.7f;
     private static final float FLIPPER_IDLE = 0.43f;
 
     private static final float ARM_POS_OUT = 1;

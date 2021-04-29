@@ -25,10 +25,10 @@ public class AutoBoilerplate extends LinearOpMode {
     private static final float ARM_IN = 0.9f;
     private static final float ARM_OUT = 0.2f;
 
-    private static final float FLIPPER_SHOOT = 0.69f;
+    private static final float FLIPPER_SHOOT = 0.7f;
     private static final float FLIPPER_IDLE = 0.43f;
 
-    private static final float MAGAZINE_UP = 0.1f;
+    private static final float MAGAZINE_UP = 0.11f;
     private static final float MAGAZINE_DOWN = 0.83f;
 
     private static final double SHOOTER_SPEED = -1830;
@@ -122,7 +122,7 @@ public class AutoBoilerplate extends LinearOpMode {
 
         auto.drive(52, 1);
 
-        auto.rotate(93, 1);
+        auto.rotate(96, 1);
 
         robot.queue.setPosition(MAGAZINE_UP);
         robot.shooter.setVelocity(SHOOTER_SPEED);
@@ -143,11 +143,11 @@ public class AutoBoilerplate extends LinearOpMode {
                 auto.drive(7, 1);
                 break;
             case 1:
-                auto.rotate(-93, 1);
+                auto.rotate(-96, 1);
                 auto.drive(34, 1);
                 break;
             case 2:
-                auto.rotate(-93, 1);
+                auto.rotate(-96, 1);
                 auto.drive(55, 1);
                 auto.rotate(-60, 1);
                 auto.drive(5, 1);
