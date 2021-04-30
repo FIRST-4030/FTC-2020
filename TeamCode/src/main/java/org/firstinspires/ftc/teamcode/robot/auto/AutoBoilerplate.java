@@ -122,7 +122,7 @@ public class AutoBoilerplate extends LinearOpMode {
 
         auto.drive(52, 1);
 
-        auto.rotate(96, 1);
+        auto.rotate(99, 1);
 
         robot.queue.setPosition(MAGAZINE_UP);
         robot.shooter.setVelocity(SHOOTER_SPEED);
@@ -139,18 +139,18 @@ public class AutoBoilerplate extends LinearOpMode {
 
         switch(depot){
             case 0:
-                auto.rotate(-150, 1);
+                auto.rotate(-155, 1);
                 auto.drive(7, 1);
                 break;
             case 1:
-                auto.rotate(-96, 1);
+                auto.rotate(-99, 1);
                 auto.drive(34, 1);
                 break;
             case 2:
-                auto.rotate(-96, 1);
+                auto.rotate(-99, 1);
                 auto.drive(55, 1);
                 auto.rotate(-60, 1);
-                auto.drive(5, 1);
+                auto.drive(4, 1);
                 break;
         }
 //woble goal ;)
