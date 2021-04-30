@@ -152,7 +152,7 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
             case 0:
                 auto.drive(-20, 1);
                 auto.rotate(90, 1);
-                auto.drive(25, 1);
+                auto.drive(31, 1);
                 break;
             case 1:
                 auto.drive(-14, 1);
