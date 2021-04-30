@@ -28,9 +28,9 @@ import java.util.ArrayList;
 
 public class NewAuto {
     private static final double TICKS_PER_INCH = 27.27778;
-    double TICKS_PER_DEG = 4.73;
+    private static final double TICKS_PER_DEG = 4.73;
     private static final double TICKS_FROM_END_DRIVE = 10.0 * TICKS_PER_INCH;
-    private static final double TICKS_FROM_END_SPIN = 5.0 * TICKS_PER_INCH;
+    private static final double TICKS_FROM_END_SPIN = 25.0 * TICKS_PER_DEG;
     private static final double P = 25.0;
     private static final double I = 0.4;
     private static final double D = 0;

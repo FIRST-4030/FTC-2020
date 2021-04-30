@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.driveto.AutoDriver;
 import org.firstinspires.ftc.teamcode.field.Field;
 import org.firstinspires.ftc.teamcode.robot.Robot;
+import org.firstinspires.ftc.teamcode.robot.RobotConstants;
 import org.firstinspires.ftc.teamcode.robot.common.Common;
 import org.firstinspires.ftc.teamcode.utils.OrderedEnum;
 import org.firstinspires.ftc.teamcode.utils.OrderedEnumHelper;
@@ -21,22 +22,8 @@ import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
 //@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto", group = "Production")
-public class AutoBoilerplate extends LinearOpMode {
-    private static final float ARM_IN = 0.9f;
-    private static final float ARM_OUT = 0.2f;
+public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
 
-    private static final float FLIPPER_SHOOT = 0.7f;
-    private static final float FLIPPER_IDLE = 0.43f;
-
-    private static final float MAGAZINE_UP = 0.11f;
-    private static final float MAGAZINE_DOWN = 0.83f;
-
-    private static final double SHOOTER_SPEED = -1830;
-
-    private static final float COLLECT_NO = 0.75f;
-
-    private static final float WGGripOpen = 0.45f;
-    private static final float WGGripClosed = 0;
     private int depot;
     private RingStackTF ringDetector;
 
@@ -79,7 +66,7 @@ public class AutoBoilerplate extends LinearOpMode {
         newPIDF = auto.getPIDFCoefficients();
         robot.frontRaiseLower.setPosition(COLLECT_NO);
         robot.backRaiseLower.setPosition(COLLECT_NO);
-        robot.wobbleGoalGrip.setPosition(WGGripClosed);
+        robot.wobbleGoalGrip.setPosition(CLAW_CLOSED);
         sleep(350);
         robot.wobbleGoalArm.setPosition(ARM_IN);
         // Register buttons
@@ -125,7 +112,7 @@ public class AutoBoilerplate extends LinearOpMode {
         auto.rotate(99, 1);
 
         robot.queue.setPosition(MAGAZINE_UP);
-        robot.shooter.setVelocity(SHOOTER_SPEED);
+        robot.shooter.setVelocity(HIGH_SHOOTER_SPEED);
         sleep(1500);
         for(int i = 0; i < 3; i++){
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
@@ -156,7 +143,7 @@ public class AutoBoilerplate extends LinearOpMode {
 //woble goal ;)
         robot.wobbleGoalArm.setPosition(ARM_OUT);
         sleep(1000);
-        robot.wobbleGoalGrip.setPosition(WGGripOpen);
+        robot.wobbleGoalGrip.setPosition(CLAW_OPEN);
         sleep(250);
         robot.wobbleGoalArm.setPosition(ARM_IN);
         sleep(500);

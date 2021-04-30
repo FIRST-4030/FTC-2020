@@ -92,12 +92,12 @@ public class PidTuner extends LinearOpMode {
             buttons.update();
 
             if (buttons.get("UP")) {
-                auto.TICKS_PER_DEG += 0.1;
+                //auto.TICKS_PER_DEG += 0.1;
             }
 
 
             if (buttons.get("DOWN")) {
-                auto.TICKS_PER_DEG -= 0.1;
+                //auto.TICKS_PER_DEG -= 0.1;
             }
             if(buttons.get("GO")) auto.drive(48, 1.0f);
             if(buttons.get("TURN")) auto.rotate(180, 1.0f);
@@ -105,7 +105,7 @@ public class PidTuner extends LinearOpMode {
             if(buttons.get("TURN_CC")) auto.rotate(-180, 1.0f);
             telemetry.addData("Selected", selectedPid%4);
             telemetry.addData("Increment", increment);
-            telemetry.addData("TPD", auto.TICKS_PER_DEG);
+            //telemetry.addData("TPD", auto.TICKS_PER_DEG);
 
             telemetry.update();
 

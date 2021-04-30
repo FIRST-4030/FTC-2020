@@ -14,35 +14,15 @@ import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group = "Prod")
-public class TeleOpMode extends LinearOpMode {
+public class TeleOpMode extends LinearOpMode implements RobotConstants {
 
     // Devices and subsystems
     private Robot robot = null;
     private ButtonHandler buttons;
 
-    private boolean controlLocked;
+    private boolean controlLocked = false;
     private double shooterSpeed = 1830;
 
-    //servo constants
-    private static final float WGGripOpen = 0.45f;
-    private static final float WGGripClosed = 0;
-
-    private static final float MAGAZINE_UP = 0.11f;
-    private static final float MAGAZINE_DOWN = 0.83f;
-
-    private static final float COLLECT_MID = 0.55f;
-    private static final float COLLECT_FULL_FRONT = 0.35f;
-    private static final float COLLECT_FULL_BACK = 0.35f;
-    private static final float COLLECT_NO = 0.75f;
-
-
-    private static final float FLIPPER_SHOOT = 0.7f;
-    private static final float FLIPPER_IDLE = 0.43f;
-
-    private static final float ARM_POS_OUT = 1;
-
-    private static final float ARM_IN = 0.9f;
-    private static final float ARM_OUT = 0.2f;
 
     // other consts
     private static final float NORMAL_SPEED = 1.0f;
@@ -142,9 +122,9 @@ public class TeleOpMode extends LinearOpMode {
 
         //CLAW
         if (buttons.get("TOGGLE_GRIP")) {
-            robot.wobbleGoalGrip.setPosition(WGGripOpen);
+            robot.wobbleGoalGrip.setPosition(CLAW_OPEN);
         } else {
-            robot.wobbleGoalGrip.setPosition(WGGripClosed);
+            robot.wobbleGoalGrip.setPosition(CLAW_CLOSED);
         }
         //ARM
         if(buttons.get("TOGGLE_ARM")){
@@ -200,16 +180,16 @@ public class TeleOpMode extends LinearOpMode {
 
         if (buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queue.setPosition(MAGAZINE_UP);
-            robot.shooter.setVelocity(-shooterSpeed);
+            robot.shooter.setVelocity(shooterSpeed);
         } else {
             robot.queue.setPosition(MAGAZINE_DOWN);
             robot.shooter.setVelocity(0);
         }
 
         if (buttons.get("SHOOTER_SPEED_UP")) {
-            shooterSpeed = 1830;
+            shooterSpeed = HIGH_SHOOTER_SPEED;
         } else if (buttons.get("SHOOTER_SPEED_DOWN")) {
-            shooterSpeed = 1600;
+            shooterSpeed = POWERSHOT_SHOOTER_SPEED;
         }
         if (buttons.held("MANUAL_SHOOT") && buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
