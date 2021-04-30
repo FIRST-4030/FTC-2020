@@ -21,7 +21,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
     private ButtonHandler buttons;
 
     private boolean controlLocked = false;
-    private double shooterSpeed = 1830;
+    private double shooterSpeed = -1830;
 
 
     // other consts
