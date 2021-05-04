@@ -54,7 +54,7 @@ public class WheelsConfigs extends Configs {
                 motors = new WheelMotor[2];
                 motors[0] = new WheelMotor("FR", MOTOR_SIDE.RIGHT, true);
                 motors[1] = new WheelMotor("BL", MOTOR_SIDE.LEFT, false);
-                config = new WheelsConfig(DRIVE_TYPE.TANK, motors, true, DcMotor.RunMode.RUN_TO_POSITION);
+                config = new WheelsConfig(DRIVE_TYPE.TANK, motors, true, DcMotor.RunMode.RUN_USING_ENCODER);
                 break;
 
             case ARM:
