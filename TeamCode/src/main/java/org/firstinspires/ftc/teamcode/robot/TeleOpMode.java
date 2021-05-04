@@ -113,8 +113,8 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
     }
 
     private void auxiliary() {
-        telemetry.addData("X:", robot.odometry.dl);//robot.odometry.getPosition().getX());
-        telemetry.addData("Y:", robot.odometry.dr);//robot.odometry.getPosition().getY());
+        telemetry.addData("X:", robot.odometry.getPosition().getX());
+        telemetry.addData("Y:", robot.odometry.getPosition().getY());
         telemetry.addData("H:", robot.odometry.getPosition().getHeading());
         telemetry.addData("V:", robot.shooter.getVelocity());
         telemetry.addData("S:", shooterSpeed);
