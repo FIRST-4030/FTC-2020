@@ -18,8 +18,8 @@ public class Odometry {
     private DcMotor midEncoder;
 
     //Delta encoder values
-    public double dl;
-    public double dr;
+    public double s1;
+    public double s2;
     private double dm;
 
     //Values from previous loop
@@ -51,27 +51,32 @@ public class Odometry {
         double l = leftEncoder.getCurrentPosition();
         double r = rightEncoder.getCurrentPosition();
         double m = midEncoder.getCurrentPosition();
-        double dXNew;
-        double dYNew;
+        double dX;
+        double dY;
         Pose2d newPosition;
         //Get change in encoder values and store them
-        dl = (l - ll) / TICKS_PER_INCH;
-        dr = (r - lr) / TICKS_PER_INCH;
+        s1 = (l - ll) / TICKS_PER_INCH;
+        s2 = (r - lr) / TICKS_PER_INCH;
         dm = (m - lm) / TICKS_PER_INCH;
-        double theta = (dl-dr)*360/(2*pi*LR_POD_DISTANCE);
-        double min = Math.min(dl, dr);
+        double theta = (s1-s2)*360/(2*3.14159*LR_POD_DISTANCE);
+        double gamma = coords.getHeading() + theta;
         if(theta != 0){
-            double r1 = min*360/(2*pi*theta);
-            double r2 = r1 + LR_POD_DISTANCE;
-            double turnRadius = r1 + LR_POD_DISTANCE/2;
-            dXNew = -turnRadius * (1 + Math.cos(theta * pi / 180));
-            dYNew = -turnRadius * Math.sin(theta * pi / 180);
+            double r1 = s1*57.2958/theta;
+            double r2 = s2*57.2958/theta;
+
+            double turnRadius = r1-LR_POD_DISTANCE/2;
+            dX = turnRadius*Math.sin(theta*pi/180);
+            dY = turnRadius*(1-Math.cos(theta*pi/180));
 
         } else {
-            dXNew = 0;
-            dYNew = dl;
+            dY = 0;
+            dX = s1;
         }
-        newPosition = new Pose2d(coords.getX() - dXNew*Math.cos(-theta*pi/180) + dYNew*Math.sin(-theta*pi/180),coords.getY() + dXNew*Math.sin(-theta*pi/180) + dYNew*Math.cos(-theta*pi/180), coords.getHeading()+theta);
+        double X = coords.getX();
+        double Y = coords.getY();
+        double gX = X+dY*Math.cos(gamma*pi/180)+dX*Math.sin(gamma*pi/180);
+        double gY = Y-dY*Math.sin(gamma*pi/180)+dX*Math.cos(gamma*pi/180);
+        newPosition = new Pose2d(gX,gY, gamma);
         coords = newPosition;
         /*
         X = (d1cosθ1h1-d2cosθ2h2)/(cosθ1h1-cosθ2h2)
