@@ -118,7 +118,7 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
             sleep(350);
             robot.queueFlipper.setPosition(FLIPPER_IDLE);
-            sleep(1300);
+            sleep(500);
         }
         robot.shooter.setVelocity(0);
         robot.queue.setPosition(MAGAZINE_DOWN);
