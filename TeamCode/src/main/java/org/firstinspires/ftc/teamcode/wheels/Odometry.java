@@ -75,8 +75,8 @@ public class Odometry {
         }
         double X = coords.getX();
         double Y = coords.getY();
-        double gX = X+dY*Math.cos(gamma*pi/180)+dX*Math.sin(gamma*pi/180);
-        double gY = Y-dY*Math.sin(gamma*pi/180)+dX*Math.cos(gamma*pi/180);
+        double gX = X+dY*Math.sin(gamma*pi/180)+dX*Math.cos(gamma*pi/180);
+        double gY = Y-dY*Math.cos(gamma*pi/180)+dX*Math.sin(gamma*pi/180);
         newPosition = new Pose2d(gX,gY, gamma);
         coords = newPosition;
         /*
