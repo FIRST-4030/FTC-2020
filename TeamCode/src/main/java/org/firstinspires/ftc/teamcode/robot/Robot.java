@@ -103,7 +103,7 @@ public class Robot {
         // Bot specific
         switch (bot) {
             case PRODUCTION:
-                odometry = new Odometry(map, 9, 9, "LO", "RO", "MO");
+                odometry = new Odometry(map, 0, 0, "LO", "RO", "MO");
                 wobbleGoalArm = servos.init(SERVOS.WOBBLE_GOAL_ARM);
                 wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
                 queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);

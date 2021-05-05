@@ -109,7 +109,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
 
 
     private void driveBase() {
-        robot.odometry.update();
+        if(buttons.get("UPDATE_ODOMETRY")) robot.odometry.update();
         if (buttons.get("SLOW_MODE")) {
             robot.wheels.setSpeedScale(SLOW_MODE);
         } else {
@@ -119,13 +119,13 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
     }
 
     private void auxiliary() {
-        telemetry.addData("X:", robot.odometry.getPosition().getX());
-        telemetry.addData("Y:", robot.odometry.getPosition().getY());
         telemetry.addData("H:", robot.odometry.getPosition().getHeading());
         telemetry.addData("S1:", robot.odometry.getS1());
         telemetry.addData("S2:", robot.odometry.getS2());
         telemetry.addData("L:", robot.odometry.getLeftEncoder());
         telemetry.addData("R:", robot.odometry.getRightEncoder());
+        telemetry.addData("X:", robot.odometry.getPosition().getX());
+        telemetry.addData("Y:", robot.odometry.getPosition().getY());
         telemetry.addData("S:", shooterSpeed);
 
 
