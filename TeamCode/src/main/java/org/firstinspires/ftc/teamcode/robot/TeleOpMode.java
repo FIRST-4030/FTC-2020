@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.TwoWheelTrackingLocalizer;
+import org.firstinspires.ftc.teamcode.robot.auto.NewAuto;
 import org.firstinspires.ftc.teamcode.robot.auto.RingStackTF;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_END;
 import org.firstinspires.ftc.teamcode.wheels.MOTOR_SIDE;
@@ -28,6 +29,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
     private static final float NORMAL_SPEED = 1.0f;
     private static final float SLOW_MODE = 0.35f;
 
+    private NewAuto auto;
 
 
     @Override
@@ -41,6 +43,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
         robot.wheels.setTeleop(true);
+        auto = new NewAuto("BL","FR", hardwareMap);
 
         // Check robot
         if (robot.bot != BOT.PRODUCTION) {
@@ -66,6 +69,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         buttons.register("SHOOTER_SPEED_UP", gamepad2, PAD_BUTTON.dpad_up);
         buttons.register("SHOOTER_SPEED_DOWN", gamepad2, PAD_BUTTON.dpad_down);
 
+        buttons.register("POWER_SHOT_MOVE", gamepad1, PAD_BUTTON.dpad_left);
 
         // Wait for the game to begin
         telemetry.addData(">", "Ready for game start");
@@ -197,6 +201,10 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         } else {
             if(buttons.held("SHOOT") && robot.shooter.getVelocity() >= 2580 && robot.shooter.getVelocity() <= 2600) robot.queueFlipper.setPosition(FLIPPER_SHOOT);
             else robot.queueFlipper.setPosition(FLIPPER_IDLE);
+        }
+
+        if (buttons.get("POWER_SHOT_MOVE")) {
+            auto.drive(-7, 1);
         }
     }
 
