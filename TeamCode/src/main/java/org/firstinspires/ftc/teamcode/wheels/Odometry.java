@@ -10,7 +10,7 @@ public class Odometry {
     public static final String L_POD = "BL";
     public static final String R_POD = "FR";
     public static final double TICKS_PER_INCH = 1739.0 + 2.0/3.0;
-    public static final double LR_POD_DISTANCE = 11.6;
+    public static final double LR_POD_DISTANCE = 11.5;
     public static final float M_POD_DISTANCE = 4;
     // The three motors of whose encoders shall be used
     private DcMotor leftEncoder;
@@ -20,7 +20,7 @@ public class Odometry {
     //Delta encoder values
     public double s1;
     public double s2;
-    private double dm;
+    private double s3;
 
     //Values from previous loop
     private double ll = 0;
@@ -57,12 +57,13 @@ public class Odometry {
         //Get change in encoder values and store them
         s1 = (l - ll) / TICKS_PER_INCH;
         s2 = (r - lr) / TICKS_PER_INCH;
-        dm = (m - lm) / TICKS_PER_INCH;
+        s3 = (m - lm) / TICKS_PER_INCH;
         double theta = (s1-s2)*360/(2*3.14159*LR_POD_DISTANCE);
         double gamma = coords.getHeading() + theta;
         if(theta != 0){
             double r1 = s1*57.2958/theta;
             double r2 = s2*57.2958/theta;
+            double r3 = s1*57.2958/theta;
 
             double turnRadius = r1-LR_POD_DISTANCE/2;
             dX = turnRadius*Math.sin(theta*pi/180);
@@ -95,6 +96,15 @@ Y = (d3 - (R/cosθ3h3)
     }
     public double getLeftEncoder(){
         return leftEncoder.getCurrentPosition();
+    }
+    public double getRightEncoder(){
+        return rightEncoder.getCurrentPosition();
+    }
+    public double getS1(){
+        return s1;
+    }
+    public double getS2(){
+        return s2;
     }
 
 }
