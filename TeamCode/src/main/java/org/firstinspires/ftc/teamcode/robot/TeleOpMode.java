@@ -51,6 +51,8 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
 
         // Register buttons
         buttons = new ButtonHandler(robot);
+        buttons.register("UPDATE_ODOMETRY", gamepad1, PAD_BUTTON.x);
+
         buttons.register("SLOW_MODE", gamepad1, PAD_BUTTON.b, BUTTON_TYPE.TOGGLE);
         buttons.register("REVERSE_COLLECTOR", gamepad1, PAD_BUTTON.y);
         buttons.register("FRONT_MID_COLLECT", gamepad1, PAD_BUTTON.left_bumper);
@@ -116,7 +118,10 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         telemetry.addData("X:", robot.odometry.getPosition().getX());
         telemetry.addData("Y:", robot.odometry.getPosition().getY());
         telemetry.addData("H:", robot.odometry.getPosition().getHeading());
-        telemetry.addData("V:", robot.shooter.getVelocity());
+        telemetry.addData("S1:", robot.odometry.getS1());
+        telemetry.addData("S2:", robot.odometry.getS2());
+        telemetry.addData("S1:", robot.odometry.getS1());
+        telemetry.addData("S2:", robot.odometry.getS2());
         telemetry.addData("S:", shooterSpeed);
 
 
