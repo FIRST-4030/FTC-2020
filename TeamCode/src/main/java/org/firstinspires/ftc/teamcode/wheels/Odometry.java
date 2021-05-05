@@ -95,10 +95,10 @@ Y = (d3 - (R/cosθ3h3)
         return coords;
     }
     public double getLeftEncoder(){
-        return leftEncoder.getCurrentPosition();
+        return leftEncoder.getCurrentPosition()/TICKS_PER_INCH;
     }
     public double getRightEncoder(){
-        return rightEncoder.getCurrentPosition();
+        return rightEncoder.getCurrentPosition()/TICKS_PER_INCH;
     }
     public double getS1(){
         return s1;
