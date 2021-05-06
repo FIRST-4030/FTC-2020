@@ -60,7 +60,7 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
         //vuforia.start();
         //vuforia.enableCapture();
 
-        auto = new NewAuto("BL","FR", hardwareMap);
+        auto = new NewAuto("BL","FR", hardwareMap, robot.odometry);
         ringDetector = new RingStackTF(hardwareMap, telemetry);
 
         newPIDF = auto.getPIDFCoefficients();
