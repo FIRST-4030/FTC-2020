@@ -181,7 +181,23 @@ public class NewAuto {
         while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
     }
 
-
+    public void Drive_To_Position(double x, double y, float speedScale) {
+        double X = odometry.getPosition().getX();
+        double Y = odometry.getPosition().getY();
+        double H = odometry.getPosition().getHeading() % 360;
+        double dX = x - X;
+        double dY = y - Y;
+        double h = Math.atan(dX / dY) * (180 / Math.PI);
+        double dH = h - H;
+        if (dH < -180) {
+            dH += 360;
+        } else if (dH > 180) {
+            dH -= 360;
+        }
+        double distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+        this.rotate(dH, speedScale);
+        this.drive(distance, speedScale);
+    }
 
 
     public void rotateLeftWheels(double degrees,  float speedScale){
