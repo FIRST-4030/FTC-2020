@@ -85,7 +85,6 @@ public class NewAuto {
     }
 
     public void drive(double distance,  float speedScale){
-
         double lSpeed = 0;
         double rSpeed = 0;
         target = (int)(distance * TICKS_PER_INCH);
@@ -181,7 +180,7 @@ public class NewAuto {
         while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
     }
 
-    public void Drive_To_Position(double x, double y, float speedScale) {
+    public void driveToPosition(double x, double y, float speedScale) {
         double X = odometry.getPosition().getX();
         double Y = odometry.getPosition().getY();
         double H = odometry.getPosition().getHeading() % 360;
@@ -200,60 +199,6 @@ public class NewAuto {
     }
 
 
-    public void rotateLeftWheels(double degrees,  float speedScale){
-        target = (int)(degrees * TICKS_PER_DEG * 2);
-        for (DcMotorEx m:left) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-        for (DcMotorEx m:right) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        }
-        while (Math.abs(left.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
-            odometry.update();
-            int targ = Math.abs(target);
-            int pos = Math.abs(left.get(0).getCurrentPosition());
-            float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
-            if(degrees < 0) power = -power;
-            double correction = Math.pow((left.get(0).getCurrentPosition() + right.get(0).getCurrentPosition()), 2);
-            for (DcMotorEx m:left) m.setVelocity((power * 1150));
-        }
-        for (DcMotorEx m:left) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setPower(0);
-        }
-        for (DcMotorEx m:right) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setPower(0);
-        }
-    }
-    public void rotateRightWheels(double degrees,  float speedScale){
-        target = (int)(degrees * TICKS_PER_DEG * 2);
-        for (DcMotorEx m:left) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        }
-        for (DcMotorEx m:right) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-        while (Math.abs(right.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
-            odometry.update();
-            int targ = Math.abs(target);
-            int pos = Math.abs(right.get(0).getCurrentPosition());
-            float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
-            if(degrees < 0) power = -power;
-            double correction = Math.pow((left.get(0).getCurrentPosition() + right.get(0).getCurrentPosition()), 2);
-            for (DcMotorEx m:right) m.setVelocity(-(power * 1150));
-        }
-        for (DcMotorEx m:left) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setPower(0);
-        }
-        for (DcMotorEx m:right) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            m.setPower(0);
-        }
-    }
     /**
      * See if we are moving in a straight line and if not return a power correction value.
      * @return Power adjustment, + is adjust left - is adjust right.

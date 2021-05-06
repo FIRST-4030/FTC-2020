@@ -50,7 +50,7 @@ public class PidTuner extends LinearOpMode {
         //vuforia.start();
         //vuforia.enableCapture();
 
-        auto = new NewAuto("BL", "FR", hardwareMap);
+        auto = new NewAuto("BL", "FR", hardwareMap, robot.odometry);
 
         newPIDF = auto.getPIDFCoefficients();
 
@@ -103,8 +103,7 @@ public class PidTuner extends LinearOpMode {
             if(buttons.get("TURN")) auto.rotate(180, 1.0f);
             if(buttons.get("BACK")) auto.drive(-48, 1.0f);
             if(buttons.get("TURN_CC")) auto.rotate(-180, 1.0f);
-            telemetry.addData("Selected", selectedPid%4);
-            telemetry.addData("Increment", increment);
+            telemetry.addData("D", (robot.odometry.getLeftEncoder()-robot.odometry.getRightEncoder())/(Math.PI*10));
             //telemetry.addData("TPD", auto.TICKS_PER_DEG);
 
             telemetry.update();
