@@ -10,7 +10,7 @@ public class Odometry {
     public static final String L_POD = "BL";
     public static final String R_POD = "FR";
     public static final double TICKS_PER_INCH = 1739.0 + 2.0/3.0;
-    public static final double LR_POD_DISTANCE = 11.5;
+    public static final double LR_POD_DISTANCE = 11.52;
     public static final float M_POD_DISTANCE = 4;
     // The three motors of whose encoders shall be used
     private DcMotor leftEncoder;

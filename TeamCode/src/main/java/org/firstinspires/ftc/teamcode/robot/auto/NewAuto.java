@@ -186,7 +186,7 @@ public class NewAuto {
         double H = odometry.getPosition().getHeading() % 360;
         double dX = x - X;
         double dY = y - Y;
-        double h = Math.atan(dX / dY) * (180 / Math.PI);
+        double h = Math.atan(dY / dX) * (180 / Math.PI);
         double dH = h - H;
         if (dH < -180) {
             dH += 360;

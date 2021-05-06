@@ -33,7 +33,6 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
     private ButtonHandler buttons;
     private NewAuto auto;
     // Runtime vars
-    private AUTO_STATE state;
     private boolean gameReady = false;
     private Field.AllianceColor color = Field.AllianceColor.BLUE;
     private boolean stopByWall = true;
@@ -161,22 +160,10 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
                 auto.drive(-55, 1);
                 break;
         }
-
+        auto.driveToPosition(24, 0, 1);
 
         }
 
-    /**
-     * Defines the order of the auto routine steps
-     */
-    enum AUTO_STATE implements OrderedEnum {
-        INIT, // Initialization
-        PARK_ON_LINE,
-
-        DONE;
-
-        public AUTO_STATE prev() { return OrderedEnumHelper.prev(this); }
-        public AUTO_STATE next() { return OrderedEnumHelper.next(this); }
-    }
 
     /**
      * Sets config booleans according to user input

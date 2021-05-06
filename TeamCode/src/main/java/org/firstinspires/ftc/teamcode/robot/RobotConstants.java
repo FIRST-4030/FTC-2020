@@ -17,7 +17,7 @@ public interface RobotConstants {
     float FLIPPER_IDLE = 0.43f;
 
     float ARM_IN = 0.75f;
-    float ARM_OUT = 0.2f;
+    float ARM_OUT = 0.0f;
 
     // Motors
     double HIGH_SHOOTER_SPEED = -1835;
