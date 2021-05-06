@@ -43,7 +43,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
         robot.wheels.setTeleop(true);
-        auto = new NewAuto("BL","FR", hardwareMap);
+        auto = new NewAuto("BL","FR", hardwareMap, robot.odometry);
 
         // Check robot
         if (robot.bot != BOT.PRODUCTION) {
@@ -109,7 +109,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
 
 
     private void driveBase() {
-        if(buttons.get("UPDATE_ODOMETRY")) robot.odometry.update();
+        robot.odometry.update();
         if (buttons.get("SLOW_MODE")) {
             robot.wheels.setSpeedScale(SLOW_MODE);
         } else {

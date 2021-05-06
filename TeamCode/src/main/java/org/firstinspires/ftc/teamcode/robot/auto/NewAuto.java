@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.utils.OrderedEnum;
 import org.firstinspires.ftc.teamcode.utils.OrderedEnumHelper;
 import org.firstinspires.ftc.teamcode.utils.Round;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
+import org.firstinspires.ftc.teamcode.wheels.Odometry;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,7 @@ public class NewAuto {
     public BNO055IMU imu;
     private Orientation lastAngles = new Orientation();
     private int target = 0;
+    private Odometry odometry;
 
     private void init(HardwareMap map){
         PIDFCoefficients pidf = new PIDFCoefficients();
@@ -57,8 +59,8 @@ public class NewAuto {
         left.get(0).setTargetPositionTolerance(TOLERANCE);
     }
 
-    public NewAuto (String l1, String l2, String r1, String r2, HardwareMap map){
-
+    public NewAuto (String l1, String l2, String r1, String r2, HardwareMap map, Odometry odo){
+        odometry = odo;
         left = new ArrayList<DcMotorEx>();
         right = new ArrayList<DcMotorEx>();
         left.add(map.get(DcMotorEx.class, l1));
@@ -71,8 +73,8 @@ public class NewAuto {
         init(map);
     }
 
-    public NewAuto (String l, String r, HardwareMap map){
-
+    public NewAuto (String l, String r, HardwareMap map, Odometry odo){
+        odometry = odo;
 
 
         left = new ArrayList<DcMotorEx>();
