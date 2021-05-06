@@ -102,6 +102,7 @@ public class NewAuto {
         double lEnc = left.get(0).getCurrentPosition() - lEncStart;
         double rEnc;
         while (Math.abs(lEnc) + TOLERANCE < Math.abs(target)){
+            odometry.update();
             lEnc = left.get(0).getCurrentPosition() - lEncStart;
             rEnc = right.get(0).getCurrentPosition() - rEncStart;
             int targ = Math.abs(target);
@@ -127,7 +128,7 @@ public class NewAuto {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setPower(0);
         }
-        while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0);
+        while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
     }
 
     public void rotate(double degrees,  float speedScale){
@@ -148,6 +149,7 @@ public class NewAuto {
         double lEnc = left.get(0).getCurrentPosition() - lEncStart;
         double rEnc = right.get(0).getCurrentPosition() - lEncStart;
         while (Math.abs(lEnc) + TOLERANCE < Math.abs(target) || Math.abs(rEnc) + TOLERANCE < Math.abs(target)){
+            odometry.update();
             lEnc = left.get(0).getCurrentPosition() - lEncStart;
             rEnc = right.get(0).getCurrentPosition() - rEncStart;
             lEnc = left.get(0).getCurrentPosition() - lEncStart;
@@ -176,7 +178,7 @@ public class NewAuto {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setPower(0);
         }
-        while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0);
+        while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
     }
 
 
@@ -192,6 +194,7 @@ public class NewAuto {
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         while (Math.abs(left.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
+            odometry.update();
             int targ = Math.abs(target);
             int pos = Math.abs(left.get(0).getCurrentPosition());
             float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
@@ -218,6 +221,7 @@ public class NewAuto {
             m.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         while (Math.abs(right.get(0).getCurrentPosition()) + TOLERANCE < Math.abs(target)){
+            odometry.update();
             int targ = Math.abs(target);
             int pos = Math.abs(right.get(0).getCurrentPosition());
             float power = Math.min(speedScale, (float)(((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + speedScale));
