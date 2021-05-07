@@ -223,7 +223,11 @@ public class NewAuto {
             }
         } else if (dX > 0) {
             h = (Math.atan(dY / dX) * (180 / Math.PI)) % 360;
-            dH = h - H;
+            if (dY > 0) {
+                dH = h - H + 90;
+            } else if (dY < 0) {
+                dH = h - H - 90;
+            }
         } else {
             if (dY == 0) {
                 dH = 0;
