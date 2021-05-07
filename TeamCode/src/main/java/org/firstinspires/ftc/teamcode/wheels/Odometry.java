@@ -36,11 +36,18 @@ public class Odometry {
         leftEncoder = map.dcMotor.get(left);
         leftEncoder.setDirection(DcMotorSimple.Direction.REVERSE);
         rightEncoder = map.dcMotor.get(right);
+        leftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         coords = new Pose2d (startX, startY, 0);
     }
     public Odometry (HardwareMap map, int startX, int startY, String left, String right, String mid){
         this(map, startX, startY, left, right);
         midEncoder = map.dcMotor.get(mid);
+
+        midEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        midEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     // Loop

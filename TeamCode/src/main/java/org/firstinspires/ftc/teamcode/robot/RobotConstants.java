@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.robot;
 
 public interface RobotConstants {
     // Servos
-    float CLAW_OPEN = 0.45f;
-    float CLAW_CLOSED = 0;
+    float CLAW_OPEN = 0.07f;
+    float CLAW_CLOSED = 0.79f;
 
     float MAGAZINE_UP = 0.115f;
     float MAGAZINE_DOWN = 0.83f;
@@ -18,7 +18,7 @@ public interface RobotConstants {
 
     float ARM_IN = 0.75f;
     float ARM_INIT = 0.85f;
-    float ARM_OUT = 0.0f;
+    float ARM_OUT = 0.17f;
 
     // Motors
     double HIGH_SHOOTER_SPEED = -1835;

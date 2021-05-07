@@ -211,7 +211,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
 
         if (buttons.get("POWER_SHOT_MOVE")) {
             robot.wheels.setTeleop(false);
-            auto.drive(-7, 1);
+            auto.drive(-8, 1);
             robot.wheels.setTeleop(true);
         }
     }

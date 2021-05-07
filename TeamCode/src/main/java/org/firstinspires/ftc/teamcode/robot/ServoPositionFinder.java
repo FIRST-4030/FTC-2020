@@ -14,7 +14,6 @@ public class ServoPositionFinder extends OpMode {
     // Devices and subsystems
     private Robot robot = null;
     private ButtonHandler buttons;
-    private TwoWheelTrackingLocalizer odometry;
 
     private float servoPos = 0.4f;
 
@@ -37,7 +36,6 @@ public class ServoPositionFinder extends OpMode {
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
         robot.wheels.setTeleop(true);
-        odometry = new TwoWheelTrackingLocalizer(hardwareMap);
 
         // Check robot
         if (robot.bot != BOT.PRODUCTION) {
@@ -95,7 +93,7 @@ public class ServoPositionFinder extends OpMode {
             servoPos -= INCREMENT;
             servoPos = Math.max(0.0f, servoPos);
         }
-        robot.claw.setPosition(servoPos);
+        robot.wobbleGoalArm.setPosition(servoPos);
     }
 
 

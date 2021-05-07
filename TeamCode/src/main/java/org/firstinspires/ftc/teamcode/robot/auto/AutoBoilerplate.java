@@ -108,6 +108,8 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
 
         auto.drive(52, 1);
 
+        robot.wobbleGoalArm.setPosition(ARM_IN);
+
         auto.rotate(98, 1);
 
         robot.queue.setPosition(MAGAZINE_UP);
@@ -160,7 +162,7 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
                 auto.drive(-55, 1);
                 break;
         }
-        auto.driveToPosition(24, 0, 1);
+        //auto.driveToPosition(24, 0, 1);
 
         }
 
