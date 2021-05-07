@@ -145,11 +145,9 @@ public class NewAuto {
             for (DcMotorEx m:left) m.setVelocity(lSpeed);
         }
         for (DcMotorEx m:left) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setPower(0);
         }
         for (DcMotorEx m:right) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setPower(0);
         }
         while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
@@ -195,11 +193,9 @@ public class NewAuto {
             for (DcMotorEx m:left) m.setVelocity(lSpeed);
         }
         for (DcMotorEx m:left) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setPower(0);
         }
         for (DcMotorEx m:right) {
-            m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setPower(0);
         }
         while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
