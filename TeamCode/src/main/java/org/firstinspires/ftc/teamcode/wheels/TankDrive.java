@@ -40,6 +40,16 @@ public class TankDrive implements Wheels {
         return config != null;
     }
 
+    public Motor getMotor(MOTOR_SIDE side, MOTOR_END end){
+        int i = getIndex(side, end);
+        return config.motors[i].get();
+    }
+
+    public Motor getMotor(MOTOR_SIDE side){
+        int i = getIndex(side, MOTOR_END.FRONT);
+        return config.motors[i].get();
+    }
+
     private int getIndex(MOTOR_SIDE side, MOTOR_END end) {
         for (int i = 0; i < config.motors.length; i++) {
             /*if (end == null && side == null) {

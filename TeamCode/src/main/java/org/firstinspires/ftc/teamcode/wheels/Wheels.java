@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.wheels;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.actuators.Motor;
 import org.firstinspires.ftc.teamcode.utils.Available;
 
 public interface Wheels extends Available {
@@ -25,6 +26,10 @@ public interface Wheels extends Available {
     float getTranslationTicksPerMM(MOTOR_SIDE side);
 
     float getTranslationTicksPerMM(MOTOR_SIDE side, MOTOR_END end);
+
+    Motor getMotor(MOTOR_SIDE side, MOTOR_END end);
+
+    Motor getMotor(MOTOR_SIDE side);
 
     int getEncoder();
 

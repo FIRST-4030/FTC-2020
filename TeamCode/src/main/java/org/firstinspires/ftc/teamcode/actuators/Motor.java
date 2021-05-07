@@ -86,6 +86,12 @@ public class Motor implements Available {
         }
         return motor.getCurrentPosition() + offset;
     }
+    public DcMotorEx get() {
+        if (!isAvailable()) {
+            return null;
+        }
+        return motor;
+    }
 
     public void resetEncoder() {
         stop();

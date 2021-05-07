@@ -84,6 +84,31 @@ public class NewAuto {
         init(map);
     }
 
+    public NewAuto (Motor l1, Motor l2, Motor r1, Motor r2, HardwareMap map, Odometry odo){
+        odometry = odo;
+        left = new ArrayList<DcMotorEx>();
+        right = new ArrayList<DcMotorEx>();
+        left.add(l1.get());
+        left.add(l2.get());
+        right.add(r1.get());
+        right.add(r2.get());
+        for (DcMotorEx m:left){
+            //m.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
+        init(map);
+    }
+
+    public NewAuto (Motor l, Motor r, HardwareMap map, Odometry odo){
+        odometry = odo;
+
+
+        left = new ArrayList<DcMotorEx>();
+        right = new ArrayList<DcMotorEx>();
+        left.add(l.get());
+        right.add(r.get());
+        init(map);
+    }
+
     public void drive(double distance,  float speedScale){
         double lSpeed = 0;
         double rSpeed = 0;

@@ -39,6 +39,9 @@ public class WheelMotor extends MotorConfig implements Available {
     public WheelMotor(String name, MOTOR_SIDE side, boolean reverse, float ticksPerMM) {
         this(name, side, MOTOR_END.FRONT, reverse, ticksPerMM, 0.0f, true, null);
     }
+    public Motor get(){
+        return motor;
+    }
 
     public boolean isAvailable() {
         return this.motor != null;

@@ -43,7 +43,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         // Init the common tasks elements
         robot = new Robot(hardwareMap, telemetry);
         robot.wheels.setTeleop(true);
-        auto = new NewAuto("BL","FR", hardwareMap, robot.odometry);
+        auto = new NewAuto(robot.wheels.getMotor(MOTOR_SIDE.LEFT, MOTOR_END.FRONT),robot.wheels.getMotor(MOTOR_SIDE.RIGHT, MOTOR_END.FRONT), hardwareMap, robot.odometry);
 
         // Check robot
         if (robot.bot != BOT.PRODUCTION) {
@@ -203,13 +203,16 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         if (buttons.held("MANUAL_SHOOT") && buttons.get("TOGGLE_MAGAZINE_POS")) {
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
             //controlLocked = true;
-        } else {
+        } /*else {
             if(buttons.held("SHOOT") && robot.shooter.getVelocity() >= 2580 && robot.shooter.getVelocity() <= 2600) robot.queueFlipper.setPosition(FLIPPER_SHOOT);
+            */
             else robot.queueFlipper.setPosition(FLIPPER_IDLE);
-        }
+
 
         if (buttons.get("POWER_SHOT_MOVE")) {
+            robot.wheels.setTeleop(false);
             auto.drive(-7, 1);
+            robot.wheels.setTeleop(true);
         }
     }
 
