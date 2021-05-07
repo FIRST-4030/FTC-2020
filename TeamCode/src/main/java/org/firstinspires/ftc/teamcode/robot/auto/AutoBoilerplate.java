@@ -67,7 +67,7 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
         robot.backRaiseLower.setPosition(COLLECT_NO);
         robot.wobbleGoalGrip.setPosition(CLAW_CLOSED);
         sleep(350);
-        robot.wobbleGoalArm.setPosition(ARM_IN);
+        robot.wobbleGoalArm.setPosition(ARM_INIT);
         // Register buttons
         buttons = new ButtonHandler(robot);
         buttons.register("SELECT_PID", gamepad1, PAD_BUTTON.y);
