@@ -209,24 +209,12 @@ public class NewAuto {
         double dY = y - Y;
         double h;
         double dH = 0;
-        if (dX < 0) {
-            if (dY != 0) {
-                h = (Math.atan(dX / dY) * (180 / Math.PI)) % 360;
-                if (dY > 0) {
-                    dH = h - H - 180;
-                } else if (dY < 0) {
-                    dH = h - H + 180;
-                }
-            } else {
-                h = 180;
-                dH = h - H;
-            }
-        } else if (dX > 0) {
+        if (dX != 0) {
             h = (Math.atan(dY / dX) * (180 / Math.PI)) % 360;
-            if (dY > 0) {
-                dH = h - H + 90;
-            } else if (dY < 0) {
-                dH = h - H - 90;
+            if (dX > 0) {
+                dH = h - H;
+            } else if (dX < 0) {
+                dH = h - H - 180;
             }
         } else {
             if (dY == 0) {
@@ -238,6 +226,11 @@ public class NewAuto {
                 h = -90;
                 dH = h - H;
             }
+        }
+        if (dH < -180) {
+            dH += 360;
+        } else if (dH > 180) {
+            dH -= 360;
         }
         double distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
         this.rotate(dH, speedScale);
