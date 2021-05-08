@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot.auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.buttons.BUTTON_TYPE;
@@ -11,8 +12,8 @@ import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.RobotConstants;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
-//@Disabled
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto", group = "Production")
+@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto (Boilerplate)", group = "Production")
 public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
 
 
