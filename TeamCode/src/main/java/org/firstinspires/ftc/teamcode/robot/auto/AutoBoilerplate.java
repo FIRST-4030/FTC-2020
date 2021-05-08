@@ -87,8 +87,10 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
             /*
             AUTO ROUTINE HERE
             */
-
-            //auto.driveToPosition(24, 0, 1);
+            auto.driveToPosition(24, 0, 1);
+            auto.driveToPosition(24, 24, 1);
+            auto.driveToPosition(48, 24, 1);
+            auto.driveToPosition(72, 0, 1);
         }
 
     }

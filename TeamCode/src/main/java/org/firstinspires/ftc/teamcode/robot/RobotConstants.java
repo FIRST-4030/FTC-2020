@@ -17,7 +17,7 @@ public interface RobotConstants {
     float FLIPPER_IDLE = 0.43f;
 
     float ARM_IN = 0.75f;
-    float ARM_INIT = 0.85f;
+    float ARM_INIT = 0.8f;
     float ARM_OUT = 0.17f;
 
     // Motors
