@@ -12,9 +12,9 @@ import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.RobotConstants;
 import org.firstinspires.ftc.teamcode.vuforia.VuforiaFTC;
 
-@Disabled
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto (Boilerplate)", group = "Production")
-public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
+
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "RunToPosTest", group = "Production")
+public class RunToPosTest extends LinearOpMode implements RobotConstants {
 
 
     // Devices and subsystems
@@ -87,6 +87,10 @@ public class AutoBoilerplate extends LinearOpMode implements RobotConstants {
             /*
             AUTO ROUTINE HERE
             */
+            auto.driveToPosition(24, 0, 1);
+            auto.driveToPosition(24, 24, 1);
+            auto.driveToPosition(48, 24, 1);
+            auto.driveToPosition(72, 0, 1);
         }
 
     }
