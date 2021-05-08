@@ -224,6 +224,18 @@ public class NewAuto {
         this.drive(distance, speedScale);
     }
 
+    public void rotationToAngle(double h, float speedScale) {
+        double H = -odometry.getPosition().getHeading() % 360;
+        double dH = 0;
+        dH = h - H;
+        if (dH < -180) {
+            dH += 360;
+        } else if (dH > 180) {
+            dH -= 360;
+        }
+        this.rotate(dH, speedScale);
+    }
+
 
     /**
      * See if we are moving in a straight line and if not return a power correction value.
