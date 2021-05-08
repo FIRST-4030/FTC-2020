@@ -10,7 +10,7 @@ public interface RobotConstants {
 
     float COLLECT_MID = 0.55f;
     float COLLECT_FULL_FRONT = 0.36f;
-    float COLLECT_FULL_BACK = 0.36f;
+    float COLLECT_FULL_BACK = 0.32f;
     float COLLECT_NO = 0.75f;
 
     float FLIPPER_SHOOT = 0.7f;

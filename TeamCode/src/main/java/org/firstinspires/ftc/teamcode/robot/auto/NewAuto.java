@@ -37,6 +37,8 @@ public class NewAuto {
     private static final double D = 0;
     private static final double F = 20;
 
+    public double ATAN2 = 0;
+
 
 
 
@@ -203,13 +205,14 @@ public class NewAuto {
 
     public void driveToPosition(double x, double y, float speedScale) {
         double X = odometry.getPosition().getX();
-        double Y = odometry.getPosition().getY();
-        double H = odometry.getPosition().getHeading() % 360;
+        double Y = -odometry.getPosition().getY();
+        double H = -odometry.getPosition().getHeading() % 360;
         double dX = x - X;
         double dY = y - Y;
         double h;
         double dH = 0;
-        h = (Math.atan2(dX, dY) * (180 / Math.PI)) % 360;
+        h = (Math.atan2(dY, dX) * (180 / Math.PI)) % 360;
+        ATAN2 = h;
         dH = h - H;
         if (dH < -180) {
             dH += 360;

@@ -88,9 +88,27 @@ public class RunToPosTest extends LinearOpMode implements RobotConstants {
             AUTO ROUTINE HERE
             */
             auto.driveToPosition(24, 0, 1);
+            telemetry.addData("atan2", auto.ATAN2);
+            telemetry.update();
+            sleep(5000);
             auto.driveToPosition(24, 24, 1);
+            telemetry.addData("atan2", auto.ATAN2);
+            telemetry.addData("X", robot.odometry.getPosition().getX());
+            telemetry.addData("Y", robot.odometry.getPosition().getY());
+            telemetry.update();
+            sleep(5000);
             auto.driveToPosition(48, 24, 1);
+            telemetry.addData("atan2", auto.ATAN2);
+            telemetry.addData("X", robot.odometry.getPosition().getX());
+            telemetry.addData("Y", robot.odometry.getPosition().getY());
+            telemetry.update();
+            sleep(5000);
             auto.driveToPosition(72, 0, 1);
+            telemetry.addData("atan2", auto.ATAN2);
+            telemetry.addData("X", robot.odometry.getPosition().getX());
+            telemetry.addData("Y", robot.odometry.getPosition().getY());
+            telemetry.update();
+            sleep(5000);
         }
 
     }
@@ -100,14 +118,7 @@ public class RunToPosTest extends LinearOpMode implements RobotConstants {
      * Sets config booleans according to user input
      */
     private void userSettings(){
-        buttons.update();
 
-        if (buttons.get("SELECT_SIDE")) {
-            color = Field.AllianceColor.RED;
-        } else {
-            color = Field.AllianceColor.BLUE;
-        }
-        telemetry.addData("Team Color", color.toString());
 
 
     }
