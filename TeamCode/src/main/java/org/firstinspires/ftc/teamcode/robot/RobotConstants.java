@@ -9,7 +9,7 @@ public interface RobotConstants {
     float MAGAZINE_DOWN = 0.83f;
 
     float COLLECT_MID = 0.55f;
-    float COLLECT_FULL_FRONT = 0.37f;
+    float COLLECT_FULL_FRONT = 0.36f;
     float COLLECT_FULL_BACK = 0.36f;
     float COLLECT_NO = 0.75f;
 
