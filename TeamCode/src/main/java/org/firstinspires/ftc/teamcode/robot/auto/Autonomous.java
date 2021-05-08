@@ -114,7 +114,7 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
 
         robot.queue.setPosition(MAGAZINE_UP);
         robot.shooter.setVelocity(HIGH_SHOOTER_SPEED);
-        sleep(1500);
+        sleep(1000);
         for(int i = 0; i < 3; i++){
             robot.queueFlipper.setPosition(FLIPPER_SHOOT);
             sleep(350);
@@ -138,7 +138,6 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
                 auto.rotate(-96, 1);
                 auto.drive(55, 1);
                 auto.rotate(-48, 1);
-                auto.drive(2, 1);
                 break;
         }
 //woble goal ;)
@@ -147,14 +146,24 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
         robot.wobbleGoalGrip.setPosition(CLAW_OPEN);
         sleep(350);
         robot.wobbleGoalArm.setPosition(ARM_IN);
-        sleep(350);
-        auto.driveToPosition(28, 32, 1);
-        sleep(100);
-        auto.driveToPosition(22, 32, 1);
-        robot.wobbleGoalGrip.setPosition(CLAW_OPEN);
-        sleep(250);
+        auto.drive(-7, 1);
+        auto.driveToPosition(32, 32, 1);
         robot.wobbleGoalArm.setPosition(ARM_OUT);
-        sleep(1000);
+        switch (depot){
+            case 0:
+                auto.rotationToAngle(185, 1);
+                auto.drive(7, 1);
+                break;
+            case 1:
+                auto.rotationToAngle(185, 1);
+                auto.drive(5, 1);
+                break;
+            case 2:
+                auto.rotationToAngle(195, 1);
+                auto.drive(10, 1);
+        }
+
+        robot.wobbleGoalArm.setPosition(ARM_OUT);
         robot.wobbleGoalGrip.setPosition(CLAW_CLOSED);
         sleep(500);
         robot.wobbleGoalArm.setPosition(ARM_IN);
@@ -172,7 +181,7 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
                 //auto.drive(-14, 1);
                 break;
             case 2:
-                auto.driveToPosition(100.5, -6, 1);
+                auto.driveToPosition(100.5, -0, 1);
                 //auto.drive(-55, 1);
                 break;
         }
