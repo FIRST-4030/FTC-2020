@@ -18,7 +18,7 @@ public interface RobotConstants {
 
     float ARM_IN = 0.75f;
     float ARM_INIT = 0.8f;
-    float ARM_OUT = 0.17f;
+    float ARM_OUT = 0.13f;
 
     // Motors
     double HIGH_SHOOTER_SPEED = -1835;

@@ -182,8 +182,8 @@ public class NewAuto {
             float power = Math.min(speedScale, (((targ - pos) / (int)TICKS_FROM_END_SPIN) * speedScale + 0.2f));
 
             double correction = 0;
-            rSpeed = power * 1150 + correction;
-            lSpeed = power * 1150 - correction;
+            rSpeed = power * 1150.0f + correction;
+            lSpeed = power * 1150.0f - correction;
             if(degrees < 0){
                 lSpeed = -lSpeed;
             } else {
