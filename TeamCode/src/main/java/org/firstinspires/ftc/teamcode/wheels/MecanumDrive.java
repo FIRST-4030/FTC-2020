@@ -1,11 +1,18 @@
 package org.firstinspires.ftc.teamcode.wheels;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+
+import java.util.List;
 
 public class MecanumDrive extends TankDrive {
 
@@ -79,5 +86,79 @@ public class MecanumDrive extends TankDrive {
         float rStickX = cleanJoystick(2.0f*pad.left_stick_x);
 
         setSpeed(rStickX, lStickY, lStickX);
+
+        roadRunnerMecanum.update();
+    }
+
+    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
+        return roadRunnerMecanum.trajectoryBuilder(startPose);
+    }
+
+    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
+        return roadRunnerMecanum.trajectoryBuilder(startPose, reversed);
+    }
+
+    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, double startHeading) {
+        return roadRunnerMecanum.trajectoryBuilder(startPose, startHeading);
+    }
+
+    public void turnAsync(double angle) {
+        roadRunnerMecanum.turnAsync(angle);
+    }
+
+    public void turn(double angle) {
+        roadRunnerMecanum.turn(angle);
+    }
+
+    public void followTrajectoryAsync(Trajectory trajectory) {
+        roadRunnerMecanum.followTrajectoryAsync(trajectory);
+    }
+
+    public void followTrajectory(Trajectory trajectory) {
+        roadRunnerMecanum.followTrajectory(trajectory);
+    }
+
+    public Pose2d getLastError() {
+        return roadRunnerMecanum.getLastError();
+    }
+
+    public void waitForIdle() {
+        roadRunnerMecanum.waitForIdle();
+    }
+
+    public boolean isBusy() {
+        return roadRunnerMecanum.isBusy();
+    }
+
+    public void setMode(DcMotor.RunMode runMode) {
+        roadRunnerMecanum.setMode(runMode);
+    }
+
+    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+        roadRunnerMecanum.setZeroPowerBehavior(zeroPowerBehavior);
+    }
+
+    public void setPIDFCoefficients(DcMotor.RunMode runMode, PIDFCoefficients coefficients) {
+        roadRunnerMecanum.setPIDFCoefficients(runMode, coefficients);
+    }
+
+    public void setWeightedDrivePower(Pose2d drivePower) {
+        roadRunnerMecanum.setWeightedDrivePower(drivePower);
+    }
+
+    public List<Double> getWheelPositions() {
+        return roadRunnerMecanum.getWheelPositions();
+    }
+
+    public List<Double> getWheelVelocities() {
+        return roadRunnerMecanum.getWheelVelocities();
+    }
+
+    public void setMotorPowers(double v, double v1, double v2, double v3) {
+        roadRunnerMecanum.setMotorPowers(v, v1, v2, v3);
+    }
+
+    public double getRawExternalHeading() {
+        return roadRunnerMecanum.getRawExternalHeading();
     }
 }

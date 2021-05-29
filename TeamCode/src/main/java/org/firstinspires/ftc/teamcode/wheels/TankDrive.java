@@ -1,11 +1,30 @@
 package org.firstinspires.ftc.teamcode.wheels;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.canvas.Canvas;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.drive.DriveSignal;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
+import com.acmerobotics.roadrunner.profile.MotionState;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.actuators.Motor;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.util.DashboardUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.encoderTicksToInches;
 
 public class TankDrive implements Wheels {
     private static final boolean DEBUG = false;
@@ -242,5 +261,81 @@ public class TankDrive implements Wheels {
         power = (float) Math.pow(power, JOYSTICK_EXPONENT);
         power = Math.copySign(power, stick);
         return power;
+    }
+
+    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
+        return null;
+    }
+
+    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
+        return null;
+    }
+
+    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, double startHeading) {
+        return null;
+    }
+
+    public void turnAsync(double angle) {
+
+    }
+
+    public void turn(double angle) {
+
+    }
+
+    public void followTrajectoryAsync(Trajectory trajectory) {
+
+    }
+
+    public void followTrajectory(Trajectory trajectory) {
+
+    }
+
+    public Pose2d getLastError() {
+        return null;
+    }
+
+    public void update() {
+
+    }
+
+    public void waitForIdle() {
+
+    }
+
+    public boolean isBusy() {
+        return false;
+    }
+
+    public void setMode(DcMotor.RunMode runMode) {
+
+    }
+
+    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+
+    }
+
+    public void setPIDFCoefficients(DcMotor.RunMode runMode, PIDFCoefficients coefficients) {
+
+    }
+
+    public void setWeightedDrivePower(Pose2d drivePower) {
+
+    }
+
+    public List<Double> getWheelPositions() {
+        return null;
+    }
+
+    public List<Double> getWheelVelocities() {
+        return null;
+    }
+
+    public void setMotorPowers(double v, double v1, double v2, double v3) {
+
+    }
+
+    public double getRawExternalHeading() {
+        return 0;
     }
 }
