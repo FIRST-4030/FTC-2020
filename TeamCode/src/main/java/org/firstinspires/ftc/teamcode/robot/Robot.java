@@ -55,7 +55,8 @@ public class Robot {
     public ServoFTC wobbleGoalGrip;
     public ServoFTC queueFlipper;
 
-
+    // Mecanum
+    public ServoFTC flag;
 
     // Arm
     public ServoFTC lower;
@@ -126,6 +127,10 @@ public class Robot {
 
             case TEST:
                 matrix = ledMatrices.init(LED_MATRICIES.TEST);
+                break;
+
+            case MECANUM:
+                flag = servos.init(SERVOS.FLAG);
                 break;
         }
 

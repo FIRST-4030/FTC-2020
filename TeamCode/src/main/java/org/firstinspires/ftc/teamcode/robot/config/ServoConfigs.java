@@ -52,6 +52,16 @@ public class ServoConfigs extends Configs {
                 }
                 break;
 
+            case MECANUM:
+                switch(servo) {
+
+                    case FLAG:
+                        config = new ServoConfig("Flag", false, 0.0f, 1.0f);
+                        break;
+
+                }
+                break;
+
             case ARM:
                 switch (servo) {
                     case LOWER:

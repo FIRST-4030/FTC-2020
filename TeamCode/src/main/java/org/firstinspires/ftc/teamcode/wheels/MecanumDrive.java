@@ -1,14 +1,23 @@
 package org.firstinspires.ftc.teamcode.wheels;
 
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 
 public class MecanumDrive extends TankDrive {
 
+    public SampleMecanumDrive roadRunnerMecanum;
+
     public MecanumDrive(HardwareMap map, Telemetry telemetry, WheelsConfig config) {
         super(map, telemetry, config);
+        DcMotorEx fl = getMotor(MOTOR_SIDE.LEFT, MOTOR_END.FRONT).get();
+        DcMotorEx fr = getMotor(MOTOR_SIDE.RIGHT, MOTOR_END.FRONT).get();
+        DcMotorEx bl = getMotor(MOTOR_SIDE.LEFT, MOTOR_END.BACK).get();
+        DcMotorEx br = getMotor(MOTOR_SIDE.RIGHT, MOTOR_END.BACK).get();
+        roadRunnerMecanum = new SampleMecanumDrive(map, fl, fr, bl, br);
     }
 
     public void setSpeed(float speed, MOTOR_SIDE side, MOTOR_END end) {

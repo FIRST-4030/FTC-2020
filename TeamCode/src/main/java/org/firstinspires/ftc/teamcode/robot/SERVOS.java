@@ -8,5 +8,8 @@ public enum SERVOS {
     LOWER, UPPER, ROTATION, WRIST, CLAW,
 
     // Blank
-    SERVO_BOI
+    SERVO_BOI,
+
+    //Mecanum
+    FLAG
 }
