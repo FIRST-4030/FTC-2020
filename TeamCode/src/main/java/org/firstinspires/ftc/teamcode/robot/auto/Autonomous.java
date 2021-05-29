@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot.auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -123,6 +126,10 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
         }
         robot.shooter.setVelocity(0);
         robot.queue.setPosition(MAGAZINE_DOWN);
+
+        Trajectory traj = robot.wheels.trajectoryBuilder(new Pose2d()).splineTo(new Vector2d(30, 30), 0).build();
+
+        robot.wheels.followTrajectory(traj);
 
 
         switch(depot){
