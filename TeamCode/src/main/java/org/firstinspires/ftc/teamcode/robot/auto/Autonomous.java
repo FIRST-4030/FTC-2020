@@ -154,7 +154,7 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
         sleep(350);
         auto.drive(-7, 1);
         robot.wobbleGoalArm.setPosition(ARM_IN);
-        auto.driveToPosition(58, 15.45, 1);
+        /* auto.driveToPosition(58, 15.45, 1);
         auto.driveToPosition(36, 32, 1);
         robot.wobbleGoalArm.setPosition(ARM_OUT);
         switch (depot){
@@ -180,9 +180,9 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
         switch(depot){
             case 0:
                 auto.driveToPosition(59, 0, 1);
-                /*auto.drive(-20, 1);
+                //auto.drive(-20, 1);
                 auto.rotate(90, 1);
-                auto.drive(31, 1);*/
+                auto.drive(31, 1);
                 break;
             case 1:
                 auto.driveToPosition(75.5, 14.5, 1);
@@ -198,7 +198,7 @@ public class Autonomous extends LinearOpMode implements RobotConstants {
         robot.wobbleGoalGrip.setPosition(CLAW_OPEN);
         sleep(350);
         robot.wobbleGoalArm.setPosition(ARM_IN);
-        sleep(350);
+        sleep(350); */
         if(depot != 2) auto.driveToPosition(68, 47, 1);
         else auto.drive(-30, 1);
 
