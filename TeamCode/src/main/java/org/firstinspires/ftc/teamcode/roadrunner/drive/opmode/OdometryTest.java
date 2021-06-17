@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.RobotConstants;
 
 @Disabled
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp - Boilerplate", group = "Robot")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "OdometryTest", group = "Robot")
 public class OdometryTest extends OpMode implements RobotConstants {
 
     // Devices and subsystems

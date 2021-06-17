@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.buttons.PAD_BUTTON;
 import org.firstinspires.ftc.teamcode.config.BOT;
 import org.firstinspires.ftc.teamcode.driveto.AutoDriver;
 import org.firstinspires.ftc.teamcode.field.Field;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.common.Common;
 import org.firstinspires.ftc.teamcode.utils.OrderedEnum;
@@ -48,7 +49,7 @@ public class NewAuto {
     public BNO055IMU imu;
     private Orientation lastAngles = new Orientation();
     private int target = 0;
-    private Odometry odometry;
+    private StandardTrackingWheelLocalizer odometry;
 
     private void init(HardwareMap map){
         PIDFCoefficients pidf = new PIDFCoefficients();
@@ -61,7 +62,7 @@ public class NewAuto {
         left.get(0).setTargetPositionTolerance(TOLERANCE);
     }
 
-    public NewAuto (String l1, String l2, String r1, String r2, HardwareMap map, Odometry odo){
+    public NewAuto (String l1, String l2, String r1, String r2, HardwareMap map, StandardTrackingWheelLocalizer odo){
         odometry = odo;
         left = new ArrayList<DcMotorEx>();
         right = new ArrayList<DcMotorEx>();
@@ -75,7 +76,7 @@ public class NewAuto {
         init(map);
     }
 
-    public NewAuto (String l, String r, HardwareMap map, Odometry odo){
+    public NewAuto (String l, String r, HardwareMap map, StandardTrackingWheelLocalizer odo){
         odometry = odo;
 
 
@@ -86,7 +87,7 @@ public class NewAuto {
         init(map);
     }
 
-    public NewAuto (Motor l1, Motor l2, Motor r1, Motor r2, HardwareMap map, Odometry odo){
+    public NewAuto (Motor l1, Motor l2, Motor r1, Motor r2, HardwareMap map, StandardTrackingWheelLocalizer odo){
         odometry = odo;
         left = new ArrayList<DcMotorEx>();
         right = new ArrayList<DcMotorEx>();
@@ -100,7 +101,7 @@ public class NewAuto {
         init(map);
     }
 
-    public NewAuto (Motor l, Motor r, HardwareMap map, Odometry odo){
+    public NewAuto (Motor l, Motor r, HardwareMap map, StandardTrackingWheelLocalizer odo){
         odometry = odo;
 
 
@@ -204,9 +205,9 @@ public class NewAuto {
     }
 
     public void driveToPosition(double x, double y, float speedScale) {
-        double X = odometry.getPosition().getX();
-        double Y = -odometry.getPosition().getY();
-        double H = -odometry.getPosition().getHeading() % 360;
+        double X = odometry.getPoseEstimate().getX();
+        double Y = -odometry.getPoseEstimate().getY();
+        double H = -odometry.getPoseEstimate().getHeading() % 360;
         double dX = x - X;
         double dY = y - Y;
         double h;
@@ -225,7 +226,7 @@ public class NewAuto {
     }
 
     public void rotationToAngle(double h, float speedScale) {
-        double H = -odometry.getPosition().getHeading() % 360;
+        double H = -odometry.getPoseEstimate().getHeading() % 360;
         double dH = 0;
         dH = h - H;
         if (dH < -180) {
