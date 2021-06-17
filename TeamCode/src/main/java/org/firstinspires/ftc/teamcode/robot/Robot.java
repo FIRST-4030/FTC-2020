@@ -82,9 +82,11 @@ public class Robot {
         this.map = map;
         this.telemetry = telemetry;
         if (bot == null) {
-            bot = detectBot();
+            bot = BOT.MECANUM;
+            //bot = detectBot();
         }
         this.bot = bot;
+        odometry = new StandardTrackingWheelLocalizer(map);
 
         GyroConfigs gyros = new GyroConfigs(map, telemetry, bot);
         WheelsConfigs wheels = new WheelsConfigs(map, telemetry, bot);
