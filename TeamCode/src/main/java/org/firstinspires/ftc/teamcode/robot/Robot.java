@@ -9,6 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaCurrentGame;
 import org.firstinspires.ftc.teamcode.actuators.Motor;
 import org.firstinspires.ftc.teamcode.actuators.ServoFTC;
 import org.firstinspires.ftc.teamcode.config.BOT;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.robot.common.Common;
 import org.firstinspires.ftc.teamcode.robot.config.ColorRangeConfigs;
 import org.firstinspires.ftc.teamcode.robot.config.DistanceConfigs;
@@ -35,7 +36,7 @@ public class Robot {
     public final BOT bot;
     public final HardwareMap map;
     public final Telemetry telemetry;
-    public Odometry odometry;
+    public StandardTrackingWheelLocalizer odometry;
 
     // Shared
     public final Gyro gyro;
@@ -104,7 +105,7 @@ public class Robot {
         // Bot specific
         switch (bot) {
             case PRODUCTION:
-                odometry = new Odometry(map, 0, 0, "LO", "RO", "MO");
+                odometry = new StandardTrackingWheelLocalizer(map);
                 wobbleGoalArm = servos.init(SERVOS.WOBBLE_GOAL_ARM);
                 wobbleGoalGrip = servos.init(SERVOS.WOBBLE_GOAL_GRIP);
                 queueFlipper = servos.init(SERVOS.QUEUE_FLIPPER);
