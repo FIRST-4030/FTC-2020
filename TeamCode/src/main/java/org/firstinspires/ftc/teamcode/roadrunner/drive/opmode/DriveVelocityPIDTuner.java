@@ -50,7 +50,7 @@ import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kV;
  * control back to the tuning process.
  */
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class DriveVelocityPIDTuner extends LinearOpMode {
     public static double DISTANCE = 72; // in
