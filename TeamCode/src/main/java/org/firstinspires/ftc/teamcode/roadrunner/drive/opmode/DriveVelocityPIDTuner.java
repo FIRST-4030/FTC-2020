@@ -12,11 +12,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MOTOR_VELO_PID;
@@ -49,11 +52,14 @@ import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kV;
  * Pressing A (on the Xbox and Logitech F310 gamepads, X on the PS4 Dualshock gamepad) will cede
  * control back to the tuning process.
  */
+//6.7975
 @Config
 //@Disabled
 @Autonomous(group = "drive")
 public class DriveVelocityPIDTuner extends LinearOpMode {
     public static double DISTANCE = 72; // in
+    private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    private List<DcMotorEx> motors;
 
     enum Mode {
         DRIVER_MODE,
@@ -131,6 +137,15 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                     List<Double> velocities = drive.getWheelVelocities();
 
                     // update telemetry
+                    leftFront = hardwareMap.get(DcMotorEx.class, "FL");
+                    rightFront = hardwareMap.get(DcMotorEx.class, "FR");
+                    leftRear = hardwareMap.get(DcMotorEx.class, "BL");
+                    rightRear = hardwareMap.get(DcMotorEx.class, "BR");
+
+                    rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+                    rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+
+                    motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
                     telemetry.addData("targetVelocity", motionState.getV());
                     for (int i = 0; i < velocities.size(); i++) {
                         telemetry.addData("measuredVelocity" + i, velocities.get(i));
@@ -138,6 +153,12 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                                 "error" + i,
                                 motionState.getV() - velocities.get(i)
                         );
+                    }
+                    int j = 0;
+                    for (DcMotorEx motor : motors) {
+                        int position = motor.getCurrentPosition();
+                        telemetry.addData("Encoder Position" + j, position);
+                        j++;
                     }
                     break;
                 case DRIVER_MODE:

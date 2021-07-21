@@ -23,7 +23,7 @@ import java.util.Objects;
  * Further fine tuning of kF may be desired.
  */
 
-//4428.97
+//13
 @Config
 @Autonomous(group = "drive")
 //@Disabled
