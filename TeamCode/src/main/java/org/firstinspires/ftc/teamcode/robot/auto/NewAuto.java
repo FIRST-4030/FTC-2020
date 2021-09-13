@@ -204,6 +204,8 @@ public class NewAuto {
         while(left.get(0).getVelocity() != 0 || right.get(0).getVelocity() != 0) odometry.update();
     }
 
+    // Algorithm to calculate robot position and heading from values given from encoders after movement
+    // then,  move to the position desired, coordinates in the parameters when this method is called
     public void driveToPosition(double x, double y, float speedScale) {
         double X = odometry.getPoseEstimate().getX();
         double Y = -odometry.getPoseEstimate().getY();
@@ -225,6 +227,7 @@ public class NewAuto {
         this.drive(distance, speedScale);
     }
 
+    // Method to rotate the robot to a desired angle
     public void rotationToAngle(double h, float speedScale) {
         double H = -odometry.getPoseEstimate().getHeading() % 360;
         double dH = 0;

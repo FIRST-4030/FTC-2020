@@ -25,7 +25,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
     private double shooterSpeed = -1835;
 
 
-    // other consts
+    // other constants
     private static final float NORMAL_SPEED = 1.0f;
     private static final float SLOW_MODE = 0.35f;
 
@@ -107,7 +107,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
     }*/
 
 
-
+    //Slow mode
     private void driveBase() {
         robot.odometry.update();
         if (buttons.get("SLOW_MODE")) {
@@ -118,6 +118,7 @@ public class TeleOpMode extends LinearOpMode implements RobotConstants {
         robot.wheels.loop(gamepad1);
     }
 
+    //telemetry data showed on phone during OpMode
     private void auxiliary() {
         telemetry.addData("H:", robot.odometry.getPoseEstimate().getHeading());
         //telemetry.addData("S1:", robot.odometry.getS1());

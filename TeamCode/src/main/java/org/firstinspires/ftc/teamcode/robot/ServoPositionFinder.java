@@ -84,15 +84,19 @@ public class ServoPositionFinder extends OpMode {
     }
 
     private void auxiliary() {
+        // Shows number of servoPos
         telemetry.addData("Pos:", servoPos);
         //telemetry.addData("Y:", odometry.getPoseEstimate().getY());
+        // Moving the servo position and number should increase
         if (buttons.get("SERVO_UP")) {
             servoPos += INCREMENT;
             servoPos = Math.min(1.0f, servoPos);
+        // Moving the servo position and number should decrease
         } else if (buttons.get("SERVO_DOWN")) {
             servoPos -= INCREMENT;
             servoPos = Math.max(0.0f, servoPos);
         }
+        // Set position of desired servo
         robot.wobbleGoalArm.setPosition(servoPos);
     }
 

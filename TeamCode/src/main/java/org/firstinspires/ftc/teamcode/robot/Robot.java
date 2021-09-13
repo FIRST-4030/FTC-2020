@@ -45,7 +45,7 @@ public class Robot {
     public ServoFTC claw;
 
     // Production
-
+    // Motors and Servos
     public Motor collectorBack;
     public Motor collectorFront;
     public Motor shooter;
